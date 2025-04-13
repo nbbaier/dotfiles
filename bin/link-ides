@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+# Exit on error
+set -e
+
+# Check if required environment variables are set
+if [ -z "$DOTFILES" ]; then
+   echo "Error: DOTFILES environment variable is not set."
+   exit 1
+fi
+
+if [ -z "$APPSUPPORT_DIR" ]; then
+   export APPSUPPORT_DIR="$HOME/Library/Application Support"
+fi
+
+# Create necessary directories
+mkdir -p "$APPSUPPORT_DIR/Code/User/snippets"
+mkdir -p "$APPSUPPORT_DIR/Cursor/User"
+
+# Link VSCode settings and snippets
+ln -s -v -f "$DOTFILES/apps/vscode/settings.json" "$APPSUPPORT_DIR/Code/User/settings.json"
+
+# Link VSCode snippets files (using a for loop to avoid double slashes)
+for snippet_file in "$DOTFILES/apps/vscode/snippets"/*; do
+   if [ -f "$snippet_file" ]; then
+      ln -s -v -f "$snippet_file" "$APPSUPPORT_DIR/Code/User/snippets/$(basename "$snippet_file")"
+   fi
+done
+
+# Link Cursor settings
+ln -s -v -f "$DOTFILES/apps/cursor/settings.json" "$APPSUPPORT_DIR/Cursor/User/settings.json"

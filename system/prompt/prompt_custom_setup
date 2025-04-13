@@ -1,0 +1,35 @@
+prompt_custom_setup() {
+   autoload -Uz vcs_info
+
+   precmd() {
+      vcs_info
+
+   }
+
+   zstyle ':vcs_info:git:*' formats ' %b'
+   setopt PROMPT_SUBST
+
+   git_prompt_status() {
+      local INDEX STATUS
+      INDEX=$(command git status --porcelain -b 2>/dev/null | wc -l)
+      STATUS=""
+      if ((INDEX > 1)); then
+         STATUS="*"
+      fi
+      echo $STATUS
+   }
+
+   venv_prompt_status() {
+      [[ -n ${VIRTUAL_ENV} ]] || return
+      ZSH_THEME_VIRTUALENV_PREFIX="%F{#808080} ("
+      ZSH_THEME_VIRTUALENV_SUFFIX=")%f"
+      echo "${ZSH_THEME_VIRTUALENV_PREFIX=[}$(basename $VIRTUAL_ENV)${ZSH_THEME_VIRTUALENV_SUFFIX=]}"
+   }
+
+   export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+   NEWLINE=$'\n'
+   PROMPT='${NEWLINE}%F{#808080}%*%f$(venv_prompt_status) %F{cyan}%~%f%F{green}${vcs_info_msg_0_}$(git_prompt_status)%f $ '
+}
+
+prompt_custom_setup $@

@@ -1,0 +1,69 @@
+#!/usr/bin/env zsh
+
+# Directory paths for dotfiles
+DOTFILES="$HOME/.dotfiles"
+PKG_DIR="$DOTFILES/packages"
+PATH="$DOTFILES/bin:$PATH"
+
+# Package files
+GOFILE="$PKG_DIR/gofile"
+BREWFILE="$PKG_DIR/brewfile"
+CASKFILE="$PKG_DIR/caskfile"
+CODEFILE="$PKG_DIR/codefile"
+BUNFILE="$PKG_DIR/bunfile"
+NPMFILE="$PKG_DIR/npmfile"
+RUSTFILE="$PKG_DIR/rustfile"
+UVFILE="$PKG_DIR/uvfile"
+CURSORFILE="$PKG_DIR/cursorfile"
+
+function list_go_bin() {
+    go version -m "${GOBIN:-$HOME/go/bin}" |
+        grep -E '\spath\t|\smod\t' |
+        awk '
+    $1 == "path" {
+        current_path = $2
+    }
+
+    $1 == "mod" {
+        # Extract module info and version
+        base_mod = $2
+        version = $3
+
+        # Output in format: binary@version
+        print current_path "@" version
+    }
+'
+}
+
+function generate_file() {
+    local tool="$1"    # Tool name
+    local file="$2"    # Output file
+    local command="$3" # Command to run
+    local message="$4" # Success message (optional)
+
+    local file_basename=$(basename "$file")
+
+    if is_installed "$tool"; then
+        eval "$command" >"$file"
+        echo "${message:-$file_basename "generated"}"
+    else
+        echo "$tool not found, skipping ${message:-$file generation}"
+    fi
+}
+
+if is_installed brew; then
+    brew bundle dump --force --tap --formula --file "$BREWFILE"
+    brew bundle dump --force --cask --file "$CASKFILE"
+    echo "brewfile, caskfile generated"
+    brew bundle dump --force --no-vscode --file="$BREWFILE-master"
+    echo "brewfile-master generated"
+else
+    echo "brew not found, skipping brewfile generation"
+fi
+
+generate_file "uv" "$UVFILE" "uv tool list | grep -v '^-' | cut -d' ' -f1"
+generate_file "code" "$CODEFILE" "code --list-extensions"
+generate_file "cursor" "$CURSORFILE" "cursor --list-extensions"
+generate_file "bun" "$BUNFILE" "bun pm ls --global | grep -E '└──|├──' | sed 's/\x1b\[[0-9;]*m//g' | sed 's/[├└]── \(.*\)@.*/\1/'"
+generate_file "cargo" "$RUSTFILE" "cargo install --list | awk '/^[[:alnum:]]/ {print \$1}'"
+generate_file "npm" "$NPMFILE" "npm list -g | grep -E '└──|├──' | sed 's/[├└]── \(.*\)@.*/\1/'"

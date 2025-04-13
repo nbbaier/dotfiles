@@ -1,0 +1,146 @@
+.DS*Store
+.*.DS*Store
+**/.DS_Store
+**/.*.DS_Store
+.zsh_history
+
+.env
+\*.log
+.idea
+Thumbs.d
+
+node_modules
+node_modules/
+
+### Python
+
+# Byte-compiled / optimized / DLL files
+
+**pycache**/
+_.py[cod]
+_$py.class
+
+# C extensions
+
+\*.so
+
+# Distribution / packaging
+
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+_.egg-info/
+.installed.cfg
+_.egg
+MANIFEST
+
+# Jupyter Notebook
+
+.ipynb_checkpoints
+
+# Unit test / coverage reports
+
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage._
+.cache
+nosetests.xml
+coverage.xml
+_.cover
+\*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# pyenv
+
+.python-version
+
+# Environments
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+
+**pypackages**/
+
+### LaTeX
+
+## Core latex/pdflatex auxiliary files:
+
+_.aux
+_.lof
+_.log
+_.lot
+_.fls
+_.out
+_.toc
+_.fmt
+_.fot
+_.cb
+_.cb2
+._.lb
+
+## Intermediate documents:
+
+_.dvi
+_.xdv
+_-converted-to._
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+
+_.bbl
+_.bcf
+_.blg
+_-blx.aux
+_-blx.bib
+_.run.xml
+
+## Build tool auxiliary files:
+
+_.fdb_latexmk
+_.synctex
+_.synctex.gz
+_.pdfsync
+
+## Auxiliary and intermediate files from other packages:
+
+# algorithms
+
+_.alg
+_.loa
+
+# glossaries
+
+_.acn
+_.acr
+_.glg
+_.glo
+_.gls
+_.glsdefs
+_.lzo
+_.lzs
+_.slg
+_.slo
+\*.sls
+config/micro/backups/*
+.zcompdump*

@@ -1,0 +1,259 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{baier-examples}
+
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox} % for AtEndPreamble
+\RequirePackage{xstring} % for string comparison stuff
+\RequirePackage{xparse}
+
+\newcommand{\doesthiswork}{this is the default!} %% establish testing
+\newcommand{\checktheoptions}{this is the default for options}
+
+
+%% Document options from baier.cls %%
+
+\newboolean{paper}
+\setboolean{paper}{false}
+
+\newboolean{handout}
+\setboolean{handout}{false}
+
+\newboolean{quicknote}
+\setboolean{quicknote}{false}
+
+%\newboolean{wbullets}
+%\setboolean{wbullets}{false}
+
+\DeclareOption{paper}{%
+	\renewcommand{\doesthiswork}{yay it worked -- paper!}
+	\setboolean{paper}{true}
+}
+
+\DeclareOption{handout}{%
+	\renewcommand{\doesthiswork}{yay it worked -- handout!}
+	\setboolean{handout}{true}
+}
+
+\DeclareOption{quicknote}{%
+	\renewcommand{\doesthiswork}{yay it worked -- quicknote!}	
+	\setboolean{quicknote}{true}
+}
+
+\DeclareOption{proofing}{\renewcommand{\doesthiswork}{yay it worked -- this would produce expex proofing!}}
+
+%% Example package options %%
+
+\newboolean{expex}
+\setboolean{expex}{false}
+
+\newboolean{linguex}
+\setboolean{linguex}{false}
+
+\DeclareOption{expex}{\setboolean{expex}{true}}
+\DeclareOption{linguex}{\setboolean{linguex}{true}}
+
+\DeclareOption*{\PackageWarning{baier-test}{Unknown ‘\CurrentOption’}}
+\ProcessOptions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%|--------------------------------|%
+%%| Example stuff 			   	   |%
+%%|--------------------------------|%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\whatshappening}{what's happening}
+
+\ifthenelse{\boolean{expex}}{%% if expex option selected, load stuff I always use
+	\RequirePackage{expex}
+
+	\ifthenelse{\boolean{paper}}{% if [paper] is selected, load  expex settings for papers
+		\renewcommand{\checktheoptions}{this is the set of options for [paper]}
+		\lingset{%
+			aboveexskip=3.0ex plus .4ex minus .4ex,% 2.25ex, %
+			belowexskip=3.25ex plus .4ex minus .4ex,% 2.75ex, %
+		%	numoffset=\parindent, %
+			glstyle=wrap, %
+			everyglpreamble={\itshape}, %
+			belowglpreambleskip=-.25ex, %
+			extraglskip=.25ex, %
+			everygla=, %
+			aboveglftskip=-0.125ex, %
+			interpartskip=1.125ex plus .2ex minus .2ex, %
+			glspace=!2.5pt plus .2em, %
+			glrightskip=5pt plus .5\hsize
+			}
+			\definelingstyle{multi}{belowexskip=0ex}
+			\definelingstyle{compact}{interpartskip=!-.5ex,belowpreambleskip=!-.5ex}
+	}{} %% end of [paper] expex options
+
+	\ifthenelse{\boolean{handout}}{% if [handout] is selected, load  expex settings for handouts
+		\renewcommand{\checktheoptions}{this is the set of options for [handout]}
+		\lingset{%
+			belowpreambleskip=.5ex, %
+			glstyle=wrap, %
+			everyglpreamble={\itshape}, %
+			belowglpreambleskip=-.25ex, %
+			extraglskip=.25ex,
+			everygla=, %
+			everyglft=, %
+			aboveglftskip=-.125ex, %
+			interpartskip=.75ex, %
+			glspace=!2.5pt plus .2em, %
+			glrightskip=5pt plus .5\hsize, %
+			aboveexskip=2.0ex,
+			belowexskip=.75ex, %1.25ex,
+			numoffset=15.75pt
+			} 
+			\definelingstyle{compact}{belowpreambleskip=0ex,interpartskip=0ex}
+			\definelingstyle{multi}{belowexskip=.25ex}
+	
+			\definelingstyle{lvltwo}{%
+				belowpreambleskip=!+2.5pt, %
+				belowglpreambleskip=!+2.5pt, %
+			%	extraglskip=.25ex,
+				aboveglftskip=!+2.5pt, %
+			%	interpartskip=.5ex, %
+				aboveexskip=!+2.5pt,
+				belowexskip=!+2.5pt,
+				numoffset=!+16pt
+				} 
+
+			\definelingstyle{lvlthree}{%
+				belowpreambleskip=!+4.5pt, %
+				belowglpreambleskip=!+4.5pt, %
+				aboveglftskip=!+4.5pt, %
+				aboveexskip=!+4.5pt,
+				belowexskip=!+4.5pt,
+				numoffset=!+32pt
+				} 		
+	}{} %% end of [handout] expex options
+
+	\ifthenelse{\boolean{quicknote}}{% if [quicknote] is selected, chose between [quicknote] or [quicknotes,wbullets]
+	
+	\ifthenelse{\boolean{wbullets}}{% options if [wbullets] is set
+		\renewcommand{\checktheoptions}{this is the set of options for [quicknote,wbullets]}
+		%% set [handout] like settings
+		\lingset{%
+			belowpreambleskip=.5ex, %
+			glstyle=wrap, %
+			everyglpreamble={\itshape}, %
+			belowglpreambleskip=-.25ex, %
+			extraglskip=.25ex,
+			everygla=, %
+			everyglft=, %
+			aboveglftskip=-.125ex, %
+			interpartskip=.75ex, %
+			glspace=!2.5pt plus .2em, %
+			glrightskip=5pt plus .5\hsize, %
+			aboveexskip=2.0ex,
+			belowexskip=.75ex, %1.25ex,
+			numoffset=15.75pt
+			} 
+			\definelingstyle{compact}{belowpreambleskip=0ex,interpartskip=0ex}
+			\definelingstyle{multi}{belowexskip=.25ex}
+			\definelingstyle{lvltwo}{%
+				belowpreambleskip=!+2.5pt, %
+				belowglpreambleskip=!+2.5pt, %
+			%	extraglskip=.25ex,
+				aboveglftskip=!+2.5pt, %
+			%	interpartskip=.5ex, %
+				aboveexskip=!+2.5pt,
+				belowexskip=!+2.5pt,
+				numoffset=!+16pt
+				} 
+			\definelingstyle{lvlthree}{%
+				belowpreambleskip=!+4.5pt, %
+				belowglpreambleskip=!+4.5pt, %
+				aboveglftskip=!+4.5pt, %
+				aboveexskip=!+4.5pt,
+				belowexskip=!+4.5pt,
+				numoffset=!+32pt
+				} 
+			} %% end of [quicknote,wbullets] settings	
+		{\renewcommand{\checktheoptions}{this is the set of options for [quicknote]}}  %% end of [quicknote] settings	
+	}{} %% end of [quicknote] expex options
+
+\gathertags
+
+		\usepackage{epltxfn}
+			%%% Cross-referencing examples 
+
+\newcommand{\eref}[1]{({\getfullref{#1}})}
+\newcommand{\erefs}[2]{({\getfullref{#1}--\getfullref{#2}})}
+
+%%% Shorter commands for stuff in examples
+
+\newcommand{\glp}{\glpreamble} %% shorter \glpreamble
+\newcommand{\rc}{\rightcomment} %% shorter \rightcomment
+\newcommand{\pream}[1]{\emph{#1}} %% used for text above examples 
+
+
+%%% Redefine rightcomment
+\makeatletter
+\def\rightcomment#1{\leavevmode\rlap{%
+   \hbox to\hsize{\hfil \textrm{#1}\hskip\leftskip}}\ignorespaces}
+\let\rightcite=\rightcomment % for backwards compatability
+\makeatother
+
+%%% Redefine expex's \getref to print undefined crossreferences in \fbox so they are easy to see
+\makeatletter
+\def\getref@a#1{%
+   \if@readtags \@setupreadtags \fi
+   \ep@ispartlabelcheck{#1}%
+   \ifpartlabel
+         \iffullref
+               \let\@chooseref\chooseref@a
+            \else
+               \let\@chooseref\chooseref@g
+            \fi
+      \else
+         \let\@chooseref\relax
+      \fi
+   \expandafter\ifx\csname lingtag@#1\endcsname \relax
+         \@expexwarn{tag #1 is called but not defined}%
+         {\@printref{\fbox{[#1]}}}%
+      \else
+         \expandafter\let\expandafter\temp
+            \csname lingtag@#1\endcsname
+         \@printref{\expandafter\@chooseref\temp}%
+      \fi
+}
+\makeatother
+
+%%% Redefine expex judgement mark
+\makeatletter
+\def\judge#1{ \textrm{#1}\kern .1em \ignorespaces}
+\def\ljudge#1{\llap{\judge{#1}}\ignorespaces}
+\define@key{ling}{*}[*]%
+   {\setbox0=\hbox{#1}%
+   \lingset{textoffset=!\wd0}%
+}
+\makeatother
+
+%%% Redefines expex's \refproofing to print a red box around each reference so they're easy to spot and proof
+\makeatletter
+\def\refproofing{\ep@highlightreftrue}
+\def\mathhigh@lightref#1{$\overline{\underline{\hbox{#1}}}$}
+\def\psthigh@lightref{\psframebox[boxsep=false,framesep=2pt,linewidth=.2ex,linecolor=red]}
+\ifx\PSTricksLoaded\endinput
+      \let\@highlightprint\psthigh@lightref
+   \else
+      \let\@highlightprint\mathhigh@lightref
+   \fi
+\def\@printref#1{%
+   \ifep@highlightref \@highlightprint{#1}\else #1\fi}
+\makeatother
+		}{% if expex not chosen, chose between linguex and and gb4e
+			\ifthenelse{\boolean{linguex}}{
+				\usepackage{linguex}
+				\renewcommand{\firstrefdash}{}
+				\def\fg{}}{
+			\AtEndPreamble{\usepackage{gb4e}} %% load gb4e  if expex not loaded		
+		}
+}
+
+
+
+
+
+\endinput

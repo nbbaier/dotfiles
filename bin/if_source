@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+[ -s $1 ] && source $1

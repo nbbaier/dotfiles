@@ -1,0 +1,201 @@
+{
+	"begin": {
+		"prefix": ":begin",
+		"description": "begin{} / end{}",
+		"body": ["\\\\begin{$1}", "\t$0", "\\\\end{$1}"]
+	},
+	"...": {
+		"prefix": "...",
+		"description": "ldots",
+		"body": ["\\ldots"]
+	},
+	"tabular": {
+		"prefix": ":tabular",
+		"description": "Insert table without env",
+		"body": ["\t\\begin{tabular}{$1}", "\t$1", "\t\\end{tabular}"]
+	},
+	"table": {
+		"prefix": ":table",
+		"description": "Table environment",
+		"body": [
+			"\\begin{table}[${1:htpb}]",
+			"\t\\centering",
+			"\t\\caption{${2:caption}}",
+			"\t\\label{tab:${3:label}}",
+			"\t\\begin{tabular}{${5:c}}",
+			"\t$0${5/((?<=.)c|l|r)|./(?1: & )/g}",
+			"\t\\end{tabular}",
+			"\\end{table}"
+		]
+	},
+	":enum": {
+		"prefix": "enum",
+		"description": "Enumerate",
+		"body": ["\\begin{enumerate}", "\t\\item $0", "\\end{enumerate}"]
+	},
+	":item": {
+		"prefix": ":item",
+		"description": "Itemize",
+		"body": ["\\begin{itemize}", "\t\\item $0", "\\end{itemize}"]
+	},
+	"=>": {
+		"prefix": ":implies",
+		"description": "implies",
+		"body": ["\\implies"]
+	},
+	"iff": {
+		"prefix": ":iff",
+		"description": "iff",
+		"body": ["\\iff"]
+	},
+	"sq": {
+		"prefix": ":sq",
+		"description": "\\sqrt{}",
+		"body": ["\\sqrt{${1:${TM_SELECTED_TEXT}}} $0"]
+	},
+	"__": {
+		"prefix": ":sub",
+		"description": "subscript",
+		"body": ["_{$1}$0"]
+	},
+	"<=": {
+		"prefix": "<=",
+		"description": "leq",
+		"body": ["\\le "]
+	},
+	">=": {
+		"prefix": ">=",
+		"description": "geq",
+		"body": ["\\ge "]
+	},
+	"EE": {
+		"prefix": ":EE",
+		"description": "geq",
+		"body": ["\\exists "]
+	},
+	"AA": {
+		"prefix": ":AA",
+		"description": "forall",
+		"body": ["\\forall "]
+	},
+	"xnn": {
+		"prefix": "xnn",
+		"description": "xn",
+		"body": ["x_{n}"]
+	},
+	"ynn": {
+		"prefix": "ynn",
+		"description": "yn",
+		"body": ["y_{n}"]
+	},
+	"xii": {
+		"prefix": "xii",
+		"description": "xi",
+		"body": ["x_{i}"]
+	},
+	"yii": {
+		"prefix": "yii",
+		"description": "yi",
+		"body": ["y_{i}"]
+	},
+	"xjj": {
+		"prefix": "xjj",
+		"description": "xj",
+		"body": ["x_{j}"]
+	},
+	"yjj": {
+		"prefix": "yjj",
+		"description": "yj",
+		"body": ["y_{j}"]
+	},
+	"xp1": {
+		"prefix": "xp1",
+		"description": "x",
+		"body": ["x_{n+1}"]
+	},
+	"xmm": {
+		"prefix": "xmm",
+		"description": "x",
+		"body": ["x_{m}"]
+	},
+	"nn": {
+		"prefix": ":node",
+		"description": "Tikz node",
+		"body": ["\\node[$5] (${1/[^0-9a-zA-Z]", "$0"]
+	},
+	"mcal": {
+		"prefix": ":mcal",
+		"description": "mathcal",
+		"body": ["\\mathcal{$1}$0"]
+	},
+	"lll": {
+		"prefix": "lll",
+		"description": "l",
+		"body": ["\\ell"]
+	},
+	"nabl": {
+		"prefix": "nabl",
+		"description": "nabla",
+		"body": ["\\nabla "]
+	},
+	"**": {
+		"prefix": "**",
+		"description": "cdot",
+		"body": ["\\cdot "]
+	},
+	"norm": {
+		"prefix": "norm",
+		"description": "norm",
+		"body": ["\\|$1\\|$0"]
+	},
+	"<->": {
+		"prefix": "<->",
+		"description": "leftrightarrow",
+		"body": ["\\leftrightarrow"]
+	},
+	"!>": {
+		"prefix": "!>",
+		"description": "mapsto",
+		"body": ["\\mapsto "]
+	},
+	"~~": {
+		"prefix": ":sim",
+		"description": "~",
+		"body": ["\\sim "]
+	},
+	"set": {
+		"prefix": ":set",
+		"description": "set",
+		"body": ["\\\\{$1\\\\} $0"]
+	},
+	"cc": {
+		"prefix": ":subset",
+		"description": "subset",
+		"body": ["\\subset "]
+	},
+	"notin": {
+		"prefix": ":notin",
+		"description": "not in",
+		"body": ["\\not\\in "]
+	},
+	"inn": {
+		"prefix": ":inn",
+		"description": "in",
+		"body": ["\\in "]
+	},
+	"Nn": {
+		"prefix": ":cap",
+		"description": "set intersection",
+		"body": ["\\cap "]
+	},
+	"UU": {
+		"prefix": ":cup",
+		"description": "cup",
+		"body": ["\\cup "]
+	},
+	"OO": {
+		"prefix": "OO",
+		"description": "emptyset",
+		"body": ["\\O"]
+	}
+}

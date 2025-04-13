@@ -1,0 +1,8 @@
+@anthropic-ai/claude-code
+@wong2/mcp-cli
+corepack
+npm
+safe-rm
+shell-ask
+trash-cli
+tsx

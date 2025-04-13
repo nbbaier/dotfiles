@@ -1,0 +1,108 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{baier-glossses}
+
+\usepackage[nomain,section=chapter]{glossaries}%
+%[2012/05/21 v3.02 (NLCT)]%
+\usepackage{glossary-inline}%
+\newglossarystyle{mysuper}{%
+	\glossarystyle{super}% based on super
+	\renewenvironment{theglossary}%
+	{\tablehead{}\tabletail{}%
+		\begin{supertabular}{@{}lp{\glsdescwidth}}}%
+		{\end{supertabular}}%
+	\renewcommand*{\glossaryheader}{}%
+	\renewcommand*{\glsgroupheading}[1]{}%
+	\renewcommand*{\glossaryentryfield}[5]{%
+		\glsentryitem{##1}\glstarget{##1}{##2}
+		& {##3}\\}%\makefirstuc\glspostdescription{}
+	\renewcommand*{\glossarysubentryfield}[6]{%
+		&
+		\glssubentryitem{##2}%
+		\glstarget{##2}{\strut}\makefirstuc{##4}\glspostdescription{}\\}%
+	\renewcommand*{\glsgroupskip}{}%
+}%
+\usepackage{leipzig}%
+\makeglossaries
+\glsdisablehyper
+
+%%%% Abbreviations (Leipzig, etc) %%%
+
+\newleipzig{inan}{inan}{inanimate}
+\newleipzig{anim}{an}{animate}
+\newleipzig{wh}{wh}{wh-related morpheme}
+\newleipzig{part}{part}{participle}
+\newleipzig{dyn}{dyn}{dynamic}
+\newleipzig{dflt}{dflt}{default}
+\newleipzig{fv}{fv}{final vowel (Bantu, Seereer)}
+\newleipzig{aae}{aae}{anti-agreement}
+\newleipzig{cl}{cl}{class (Bantu)}
+\newleipzig{real}{real}{realis}
+\newleipzig{inter}{inter}{interrogative}
+\newleipzig{sc}{sc}{second position clitic (Caquinte, Matsigenka)}
+\newleipzig{fam}{fam}{familiar}
+\newleipzig{aa}{aa}{anti-agreement (form)}
+\newleipzig{aor}{aor}{aorist}
+\newleipzig{nfut}{nfut}{non-future}
+\newleipzig{af}{af}{agent focus}
+\newleipzig{lk}{lk}{linker}
+\newleipzig{prob}{prob}{probabilitative}
+\newleipzig{hum}{h}{human (Selayarese)}
+\newleipzig{assert}{assert}{assertative mood}
+\newleipzig{ptcl}{ptcl}{particle}
+\newleipzig{dim}{dim}{diminuitive}
+\newleipzig{dj}{dj}{disjoint (Bantu)}
+\newleipzig{rem}{rem}{remote}
+\newleipzig{ep}{ep}{epenthesis}
+\newleipzig{med}{med}{medial}
+\newleipzig{cntr}{cntr}{contrastive}
+\newleipzig{act}{act}{active}
+\newleipzig{ipfv}{ipfv}{imperfective}
+\newleipzig{pv}{pv}{preverb}
+\newleipzig{dir}{dir}{directional}
+\newleipzig{asp}{asp}{aspect}
+\newleipzig{goal}{goal}{goal}
+\newleipzig{thm}{theme}{theme}
+
+%% Abbreviations
+%\newleipzig{hab}{hab}{habitual}
+%\newcommand{\Ai}{\Ta{}} %{\Pst{}.\Hab{}}
+%\newcommand{\Aka}{\Ta{}} %{\Pst{}} %\Rem{}.
+%\newleipzig{fv}{fv}{final vowel}
+%\newcommand{\Ndi}{\Cop{}}
+%\renewcommand{\No}{\Ta{}} %{\Prs{}}
+%\newleipzig{nse}{nse}{non-subject extraction}
+%\newleipzig{pv}{pv}{prothetic vowel}
+%\newleipzig{se}{se}{subject extraction}
+%\newleipzig{sm}{sm}{subject marker}
+%\newleipzig{t}{t}{tense}
+%\newleipzig{aa}{aa}{anti-agreement}
+%\newleipzig{fsg}{\liningnums{1sg}}{first person singular}
+%\newleipzig{ssg}{\liningnums{2sg}}{second person singular}
+%\newleipzig{fpl}{\liningnums{1pl}}{first person plural}
+%\newleipzig{spl}{\liningnums{2pl}}{second person plural}
+%\newleipzig{tsg}{\liningnums{3sg}}{third person singular}
+%\newleipzig{tpl}{\liningnums{3pl}}{third person plural}
+%\newleipzig{pron}{pron}{pronoun}
+%\newleipzig{rec}{rec}{recent}
+%\newcommand{\A}{\Ta{}} %{\Rec{}.\Pst{}}
+%\newleipzig{om}{om}{object marker}
+
+%\newleipzig{pcl}{pcl}{particle}
+%\newleipzig{stat}{stat}{stative}
+%\newcommand{\Ri}{be}
+%\newleipzig{ints}{ints}{intensive}
+%\newleipzig{ascl}{ascl}{assertive subject clitic}
+%\newleipzig{nascl}{nascl}{non-assertive subject clitic}
+%\newleipzig{ta}{ta}{tense and/or aspect}
+%\newcommand{\Cha}{\Ta{}} % {\Fut{}}
+%\newleipzig{ni}{ni}{reflex of Proto-Bantu copula \emph{*ni}}
+%\renewcommand{\Ndi}{\Ni{}}
+%\newleipzig{rm}{rm}{agreeing relative marker}
+%\newleipzig{am}{am}{associative marker}
+%\newleipzig{hon}{hon}{honorific}
+%\newleipzig{whprt}{wh}{\wh particle}xlist\xp
+
+
+\endinput
+
+

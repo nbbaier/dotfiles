@@ -1,0 +1,4 @@
+#!/bin/sh
+smallweb ls | cut -f1 | fzf | xargs smallweb open
+
+# todo: add a way to open a specific file in a specific app

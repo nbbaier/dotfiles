@@ -1,0 +1,59 @@
+[user]
+name = Nico Baier
+email = nico.baier@gmail.com
+
+[github]
+user = nbbaier
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+[core]
+excludesfile = ~/.config/git/ignore
+editor = code --wait
+pager = cat
+autocrlf = input
+ignorecase = false
+
+[init]
+defaultBranch = main
+
+[pull]
+rebase = true
+
+[rerere]
+enabled = true
+
+[push]
+autoSetupRemote = true
+
+[color]
+ui = true
+
+[diff]
+renames = copies
+indentHeuristic = true
+colorMoved = default
+tool = vscode
+
+[difftool]
+prompt = false
+
+[difftool "vscode"]
+cmd = code --wait --diff $LOCAL $REMOTE
+path =
+
+[merge]
+conflictstyle = diff3
+defaultToUpstream = true
+tool = vscode
+
+[mergetool]
+prompt = false
+
+[mergetool "vscode"]
+cmd = code --wait $MERGED
+trustExitCode = true

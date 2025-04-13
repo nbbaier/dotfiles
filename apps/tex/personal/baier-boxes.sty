@@ -1,0 +1,98 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{baier-boxes}
+
+\RequirePackage[many]{tcolorbox}
+
+\newtcolorbox{important}{enhanced,colback=white,colframe=white,
+arc=8pt,outer arc=6pt,
+borderline={1.2pt}{0pt}{black}}
+
+\newtcolorbox{aside}{enhanced,colback=white!72.5!black,colframe=white,
+arc=8pt,outer arc=5pt,
+borderline={1pt}{0pt}{gray,thick}}
+
+\newtcolorbox{side}{enhanced,colback=white!72.5!black,colframe=white,
+arc=8pt,outer arc=5pt}
+
+\newtcolorbox{titlebox}[2]{%
+	enhanced,
+	attach boxed title to top left={xshift=4mm,yshift=-3mm,yshifttext=-1mm},
+	boxed title style={colframe=black,borderline={1pt}{0pt}{black}},
+  	colback=white,
+	coltitle=black,	%coltitle=white,
+	left=3mm, 
+	top=4mm,
+	bottom=4mm,
+	borderline={1.0pt}{0pt}{black},
+	colbacktitle=white!72.5!black,
+	width={#2},
+	title={#1},fonttitle=\bfseries 
+	}
+
+\newtcolorbox{titleboxbreak}[2]{%
+	enhanced,
+	breakable,
+	attach boxed title to top left={xshift=4mm,yshift=-3mm,yshifttext=-1mm},
+	boxed title style={colframe=black,borderline={1pt}{0pt}{black}},
+  	colback=white,
+	coltitle=black,	%coltitle=white,
+	left=3mm, 
+	top=4mm,
+	bottom=4mm,
+	borderline={1.0pt}{0pt}{black},
+	colbacktitle=white!72.5!black,
+	width={#2},
+	title={#1},fonttitle=\bfseries 
+	}
+	
+\newtcolorbox{mybox}[1]{%
+	enhanced,
+	colback=white!72.5!black,
+	colframe=white,
+	left=3mm, 
+%	top=4mm,
+%	bottom=4mm,
+	borderline={1pt}{0pt}{gray,thick},
+	width={#1}
+	}	
+	
+\newtcolorbox{notitlebox}[1][\linewidth]{%
+	enhanced,
+	colback=white,
+	colframe=white,
+	left=3mm, 
+%	top=4mm,
+%	bottom=4mm,
+	borderline={1.0pt}{0pt}{black},
+	width={#1}
+	}	
+
+\newtcolorbox{braced}[1][]{%
+    colback=white,
+%    boxrule=0pt,
+%    boxsep=0pt,
+    blanker,
+    frame code={
+        \draw [line width=1pt,decorate,decoration={brace,amplitude=5pt,raise=2pt,mirror}]
+            (frame.north west)--(frame.south west);
+        \draw [line width=1pt,decorate,decoration={brace,amplitude=5pt,raise=2pt}]
+            (frame.north east)--(frame.south east);
+        },
+    width=\linewidth,
+    before=\par\smallskip\noindent,
+    after={},
+    %breakable,
+    #1}
+
+\newtcolorbox{note}[1][\linewidth]{%
+	enhanced,
+	colback=gray!20,
+%	colframe=white,
+	left=3mm, 
+    frame hidden,arc=0pt,
+	width={#1}
+	}	
+
+
+
+\endinput

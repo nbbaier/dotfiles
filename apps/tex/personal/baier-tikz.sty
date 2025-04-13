@@ -1,0 +1,178 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{baier-tikz}
+
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox} % for AtEndPreamble
+\RequirePackage{xstring} % for string comparison stuff
+\RequirePackage{xparse}
+
+\newcommand{\doestikzwork}{tikz is on} 
+
+%% Tikz. 
+
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{tikz-qtree-compat}
+
+\usetikzlibrary{arrows.meta,
+calc,
+chains,
+fit,
+shapes,
+positioning,
+decorations.pathreplacing,
+backgrounds,
+decorations.pathmorphing,
+decorations.markings,
+decorations.text,
+matrix,
+tikzmark}
+
+   \tikzset{level distance=2.75em,
+            sibling distance=.5em,
+            every node/.style = {inner xsep=0.75pt, 
+                                 inner ysep=1.75pt,
+                                 outer xsep=0ex},
+            edge from parent/.style = {draw, semithick},
+            every tree node/.style = {align=center, 
+                                      anchor=north,
+                                      inner xsep=0.3333em,
+                                      inner ysep=0.3333em,
+                                      outer xsep=0.5\pgflinewidth},
+      >=stealth}
+
+
+
+%% inline stuff
+\newcommand{\tkn}[2]{\tikz[baseline,anchor=base,remember picture] \node (#1) {#2};}
+
+\newcommand{\tknbox}[2]{\tikz[baseline=(char.base)]{\node [remember picture,rounded corners=.5pt,draw,inner sep=3pt] (char) {\subnode{#1}{#2}};}}
+
+\tikzstyle{agree} = [{Circle[open,scale=.9]}-{Circle[open,scale=.9]},semithick,rounded corners=.75pt]
+
+
+\tikzstyle{multiagree} = [-{Circle[open,scale=.9]},shorten <=3.7pt,semithick,rounded corners=.75pt]
+
+\tikzstyle{bind} = [{Circle[,scale=.9]}-{Circle[,scale=.9]},semithick,rounded corners=.75pt]
+
+\tikzstyle{searchfail} = [{Circle[open,scale=.9]}-{Latex[round,scale=.8]},densely dashed,semithick,rounded corners=.75pt]
+
+\tikzstyle{noagree2} = [{Circle[open,scale=.9]}-{Bar[scale=.9]},semithick,rounded corners=.75pt]
+
+\tikzstyle{move} = [{Bar[scale=.8]}-{Stealth[round,scale=.8]}, semithick, rounded corners=.75pt]
+
+\tikzstyle{can't move} = [{Bar[black,scale=.8]}-{Stealth[round,scale=.8]}, semithick, rounded corners=.75pt,densely dotted]
+
+\tikzstyle{might move} = [{Bar[scale=.8]}-{Stealth[round,scale=.8]}, semithick, rounded corners=.75pt,densely dashed]
+
+%%% thing for spacing in tikz-qtree nodes %%%%
+
+\newlength{\spacednodelength}
+\setlength{\spacednodelength}{2em}
+\tikzstyle{spaced node} = [minimum width=#1\spacednodelength]
+\tikzstyle{sn} = [minimum width=#1\spacednodelength]
+
+
+% 	\tikzstyle{label} = [inner sep=2pt, fill=white, yshift=-.5ex]
+%	\tikzstyle{label} = [sloped, fill=white, inner sep=4pt, draw,font=\itshape]
+
+\tikzstyle{brace} = [decorate, decoration={brace,amplitude=3pt},semithick]
+
+
+\newcommand{\myvcenter}[1]{\ensuremath{\vcenter{\hbox{#1}}}}
+
+\newcommand{\treetop}{\phantom{x}\\[-\baselineskip]}
+
+\tikzstyle{alonglabel} = [postaction={
+				decorate,
+				decoration={
+					text along path,
+					text align=center,
+					transform={yshift=1pt},
+					text={|\scshape\scriptsize|#1}
+					}}]
+
+\newcommand{\tikzbox}{}
+\RenewDocumentCommand{\tikzbox}{smm}
+{\IfBooleanTF{#1}
+{\savebox{#2}{#3}}
+{\newsavebox{#2}\savebox{#2}{#3}}
+}
+
+\newcommand{\fbxcolor}[2]{\tikz[baseline=(box.base)]{\node [remember picture,rounded corners=.5pt,draw,inner xsep=3.5pt,inner ysep=2pt,fill=#1] (box) {#2};}}
+
+\newcommand{\fbxcolorq}[2]{\tikz[baseline=(box.base)]{\node [remember picture,rounded corners=.5pt,draw,inner xsep=3.5pt,inner ysep=2pt,fill=#1,label={[font=\bfseries,shift={([xshift=3.5pt,yshift=-5.5pt]box.north east)}]?}] (box) {#2};}}
+
+\tikzstyle{ruled out}=[above= 0pt of phrase1,draw,inner xsep=6.25em,xshift=.125em,inner ysep=2.25em,yshift=-2.75em,fill=gray!20,opacity=.5,rounded corners=.5pt]
+
+
+\newcommand{\tknroom}[2]{\tikz[baseline,anchor=base,remember picture] \node  (#1) {\,#2};}
+
+\newcommand{\tknallowed}[2]{\tikz[baseline,anchor=base,remember picture] \node [draw,semithick] (#1) {\,#2};}
+
+\newcommand{\tknblocked}[2]{\tikz[baseline,anchor=base,remember picture] \node [draw,semithick,fill=gray!30] (#1) {\,#2};}
+
+%%% Forest %%%%
+
+\usepackage{forest}
+\forestset{
+	nice empty nodes/.style={
+	for tree={fit=band,
+			parent anchor=south,
+			child anchor=north,
+			align=center,
+			base=top,
+			inner sep=1pt,
+			l-=5ex,
+			calign=fixed edge angles,
+			calign angle=60,  
+			before typesetting nodes={
+				if content={}{
+					for parent={
+						for children={anchor=north},
+						calign=fixed edge angles,
+						calign angle=60,              
+					},
+					shape=coordinate,				}{},
+			},
+		}}}
+		
+\forestset{
+	nice trees/.style={
+	for tree={fit=band,
+			parent anchor=south,
+			child anchor=north,
+			align=center,
+			base=top,
+			inner sep=1pt,
+			l-=5ex,
+			calign=fixed edge angles,
+			calign angle=60,  
+			before typesetting nodes={
+				if content={}{
+					for parent={
+						for children={anchor=north},
+						calign=fixed edge angles,
+						calign angle=60,              
+					},
+					shape=coordinate,				}{},
+			},
+		}}}
+
+%%% Code for adding animations in tikz drawings %%%% 
+
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+
+ \tikzset{
+    invisible/.style={opacity=0,text opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+
+
+
+\endinput

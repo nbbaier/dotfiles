@@ -1,0 +1,23 @@
+[submodule "system/plugins/zsh-autosuggestions"]
+path = system/plugins/zsh-autosuggestions
+url = https://github.com/zsh-users/zsh-autosuggestions.git
+
+[submodule "system/plugins/zsh-syntax-highlighting"]
+path = system/plugins/zsh-syntax-highlighting
+url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+
+[submodule "system/plugins/fzf-tab"]
+path = system/plugins/fzf-tab
+url = https://github.com/Aloxaf/fzf-tab.git
+
+[submodule "system/plugins/zsh-autopair"]
+path = system/plugins/zsh-autopair
+url = https://github.com/hlissner/zsh-autopair.git
+
+[submodule "system/plugins/zsh-you-should-use"]
+path = system/plugins/zsh-you-should-use
+url = https://github.com/MichaelAquilina/zsh-you-should-use.git
+
+[submodule "system/plugins/zsh-completions"]
+path = system/plugins/zsh-completions
+url = https://github.com/zsh-users/zsh-completions

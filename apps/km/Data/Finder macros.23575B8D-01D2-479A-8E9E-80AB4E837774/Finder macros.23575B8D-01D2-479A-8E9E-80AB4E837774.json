@@ -1,0 +1,24 @@
+{
+	"AddToMacroPalette": false,
+	"AddToStatusMenu": false,
+	"CreationDate": 704840506.992371,
+	"Modifiers": 0,
+	"PaletteUnderMouse": false,
+	"Name": "Finder macros",
+	"UID": "23575B8D-01D2-479A-8E9E-80AB4E837774",
+	"Targeting": {
+		"Targeting": "Included",
+		"TargetingApps": [
+			{
+				"BundleIdentifier": "com.apple.finder",
+				"Name": "Finder",
+				"NewFile": "/System/Library/CoreServices/Finder.app"
+			}
+		]
+	},
+	"Macros": [],
+	"ToggleMacroUID": "9B155C42-2EED-4E11-9FE2-2C60B9889416",
+	"Activate": "Normal",
+	"KeyCode": 32767,
+	"DisplayToggle": false
+}

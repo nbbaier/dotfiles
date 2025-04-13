@@ -1,0 +1,6 @@
+config/litecli/history
+config/litecli/log
+config/zsh/.zsh_sessions
+config/zsh/.zcompcache
+config/micro/buffers
+todo.md

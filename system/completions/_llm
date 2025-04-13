@@ -1,0 +1,302 @@
+#compdef llm
+
+# zsh completion for llm
+
+_llm_get_models() {
+  local -a models
+  # Extracts model IDs and aliases
+  models=("${(@f)$(command llm models list 2>/dev/null | \
+    awk -F '[:,(]' '/:/ {gsub(/^ */, "", $2); gsub(/ *$/, "", $2); print $2; if ($3 ~ /aliases/) { gsub(/aliases: /, "", $4); gsub(/\)/, "", $4); gsub(/, /, "\n", $4); print $4}}' | \
+    sort -u)}")
+  _describe 'models' models
+}
+
+_llm_get_templates() {
+    local -a templates
+    templates=("${(@f)$({ command llm templates list 2>/dev/null | awk '{print $1}'; \
+                         command ls "$(command llm templates path 2>/dev/null)"/*.yaml 2>/dev/null | xargs -n 1 basename -s .yaml; } | asort -u)}")
+    _describe 'templates' templates
+}
+
+_llm_get_keys() {
+    local -a keys
+    keys=("${(@f)$(command llm keys list 2>/dev/null)}")
+    _describe 'keys' keys
+}
+
+_llm_get_aliases() {
+    local -a aliases
+    aliases=("${(@f)$(command llm aliases list 2>/dev/null | awk '{print $1}')}")
+    _describe 'aliases' aliases
+}
+
+_llm_get_collections() {
+    local -a collections
+    collections=("${(@f)$(command llm collections list --json 2>/dev/null | jq -r '.[].name' 2>/dev/null)}")
+    _describe 'collections' collections
+}
+
+_llm_get_fragments() {
+    local -a fragments
+    # Get hashes and aliases
+    fragments=("${(@f)$(command llm fragments list --json 2>/dev/null | jq -r '.[] | .hash, (.aliases // [])[]' 2>/dev/null | sort -u)}")
+    _describe 'fragments' fragments
+}
+
+_llm_get_schemas() {
+    local -a schemas
+    # Get schema IDs and t:template refs
+    schemas=("${(@f)$({ command llm schemas list --json 2>/dev/null | jq -r '.[].id' 2>/dev/null; \
+                      _llm_get_templates | sed 's/^/t:/'; } | sort -u)}")
+    _describe 'schemas' schemas
+}
+
+_llm() {
+    local context state line
+    typeset -A opt_args
+
+    _arguments -C \
+        '1: :->command' \
+        '*:: :->args'
+
+    case $state in
+        command)
+            local -a commands
+            commands=(
+                'prompt:Execute a prompt'
+                'chat:Hold an ongoing chat with a model'
+                'keys:Manage stored API keys'
+                'logs:Explore logged prompts and responses'
+                'models:Manage available models'
+                'templates:Manage stored prompt templates'
+                'aliases:Manage model aliases'
+                'fragments:Manage stored fragments'
+                'schemas:Manage stored schemas'
+                'embed:Embed text and store or return the result'
+                'embed-multi:Embed multiple strings at once'
+                'similar:Find similar items in a collection'
+                'embed-models:Manage available embedding models'
+                'collections:View and manage collections of embeddings'
+                'install:Install packages from PyPI'
+                'uninstall:Uninstall Python packages'
+                'plugins:List installed plugins'
+                'openai:Work directly with the OpenAI API'
+            )
+            _describe 'command' commands
+            ;;
+        args)
+           case $words[1] in
+                prompt)
+                    _arguments \
+                        '(-s --system)'{-s,--system}'[System prompt]:' \
+                        '(-m --model)'{-m,--model}'[Model ID or alias]:model:_llm_get_models' \
+                        '(-d --database)'{-d,--database}'[Path to log database]:file:_files' \
+                        '(-q --query)'{-q,--query}'[Filter models by string]:' \
+                        '(-a --attachment)'{-a,--attachment}'[Attachment path/URL/-]:attachment:_files' \
+                        '(--at --attachment-type)'{--at,--attachment-type}'[Attachment with type (value type)]:attachment_type' \
+                        '(-o --option)'{-o,--option}'[Key/value model option (key value)]:' \
+                        '--schema[JSON schema, file, ID, or t:template]:schema:_alternative "files:file:_files" "schemas:schema:_llm_get_schemas"' \
+                        '--schema-multi[JSON schema for multiple results]:schema:_alternative "files:file:_files" "schemas:schema:_llm_get_schemas"' \
+                        '(-f --fragment)'{-f,--fragment}'[Fragment (alias/URL/hash/path)]:fragment:_alternative "files:file:_files" "fragments:fragment:_llm_get_fragments"' \
+                        '(--sf --system-fragment)'{--sf,--system-fragment}'[System fragment (alias/URL/hash/path)]:fragment:_alternative "files:file:_files" "fragments:fragment:_llm_get_fragments"' \
+                        '(-t --template)'{-t,--template}'[Template name]:template:_llm_get_templates' \
+                        '(-p --param)'{-p,--param}'[Parameter for template (key value)]:' \
+                        '--no-stream[Do not stream output]' \
+                        '(-n --no-log)'{-n,--no-log}'[Do not log to database]' \
+                        '--log[Log prompt and response]' \
+                        '(-c --continue)'{-c,--continue}'[Continue the most recent conversation]' \
+                        '(--cid --conversation)'{--cid,--conversation}'[Continue specific conversation ID]:' \
+                        '--key[API key or alias]:key:_llm_get_keys' \
+                        '--save[Save prompt as template name]:' \
+                        '--async[Run prompt asynchronously]' \
+                        '(-u --usage)'{-u,--usage}'[Show token usage]' \
+                        '(-x --extract)'{-x,--extract}'[Extract first fenced code block]' \
+                        '(--xl --extract-last)'{--xl,--extract-last}'[Extract last fenced code block]' \
+                        '--help[Show help]' \
+                        '::prompt message: _message'
+                    ;;
+                chat)
+                     _arguments \
+                        '(-s --system)'{-s,--system}'[System prompt]:' \
+                        '(-m --model)'{-m,--model}'[Model ID or alias]:model:_llm_get_models' \
+                        '(-c --continue)'{-c,--continue}'[Continue the most recent conversation]' \
+                        '(--cid --conversation)'{--cid,--conversation}'[Continue specific conversation ID]:' \
+                        '(-t --template)'{-t,--template}'[Template name]:template:_llm_get_templates' \
+                        '(-p --param)'{-p,--param}'[Parameter for template (key value)]:' \
+                        '(-o --option)'{-o,--option}'[Key/value model option (key value)]:' \
+                        '--no-stream[Do not stream output]' \
+                        '--key[API key or alias]:key:_llm_get_keys' \
+                        '--help[Show help]'
+                    ;;
+                keys)
+                     _arguments \
+                        ':subcommand:(list get path set)' \
+                        ':key:_llm_get_keys'
+                    ;;
+                logs)
+                     _arguments \
+                        ':subcommand:(list path status backup on off)' \
+                        '(-d --database)'{-d,--database}'[Path to log database]:file:_files' \
+                        '(-n --count)'{-n,--count}'[Number of entries]:' \
+                        '(-m --model)'{-m,--model}'[Filter by model]:model:_llm_get_models' \
+                        '(-q --query)'{-q,--query}'[Search logs]:' \
+                        '(-f --fragment)'{-f,--fragment}'[Filter by fragment]:fragment:_alternative "files:file:_files" "fragments:fragment:_llm_get_fragments"' \
+                        '--schema[Filter by schema]:schema:_alternative "files:file:_files" "schemas:schema:_llm_get_schemas"' \
+                        '--schema-multi[Filter by multi schema]:schema:_alternative "files:file:_files" "schemas:schema:_llm_get_schemas"' \
+                        '--data[Output JSON data for schema]' \
+                        '--data-array[Output JSON array]' \
+                        '--data-key[Return JSON objects from this key]:' \
+                        '--data-ids[Attach IDs to JSON objects]' \
+                        '(-t --truncate)'{-t,--truncate}'[Truncate long strings]' \
+                        '(-s --short)'{-s,--short}'[Shorter YAML output]' \
+                        '(-u --usage)'{-u,--usage}'[Include token usage]' \
+                        '(-r --response)'{-r,--response}'[Output only the last response]' \
+                        '(-x --extract)'{-x,--extract}'[Extract first fenced code block]' \
+                        '(--xl --extract-last)'{--xl,--extract-last}'[Extract last fenced code block]' \
+                        '(-c --current)'{-c,--current}'[Show current conversation]' \
+                        '(--cid --conversation)'{--cid,--conversation}'[Show specific conversation ID]:' \
+                        '--id-gt[Return responses with ID > this]:' \
+                        '--id-gte[Return responses with ID >= this]:' \
+                        '--json[Output as JSON]' \
+                        '(-e --expand)'{-e,--expand}'[Expand fragments]' \
+                        '--help[Show help]'
+                    ;;
+                 models)
+                     _arguments \
+                        ':subcommand:(list default options)' \
+                        '(--options)--options[Show model options]' \
+                        '(--async)--async[List async models]' \
+                        '(--schemas)--schemas[List models supporting schemas]' \
+                        '(-q --query)'{-q,--query}'[Search models]:' \
+                        '(-m --model)'{-m,--model}'[Specific model IDs]:model:_llm_get_models' \
+                        ':model:_llm_get_models' # For default command
+                    ;;
+                templates)
+                    _arguments \
+                        ':subcommand:(list show edit path loaders)' \
+                        ':template:_llm_get_templates'
+                    ;;
+                 aliases)
+                     _arguments \
+                         ':subcommand:(list set remove path)' \
+                         '(-q --query)'{-q,--query}'[Filter models for set]:' \
+                         ':alias:_llm_get_aliases' \
+                         ':model:_llm_get_models'
+                     ;;
+                 fragments)
+                    _arguments \
+                         ':subcommand:(list set show remove)' \
+                         '(-q --query)'{-q,--query}'[Search fragments]:' \
+                         '--aliases[Show only fragments with aliases]' \
+                         '--json[Output as JSON]' \
+                         ':fragment:_alternative "files:file:_files" "fragments:fragment:_llm_get_fragments"'
+                     ;;
+                 schemas)
+                    _arguments \
+                         ':subcommand:(list show dsl)' \
+                         '(-d --database)'{-d,--database}'[Path to log database]:file:_files' \
+                         '(-q --query)'{-q,--query}'[Search schemas]:' \
+                         '--full[Output full schema]' \
+                         '--multi[Wrap DSL schema in array]' \
+                         ':schema:_alternative "files:file:_files" "schemas:schema:_llm_get_schemas"'
+                     ;;
+                 embed)
+                     _arguments \
+                         '(-i --input)'{-i,--input}'[File to embed]:file:_files' \
+                         '(-m --model)'{-m,--model}'[Embedding model]:model:_llm_get_models' \
+                         '--store[Store text in database]' \
+                         '(-d --database)'{-d,--database}'[Embeddings database]:file:_files' \
+                         '(-c --content)'{-c,--content}'[Content to embed]:' \
+                         '--binary[Treat input as binary]' \
+                         '--metadata[JSON metadata]:' \
+                         '(-f --format)'{-f,--format}'[Output format]:format:(json blob base64 hex)' \
+                         '--help[Show help]' \
+                         ':collection:_llm_get_collections' \
+                         ':id: _message'
+                     ;;
+                embed-multi)
+                     _arguments \
+                         '--format[Input format]:format:(json csv tsv nl)' \
+                         '--files[Embed directory (dir pattern)]' \
+                         '--encoding[Encoding for files]:' \
+                         '--binary[Treat files as binary]' \
+                         '--sql[SQL query for input]:' \
+                         '--attach[Attach SQLite DB (alias path)]:db:_files' \
+                         '--batch-size[Batch size]:' \
+                         '--prefix[Prefix for IDs]:' \
+                         '(-m --model)'{-m,--model}'[Embedding model]:model:_llm_get_models' \
+                         '--prepend[Prepend string to content]:' \
+                         '--store[Store text in database]' \
+                         '(-d --database)'{-d,--database}'[Embeddings database]:file:_files' \
+                         '--help[Show help]' \
+                         ':collection:_llm_get_collections' \
+                         ':input_path: _files'
+                    ;;
+                similar)
+                    _arguments \
+                        '(-i --input)'{-i,--input}'[File for comparison]:file:_files' \
+                        '(-c --content)'{-c,--content}'[Content for comparison]:' \
+                        '--binary[Treat input as binary]' \
+                        '(-n --number)'{-n,--number}'[Number of results]:' \
+                        '(-p --plain)'{-p,--plain}'[Plain text output]' \
+                        '(-d --database)'{-d,--database}'[Embeddings database]:file:_files' \
+                        '--help[Show help]' \
+                        ':collection:_llm_get_collections' \
+                        ':id: _message' # Could try to get IDs from collection? Complex.
+                    ;;
+                embed-models)
+                    _arguments \
+                        ':subcommand:(list default)' \
+                        '(-q --query)'{-q,--query}'[Search models]:' \
+                        '--remove-default[Remove default model]' \
+                        ':model:_llm_get_models' # Need embedding models func
+                    ;;
+                collections)
+                    _arguments \
+                        ':subcommand:(path list delete)' \
+                        '(-d --database)'{-d,--database}'[Embeddings database]:file:_files' \
+                        '--json[Output as JSON]' \
+                        ':collection:_llm_get_collections'
+                    ;;
+                install)
+                    _arguments \
+                        '(-U --upgrade)'{-U,--upgrade}'[Upgrade packages]' \
+                        '(-e --editable)'{-e,--editable}'[Install editable from path]:path:_files' \
+                        '--force-reinstall[Force reinstall]' \
+                        '--no-cache-dir[Disable cache]' \
+                        '--help[Show help]' \
+                        '*:package:_pypi_packages' # Use standard PyPI completion if available
+                    ;;
+                 uninstall)
+                     _arguments \
+                        '(-y --yes)'{-y,--yes}'[Confirm without asking]' \
+                        '--help[Show help]' \
+                        '*:package:_pip_installed_packages' # Use standard Pip completion if available
+                     ;;
+                 plugins)
+                    _arguments '--all[Include built-in plugins]' '--help[Show help]'
+                    ;;
+                 openai)
+                    _arguments \
+                        ':subcommand:(models)' \
+                        '--json[Output as JSON]' \
+                        '--key[OpenAI API key]:key:_llm_get_keys'
+                    ;;
+                *)
+                    # Default file/directory completion
+                    _files
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_llm "$@"
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et

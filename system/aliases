@@ -1,0 +1,234 @@
+#==============================================================================
+# Core System Commands
+#==============================================================================
+alias c="clear"
+alias sc="source ${ZDOTDIR:-$HOME}/.zshrc"
+alias cpwd="pwd|tr d '\n'|pbcopy"
+
+o() {
+   open ${1:-.}
+}
+
+#==============================================================================
+# Navigation
+#==============================================================================
+
+for i in {1..10}; do
+   spaces=$(printf "%${i}s")
+   alias "${spaces// /.}."="cd ${spaces// /../}"
+done
+
+alias -- -='cd -'
+alias -- d='dirs -v'
+
+for index in {1..9}; do
+   alias "$index"="cd +${index}"
+done
+
+unset index
+
+alias icloud="$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
+alias gdrive="$(readlink "$HOME/Google Drive")/My\ Drive"
+alias dotfiles="$HOME/.dotfiles"
+alias config="$HOME/.config"
+alias cdsw="$SMALLWEB_DIR"
+
+#==============================================================================
+# File Operations
+#==============================================================================
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm="safe-rm"
+alias rd="safe-rm -rf"
+alias rmdir="safe-rm -rf"
+alias ln='ln -i'
+alias sym="ln-"
+alias disk="df -P -kHl"
+alias md="mkdir -p"
+
+# Directory Listing (using eza)
+alias l='eza -lah --show-symlinks'
+alias ls="eza"
+alias ll='eza -lah --no-user'
+alias lsg="eza -laD --git --git-repos --no-permissions --no-user --no-time | grep -v '^\- - -'"
+alias lsng="eza -laD --git --git-repos --no-permissions --no-user --no-time | grep --color=never '^\- - -'"
+
+alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
+alias cleanupad="find . -type d -name '.AppleD*' -ls -exec /bin/rm -r {} \;"
+
+#==============================================================================
+# Process Management
+#==============================================================================
+alias killfinder="killall Finder"
+alias killdock="killall Dock"
+alias killmenubar="killall SystemUIServer NotificationCenter"
+alias killos="killfinder && killdock && killmenubar"
+
+#==============================================================================
+# Package Management (Homebrew)
+#==============================================================================
+alias bi='brew install'
+alias bic='brew install --cask'
+alias bui='brew uninstall'
+alias buic='brew uninstall --cask'
+alias bl='brew list'
+alias bcu="brew cleanup"
+alias bo='brew outdated'
+alias bsl='brew services list'
+alias bsoff='brew services stop'
+alias bsoffa='brew services stop --all'
+alias bson='brew services start'
+alias bsona='brew services start --all'
+alias bubu="brew update && brew outdated && brew upgrade && brew cleanup --prune=all"
+
+#==============================================================================
+# Git Operations
+#==============================================================================
+# GitHub CLI
+alias ghb='gh browse'
+alias ghrc='gh repo create'
+
+# Basic Git
+alias g='git'
+alias ga='git add --all'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gau='git add --update'
+alias glog='git log --oneline --decorate --graph'
+
+# Branch Operations
+alias gb='git branch'
+alias gba='git branch --all'
+alias gbd='git branch --delete'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+
+# Commit Operations
+alias gcm='git commit --message'
+alias gcam='git commit --all --message'
+alias gic='git init && git add --all && git commit -m "initial commit"'
+
+# Sync Operations
+alias gl='git pull'
+alias gp='git push'
+alias gst='git status --short'
+alias gsl='git status'
+
+# WIP Operations
+alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\"±-" && git reset HEAD~1'
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip-- [skip ci]"'
+
+# Multiple git status
+alias mgit="mgitstatus $@ 2>/dev/null"
+
+#==============================================================================
+# Shell Utilities
+#==============================================================================
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g M="| most"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
+function h() {
+   local cmd=$( ([ -n "$ZSH_NAME" ] && fc -ld 1 || history) | fzf --tac | sed 's/ *[0-9]* *[0-9][0-9]:[0-9][0-9] *//')
+   if [ -n "$cmd" ]; then
+      print -s "$cmd"
+      eval "$cmd"
+   fi
+}
+
+function hcp() {
+   ([ -n "$ZSH_NAME" ] && fc -ld 1 || history) | fzf --tac | sed 's/ *[0-9]* *[0-9][0-9]:[0-9][0-9] *//' | pbcopy
+}
+
+#==============================================================================
+# Development Tools
+#==============================================================================
+# Python
+alias uvtl="uv tool list"
+alias uvti="uv tool install"
+alias uvtu="uv tool uninstall"
+alias uvp="uv python"
+
+pyclean() {
+   find "${@:-.}" -type f -name "*.py[co]" -delete
+   find "${@:-.}" -type d -name "__pycache__" -delete
+   find "${@:-.}" -depth -type d -name ".mypy_cache" -exec rm -r "{}" +
+   find "${@:-.}" -depth -type d -name ".pytest_cache" -exec rm -r "{}" +
+}
+
+# VSCode
+cr() {
+   code -r ${1:-.}
+}
+
+alias crv="cr"
+
+# Cursor
+crc() {
+   cursor -r ${1:-.}
+}
+
+#==============================================================================
+# Application Specific
+#==============================================================================
+alias sw="smallweb"
+alias oco="NODE_OPTIONS='--no-deprecation' opencommit"
+alias sqlu="sqlite-utils"
+alias tg="topgrade"
+
+function mkcd takedir() {
+   mkdir -p $@ && cd ${@:$#}
+}
+
+function takeurl() {
+   local data thedir
+   data="$(mktemp)"
+   curl -L "$1" >"$data"
+   tar xf "$data"
+   thedir="$(tar tf "$data" | head -n 1)"
+   rm "$data"
+   cd "$thedir"
+}
+
+function takezip() {
+   local data thedir
+   data="$(mktemp)"
+   curl -L "$1" >"$data"
+   unzip "$data" -d "./"
+   thedir="$(unzip -l "$data" | awk 'NR==4 {print $4}' | sed 's/\/.*//')"
+   rm "$data"
+   cd "$thedir"
+}
+
+function takegit() {
+   git clone "$1"
+   cd "$(basename ${1%%.git})"
+}
+
+function take() {
+   if [[ $1 =~ ^(https?|ftp).*\.(tar\.(gz|bz2|xz)|tgz)$ ]]; then
+      takeurl "$1"
+   elif [[ $1 =~ ^(https?|ftp).*\.(zip)$ ]]; then
+      takezip "$1"
+   elif [[ $1 =~ ^([A-Za-z0-9]\+@|https?|git|ssh|ftps?|rsync).*\.git/?$ ]]; then
+      takegit "$1"
+   else
+      takedir "$@"
+   fi
+}
+
+pyscript() {
+   local prompt="$*"
+   llm -t gh:nbbaier/python-app -m claude-3.7-sonnet "${prompt}"
+}
+
+ask() {
+   local prompt="$*"
+   llm -m claude-3.7-sonnet "Query: ${prompt}. Be concise"
+}

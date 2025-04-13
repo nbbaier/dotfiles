@@ -1,0 +1,133 @@
+after-login-command   = []
+after-startup-command = []
+start-at-login        = false
+
+enable-normalization-flatten-containers                         = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 10
+
+default-root-container-layout      = 'tiles'
+default-root-container-orientation = 'auto'
+
+key-mapping.preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 7
+inner.vertical   = 7
+outer.left       = 7
+outer.bottom     = 7
+outer.top        = 7
+outer.right      = 7
+
+[mode.main.binding]
+alt-comma       = 'layout tiles horizontal vertical'
+alt-shift-comma = 'layout accordion horizontal vertical'
+shift-alt-space = "fullscreen"
+shift-alt-enter = ['layout floating tiling', 'mode main']
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+cmd-ctrl-alt-shift-left  = 'move left'
+cmd-ctrl-alt-shift-down  = 'move down'
+cmd-ctrl-alt-shift-up    = 'move up'
+cmd-ctrl-alt-shift-right = 'move right'
+
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+alt-tab         = 'focus-back-and-forth'
+
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r   = ['flatten-workspace-tree', 'mode main']
+f   = ['layout floating tiling', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run       = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = "com.coteditor.CotEditor"
+run       = ["layout floating"]
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.logi.optionsplus'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.stairways.keyboardmaestro.editor'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'fm.overcast.overcast'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.surteesstudios.Bartender'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.federicoterzi.espanso'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'unity.Blizzard Entertainment.Hearthstone'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.jordanbaird.Ice'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'net.freemacsoft.AppCleaner'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run       = 'layout floating'

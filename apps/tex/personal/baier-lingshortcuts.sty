@@ -1,0 +1,137 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{baier-lingshortcuts}
+
+%%% Subscripts and superscripts %%%
+\newcommand{\superscript}[1]{$^{\text{#1}}$}
+\newcommand{\subscript}[1]{$_{\text{#1}}$}
+\newcommand{\supsub}[2]{\ensuremath{^{\textrm{#1}}_{\textrm{#2}}}}
+
+%%%% Shortcuts %%%%
+\newcommand{\gap}{} %% establish autocomplete
+\RenewDocumentCommand{\gap}{g}{\rule{1.75ex}{.4pt}\IfValueT{#1}{$_{#1}$}}	
+\newcommand{\trace}{} %% establish autocomplete	    
+\RenewDocumentCommand{\trace}{g}{\emph{t}\IfValueT{#1}{$_{#1}$}}
+\newcommand{\biggap}{} %% establish autocomplete
+\RenewDocumentCommand{\biggap}{g}{\rule{3.5ex}{.4pt}\IfValueT{#1}{$_{#1}$}}	
+
+\newcommand{\abar}{\=A}				% prints ÃÂÃÂ
+\newcommand{\wh}{\emph{wh}}       % lower case wh
+\newcommand{\xp}[1]{$_{\text{{\tiny #1}}}$}
+
+\newcommand{\head}[1]{#1\textsu{0}}
+
+\newcommand{\datcl}[1]{{\textcolor{black}{\uuline{#1}}}}
+\newcommand{\acccl}[1]{{\textcolor{black}{\uwave{#1}}}}
+
+\newcommand{\datnp}[1]{{\textcolor{black}{\uuline{#1}}}}
+\newcommand{\accnp}[1]{{\textcolor{black}{\uwave{#1}}}}
+
+\newcommand{\probeorder}[0]{\ensuremath{\rhd}}
+
+\newcommand{\lilv}{\textit{v}}                    % little v  (vP)
+\newcommand{\lilvs}{\textit{v*}}                  % little v* (v*P)
+\newcommand{\liln}{\textit{n}}                    % little n  (nP)
+\newcommand{\lila}{\textit{a}}                    % little a  (aP)
+\newcommand{\lilx}[1]{\textit{#1}}                % little x  (xP)
+\newcommand{\agrt}[1]{\textbf{#1}}
+\newcommand{\agrc}[1]{\textbf{#1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\asuh}{ASUH\xspace}
+
+\newcommand{\generalization}[1]{\hl{#1}}
+
+\newcommand{\feature}{}
+\RenewDocumentCommand{\feature}{sm}
+{\IfBooleanTF#1
+{\mbox{\textsc{#2}}}
+{\mbox{[\textsc{#2}]}}\xspace
+}
+
+\newcommand{\uprobe}{}
+\RenewDocumentCommand{\uprobe}{sm}
+{\IfBooleanTF#1
+{\mbox{u\textsc{#2}}}
+{\mbox{[u\textsc{#2}]}}\xspace
+}
+
+\newcommand{\mergeprobe}{}
+\RenewDocumentCommand{\mergeprobe}{sm}
+{\IfBooleanTF#1
+{\mbox{\raisebox{-1pt}{\scalebox{1}{\mergebullet}}{\kern .07em}{\textsc{#2}}{\kern .04em}\raisebox{-1pt}{\scalebox{1}{\mergebullet}}}}%
+{\mbox{\raisebox{0pt}{\scalebox{1}{\mergebullet}}{\kern .07em}{#2}{\kern .04em}\raisebox{0pt}{\scalebox{1}{\mergebullet}}}}%
+}
+
+\newcommand{\agreeprobe}{}
+\RenewDocumentCommand{\agreeprobe}{sm}
+{\IfBooleanTF#1
+{\mbox{\raisebox{-1pt}{\scalebox{1}{\agreebullet}}{\kern .07em}{\textsc{#2}}{\kern .04em}\raisebox{-1pt}{\scalebox{1}{\agreebullet}}}}%
+{\mbox{\raisebox{0pt}{\scalebox{1}{\agreebullet}}{\kern .07em}{#2}{\kern .04em}\raisebox{.01pt}{\scalebox{1}{\agreebullet}}}}%
+}
+
+\newcommand{\mergebullet}{%
+\tikz{%
+\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em);%
+\node[draw=black,fill=black,circle,minimum size=0.15em,inner sep=0pt] at (0,0) {};}}
+
+\newcommand{\agreebullet}{%
+\tikz{%
+\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em);%
+\node[draw=black,fill=white,circle,minimum size=0.15em,inner sep=0pt] at (0,0) {};}}
+
+\NewDocumentCommand{\fset}{ >{\SplitList{,}} m }
+ {
+$\begin{bmatrix}
+  \ProcessList{#1}{\processfset}
+\end{bmatrix}$
+ }
+
+\NewDocumentCommand{\probe}{ >{\SplitList{,}} m }
+ {
+$\begin{bmatrix*}[l]
+  \ProcessList{#1}{\processfset}
+\end{bmatrix*}$
+ }
+
+\newcommand\processfset[1]{\textsc{#1} \\}
+
+
+\newcommand{\fbundle}[1]{\ensuremath{\left[\textsc{#1}\right]}}
+
+\newcommand{\form}[1]{\mbox{\emph{#1}}}
+\newcommand{\gloss}{}
+\RenewDocumentCommand{\gloss}{sm}
+{\IfBooleanTF#1
+{\textsc{#2}}
+{`#2'}
+}
+\newcommand{\brackets}[1]{\mbox{[#1]}}
+
+%%% Impoverishment Command %%%
+\makeatletter
+\NewDocumentCommand{\impov}{m r() r() m o}{%
+#1%
+\def\@tempa{#2}\ifx\@tempa\@empty{$\rightarrow$}\else \hspace{#2}$\rightarrow$\fi
+\def\@tempa{#3}\ifx\@tempa\@empty { }\else \hspace{#3}\fi
+#4%
+\IfValueT {#5} { $/$ [\gap{}, #5]}
+}
+\makeatother
+
+% syntax \impov{#1}(#2)(#3){#4}[#5]
+% #1 is the first argument of the rule
+% #2 is \hspace{} between first argument and the arrow 
+% #3 is \hspace{} between second argument and the arrow 
+% #4 is the output of the rule 
+% #5 is the context of the rule (optional)
+
+% macros for shortcutting trees out of the \impov command 
+
+\NewDocumentCommand\treea{}{} % provides empty \treea command
+\NewDocumentCommand\treeb{}{} % provides empty \treeb command 
+
+\NewDocumentCommand\settreea{m}{\RenewDocumentCommand\treea{}{#1}} % sets the \treea for the local rule 
+\NewDocumentCommand\settreeb{m}{\RenewDocumentCommand\treeb{}{#1}}
+
+\endinput

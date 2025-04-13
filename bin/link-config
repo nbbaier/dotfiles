@@ -1,0 +1,67 @@
+#!/usr/bin/env zsh
+
+# Exit on error
+set -e
+
+# Check if required environment variables are set
+if [ -z "$DOTFILES" ]; then
+   echo "Error: DOTFILES environment variable is not set."
+   exit 1
+fi
+
+if [ -z "$XDG_CONFIG_HOME" ]; then
+   echo "Error: XDG_CONFIG_HOME environment variable is not set."
+   exit 1
+fi
+
+# Check if config directory exists
+if [ ! -d "$DOTFILES/config" ]; then
+   echo "Error: $DOTFILES/config directory does not exist."
+   exit 1
+fi
+
+# Create function to handle symlinking recursively
+link_config_files() {
+   local source_dir="$1"
+   local target_dir="$2"
+   local rel_path="$3"
+
+   # Enable nullglob to handle cases where there are no matching files
+   setopt nullglob
+
+   # Process each item in the source directory, including hidden files
+   for item in "$source_dir"/* "$source_dir"/.*; do
+      # Skip . and .. directories
+      [[ "$(basename "$item")" == "." || "$(basename "$item")" == ".." ]] && continue
+
+      # Skip if the file doesn't exist (handles case when no hidden files)
+      [[ ! -e "$item" ]] && continue
+
+      # Skip .DS_Store and .git
+      [[ "$(basename "$item")" == ".DS_Store" || "$(basename "$item")" == ".git" ]] && continue
+
+      # Get the basename of the item
+      local name=$(basename "$item")
+
+      # Compute relative path
+      local item_rel_path="$rel_path/$name"
+      local target_path="$target_dir/$name"
+
+      if [ -d "$item" ]; then
+         # It's a directory - create the corresponding directory in target
+         # echo "Creating directory: $target_path"
+         mkdir -p "$target_path"
+
+         # Recurse into the directory
+         link_config_files "$item" "$target_path" "$item_rel_path"
+      else
+         # It's a file - create a symlink
+         ln -s -v -f "$item" "$target_path"
+      fi
+   done
+
+   # Disable nullglob after we're done
+   unsetopt nullglob
+}
+
+link_config_files "$DOTFILES/config" "$XDG_CONFIG_HOME" ""

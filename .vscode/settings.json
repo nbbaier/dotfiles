@@ -1,0 +1,8 @@
+{
+	"workbench.editor.customLabels.patterns": {
+		"**/settings.json": "${dirname} settings"
+	},
+	"files.associations": {
+		"aliases": "shellscript"
+	}
+}

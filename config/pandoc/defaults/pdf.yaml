@@ -1,0 +1,4 @@
+from: markdown
+to: pdf
+standalone: true
+template: eisvogel.latex

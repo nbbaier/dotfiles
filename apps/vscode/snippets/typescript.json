@@ -1,0 +1,7 @@
+{
+	"ts-ignore": {
+		"prefix": ["ts-ignore", "tsi"],
+		"body": ["// @ts-ignore"],
+		"description": "ts-ignore"
+	}
+}

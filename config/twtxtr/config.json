@@ -1,0 +1,11 @@
+{
+	"twtxt": {
+		"nick": "nbbaier",
+		"twtfile": "~/code/nbbaier.github.io/twtxt.txt",
+		"twturl": "https://nicobaier.com/twtxt.txt",
+		"disclose_identity": false,
+		"characterLimit": 140,
+		"character_warning": 140
+	},
+	"following": []
+}

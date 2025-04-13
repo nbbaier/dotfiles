@@ -1,0 +1,176 @@
+{
+	"$schema": "vscode://schemas/settings/user",
+	"[astro]": {
+		"editor.defaultFormatter": "astro-build.astro-vscode"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.quickSuggestions": {
+			"strings": true
+		}
+	},
+	"[mdx]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[python]": {
+		"editor.defaultFormatter": "charliermarsh.ruff"
+	},
+	"[sql]": {
+		"editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+	},
+	"[toml]": {
+		"editor.defaultFormatter": "tamasfe.even-better-toml",
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"auto-close-tag.activationOnLanguage": ["mdx"],
+	"breadcrumbs.enabled": true,
+	"codesnap.containerPadding": "1em",
+	"codesnap.showWindowControls": false,
+	"cursor.cpp.disabledLanguages": ["plaintext", "scminput"],
+	"diffEditor.codeLens": true,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"diffEditor.maxComputationTime": 0,
+	"editor.accessibilitySupport": "off",
+	"editor.fontFamily": "Intel One Mono, Cascadia Code, FiraCode Nerd Font, Monaco, monospace",
+	"editor.fontLigatures": true,
+	"editor.fontSize": 14.5,
+	"editor.formatOnSave": true,
+	"editor.gotoLocation.multipleDeclarations": "goto",
+	"editor.gotoLocation.multipleDefinitions": "goto",
+	"editor.gotoLocation.multipleImplementations": "goto",
+	"editor.gotoLocation.multipleReferences": "goto",
+	"editor.gotoLocation.multipleTypeDefinitions": "goto",
+	"editor.guides.bracketPairs": "active",
+	"editor.guides.bracketPairsHorizontal": false,
+	"editor.inlineSuggest.enabled": true,
+	"editor.lineHeight": 1.6,
+	"editor.minimap.enabled": false,
+	"editor.minimap.renderCharacters": false,
+	"editor.quickSuggestions": {
+		"comments": "off",
+		"other": "on",
+		"strings": "on"
+	},
+	"editor.stickyScroll.enabled": false,
+	"editor.suggest.insertMode": "replace",
+	"editor.tabCompletion": "on",
+	"editor.tabSize": 3,
+	"editor.tokenColorCustomizations": {
+		"textMateRules": [
+			{
+				"scope": "variable.language.this",
+				"settings": {
+					"foreground": "#737070"
+				}
+			}
+		]
+	},
+	"editor.wordWrap": "on",
+	"emmet.excludeLanguages": [],
+	"emmet.includeLanguages": {
+		"astro": "html",
+		"javascript": "html",
+		"mdx": "html"
+	},
+	"emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
+	"emmet.triggerExpansionOnTab": true,
+	"emmet.useInlineCompletions": true,
+	"evenBetterToml.formatter.alignEntries": true,
+	"explorer.confirmDelete": false,
+	"explorer.confirmDragAndDrop": false,
+	"files.associations": {
+		".babelrc": "jsonc",
+		".env": "env",
+		"*.env.*": "env",
+		"*.latex": "latex",
+		"*.mdx": "markdown",
+		"*.tex": "latex"
+	},
+	"files.exclude": {
+		"**/__pycache__": true,
+		"**/.git": false
+	},
+	"git.autofetch": true,
+	"git.autorefresh": true,
+	"git.confirmSync": false,
+	"git.openRepositoryInParentFolders": "never",
+	"go.toolsManagement.autoUpdate": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"json.schemas": [
+		{
+			"fileMatch": ["**/shell-ask/config.json"],
+			"url": "/opt/homebrew/lib/node_modules/shell-ask/schema.json"
+		},
+		{
+			"fileMatch": ["smallweb.json"],
+			"url": "https://schemas.smallweb.run/manifest"
+		},
+		{
+			"fileMatch": [".smallweb/config.json"],
+			"url": "https://schemas.smallweb.run/config"
+		}
+	],
+	"livePreview.autoRefreshPreview": "On Changes to Saved Files",
+	"livePreview.openPreviewTarget": "External Browser",
+	"markdown.extension.completion.enabled": true,
+	"markdown.extension.preview.autoShowPreviewToSide": false,
+	"Prettier-SQL.SQLFlavourOverride": "sqlite",
+	"prettier.tabWidth": 3,
+	"python.analysis.autoImportCompletions": true,
+	"redhat.telemetry.enabled": true,
+	"tailwind-fold.autoFold": false,
+	"terminal.explorerKind": "both",
+	"terminal.external.osxExec": "Ghostty.app",
+	"terminal.integrated.cursorStyle": "line",
+	"terminal.integrated.enableMultiLinePasteWarning": "auto",
+	"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+	"terminal.integrated.fontSize": 14,
+	"typescript.tsserver.log": "off",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"window.commandCenter": false,
+	"window.confirmSaveUntitledWorkspace": false,
+	"window.titleSeparator": " | ",
+	"workbench.activityBar.location": "hidden",
+	"workbench.colorTheme": "Default Dark+",
+	"workbench.editor.customLabels.enabled": true,
+	"workbench.editor.customLabels.patterns": {
+		"**/src/**/index.ts": "${dirname}/${filename}.${extname}"
+	},
+	"workbench.editor.editorActionsLocation": "hidden",
+	"workbench.editor.showTabs": "single",
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.startupEditor": "none",
+	"yaml.schemaStore.enable": false,
+	"update.releaseTrack": "prerelease",
+	"editor.unicodeHighlight.ambiguousCharacters": false,
+	"[dockerfile]": {
+		"editor.defaultFormatter": "ms-azuretools.vscode-docker"
+	}
+}

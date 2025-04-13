@@ -1,0 +1,10 @@
+#!/bin/sh
+
+choice=$(gum choose --header="What do you want to edit?" "Smallweb" "Specific app")
+
+if [ "$choice" = "Smallweb" ]; then
+   cursor ${HOME}/smallweb
+else
+   result=$(smallweb app list | cut -f1,2 | column -t | fzf | awk '{print $2}' | xargs) # Trim whitespace
+   cursor "${result/#\~/$HOME}"
+fi

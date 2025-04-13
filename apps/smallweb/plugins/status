@@ -1,0 +1,3 @@
+#!/bin/sh
+
+smallweb service status | grep -q '"PID"' && echo "Smallweb is running" || echo "Smallweb is not running"

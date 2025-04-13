@@ -1,0 +1,75 @@
+{
+	"CreationDate": 594432916.709967,
+	"UID": "DC36C5FA-C103-46BA-9DCB-2CBD37575A87",
+	"Name": "lines | array ",
+	"Triggers": [
+		{
+			"MacroTriggerType": "StatusMenu"
+		}
+	],
+	"ModificationDate": 758144767.874505,
+	"Actions": [
+		{
+			"MacroActionType": "CutCopyPaste",
+			"IsDisclosed": false,
+			"TimeOutAbortsMacro": true,
+			"Action": "Copy",
+			"ActionUID": 15828225
+		},
+		{
+			"MacroActionType": "SearchReplace",
+			"Search": "(?m)^(?![\"'])(.*)(?<![\"'])$",
+			"Action": "IgnoreCaseRegEx",
+			"IsDisclosed": false,
+			"ActionColor": "Yellow",
+			"ActionUID": 15828226,
+			"Source": "Clipboard",
+			"StopOnFailure": true,
+			"Replace": "\"$1\"",
+			"Which": "All"
+		},
+		{
+			"MacroActionType": "SearchReplace",
+			"Search": "(?m)\\n",
+			"Action": "IgnoreCaseRegEx",
+			"IsDisclosed": false,
+			"ActionColor": "Yellow",
+			"ActionUID": 15828227,
+			"Source": "Clipboard",
+			"StopOnFailure": true,
+			"Replace": ", ",
+			"Which": "All"
+		},
+		{
+			"MacroActionType": "SearchReplace",
+			"Search": "(.*)",
+			"Action": "IgnoreCaseRegEx",
+			"IsDisclosed": false,
+			"ActionColor": "Yellow",
+			"ActionUID": 15828228,
+			"Source": "Clipboard",
+			"StopOnFailure": true,
+			"Replace": "[$1]",
+			"Which": "All"
+		},
+		{
+			"MacroActionType": "CutCopyPaste",
+			"IsDisclosed": false,
+			"TimeOutAbortsMacro": true,
+			"Action": "Paste",
+			"ActionUID": 15828229
+		},
+		{
+			"MacroActionType": "DeletePastClipboard",
+			"IsDisclosed": false,
+			"PastExpression": "0",
+			"ActionUID": 15828230
+		},
+		{
+			"MacroActionType": "DeletePastClipboard",
+			"IsDisclosed": false,
+			"PastExpression": "0",
+			"ActionUID": 15828231
+		}
+	]
+}

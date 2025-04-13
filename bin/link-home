@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+# Exit on error
+set -e
+
+# Check if required environment variables are set
+if [ -z "$DOTFILES" ]; then
+   echo "Error: DOTFILES environment variable is not set."
+   exit 1
+fi
+
+# Define which directories contain home dotfiles
+homedots=(jq curl zshenv)
+
+# Link dotfiles from each defined directory to home
+for dot in $homedots; do
+   if [ -d "$DOTFILES/$dot" ]; then
+      for file in "$DOTFILES/$dot/."*; do
+         # Skip . and .. directories
+         [[ "$(basename "$file")" == "." || "$(basename "$file")" == ".." ]] && continue
+
+         # Skip if the file doesn't exist (handles case when no hidden files)
+         [[ ! -e "$file" ]] && continue
+
+         # Skip .DS_Store and .git
+         [[ "$(basename "$file")" == ".DS_Store" || "$(basename "$file")" == ".git" ]] && continue
+
+         # Create the symlink
+         ln -s -f -v "$file" "$HOME/$(basename "$file")"
+      done
+   fi
+done
