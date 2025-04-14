@@ -131,3 +131,7 @@ run       = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
 run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.docker.docker'
+run       = 'layout floating'
