@@ -189,5 +189,6 @@
    "workbench.editor.showTabs": "single",
    "workbench.iconTheme": "material-icon-theme",
    "workbench.startupEditor": "none",
-   "yaml.schemaStore.enable": false
+   "yaml.schemaStore.enable": false,
+   "redhat.telemetry.enabled": true
 }

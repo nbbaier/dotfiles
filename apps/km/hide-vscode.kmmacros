@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<array>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>742061544.51089704</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>ActionUID</key>
-						<integer>13817399</integer>
-						<key>Application</key>
-						<dict>
-							<key>BundleIdentifier</key>
-							<string>com.microsoft.VSCode</string>
-							<key>Name</key>
-							<string>Visual Studio Code</string>
-							<key>NewFile</key>
-							<string>/Applications/Visual Studio Code.app</string>
-						</dict>
-						<key>MacroActionType</key>
-						<string>HideSpecificApp</string>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>742061456.13619006</real>
-				<key>ModificationDate</key>
-				<real>742061583.44750595</real>
-				<key>Name</key>
-				<string>hide vscode</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>4</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>256</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>563C98CF-2F76-4AD3-AC5D-DC26516CDC66</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>vscode</string>
-		<key>Targeting</key>
+	<array>
 		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
+			<key>Activate</key>
+			<string>Normal</string>
+			<key>CreationDate</key>
+			<real>742061544.51089704</real>
+			<key>Macros</key>
 			<array>
 				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.microsoft.VSCode</string>
+					<key>Actions</key>
+					<array>
+						<dict>
+							<key>ActionUID</key>
+							<integer>13817399</integer>
+							<key>Application</key>
+							<dict>
+								<key>BundleIdentifier</key>
+								<string>com.microsoft.VSCode</string>
+								<key>Name</key>
+								<string>Visual Studio Code</string>
+								<key>NewFile</key>
+								<string>/Applications/Visual Studio Code.app</string>
+							</dict>
+							<key>MacroActionType</key>
+							<string>HideSpecificApp</string>
+						</dict>
+					</array>
+					<key>CreationDate</key>
+					<real>742061456.13619006</real>
+					<key>ModificationDate</key>
+					<real>742061583.44750595</real>
 					<key>Name</key>
-					<string>Visual Studio Code</string>
-					<key>NewFile</key>
-					<string>/Applications/Visual Studio Code.app</string>
+					<string>hide vscode</string>
+					<key>Triggers</key>
+					<array>
+						<dict>
+							<key>FireType</key>
+							<string>Pressed</string>
+							<key>KeyCode</key>
+							<integer>4</integer>
+							<key>MacroTriggerType</key>
+							<string>HotKey</string>
+							<key>Modifiers</key>
+							<integer>256</integer>
+						</dict>
+					</array>
+					<key>UID</key>
+					<string>563C98CF-2F76-4AD3-AC5D-DC26516CDC66</string>
 				</dict>
 			</array>
+			<key>Name</key>
+			<string>vscode</string>
+			<key>Targeting</key>
+			<dict>
+				<key>Targeting</key>
+				<string>Included</string>
+				<key>TargetingApps</key>
+				<array>
+					<dict>
+						<key>BundleIdentifier</key>
+						<string>com.microsoft.VSCode</string>
+						<key>Name</key>
+						<string>Visual Studio Code</string>
+						<key>NewFile</key>
+						<string>/Applications/Visual Studio Code.app</string>
+					</dict>
+				</array>
+			</dict>
+			<key>ToggleMacroUID</key>
+			<string>A12FE79F-2034-447F-A2B2-D8A914316273</string>
+			<key>UID</key>
+			<string>FE11F19B-38C3-42D6-A3E2-CCC5B744F11C</string>
 		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A12FE79F-2034-447F-A2B2-D8A914316273</string>
-		<key>UID</key>
-		<string>FE11F19B-38C3-42D6-A3E2-CCC5B744F11C</string>
-	</dict>
-</array>
+	</array>
 </plist>
