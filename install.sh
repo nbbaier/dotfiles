@@ -18,6 +18,7 @@ CURSORFILE="$PKG_DIR/cursorfile"
 BUNFILE="$PKG_DIR/bunfile"
 NPMFILE="$PKG_DIR/npmfile"
 RUSTFILE="$PKG_DIR/rustfile"
+UVFILE="$PKG_DIR/uvfile"
 
 info() {
    printf "\r\033[01;32m[ i ]\033[0m $1\n"
@@ -147,6 +148,42 @@ step
 
 info "installing is cursor extensions"
 install_extensions cursor $CURSORFILE
+step
+
+info "installing npm packages"
+while IFS= read -r package || [ -n "$package" ]; do
+   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
+      work "installing $package"
+      npm install -g "$package"
+   fi
+done <"$NPMFILE"
+step
+
+info "installing rust packages"
+while IFS= read -r package || [ -n "$package" ]; do
+   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
+      work "installing $package"
+      cargo install "$package"
+   fi
+done <"$RUSTFILE"
+step
+
+info "installing uv packages"
+while IFS= read -r package || [ -n "$package" ]; do
+   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
+      work "installing $package"
+      uv tool install "$package"
+   fi
+done <"$UVFILE"
+step
+
+info "installing bun packages"
+while IFS= read -r package || [ -n "$package" ]; do
+   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
+      work "installing $package"
+      bun install -g "$package"
+   fi
+done <"$BUNFILE"
 step
 
 info "linking config"
