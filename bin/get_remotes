@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Script to print remote URLs for all git repositories in a directory
+
+# Check if a directory was provided as an argument
+if [ $# -eq 1 ]; then
+    search_dir="$1"
+else
+    search_dir="$(pwd)"
+    echo "No directory specified, using current directory: $search_dir"
+fi
+
+echo "Searching for Git repositories in: $search_dir"
+echo "----------------------------------------"
+
+# Find all .git directories and process each one
+find "$search_dir" -type d -name ".git" | while read -r git_dir; do
+    # Get the parent directory which is the actual repository
+    repo_dir=$(dirname "$git_dir")
+
+    echo "Repository: $(basename "$repo_dir")"
+    echo "Path: $repo_dir"
+
+    # Change to the repository directory
+    cd "$repo_dir" || continue
+
+    # Get all remotes and their URLs
+    git remote -v | grep "(fetch)" | awk '{print "Remote: " $1 "\tURL: " $2}'
+
+    echo "----------------------------------------"
+done
+
+echo "Search complete."
