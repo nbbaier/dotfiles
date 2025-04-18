@@ -1,15 +1,13 @@
-dolphin-mcp
+aider-chat
 exponent-run
 files-to-prompt
 justpath
 litecli
-llm
-marker-pdf
 mcp-proxy
 mcp-scan
-pyupgrade
 rsstail
 ruff
 shot-scraper
+sidekick-cli
 sqlite-utils
 strip-tags

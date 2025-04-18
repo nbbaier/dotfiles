@@ -80,6 +80,12 @@ alias bsoffa='brew services stop --all'
 alias bson='brew services start'
 alias bsona='brew services start --all'
 alias bubu="brew update && brew outdated && brew upgrade && brew cleanup --prune=all"
+alias bsync="brew bundle install --cleanup --file $DOTFILES/packages/brewfile-master"
+
+br() {
+   local package=$1
+   $DOTFILES/bin/brew_remove.py $package "$DOTFILES/packages/brewfile-master"
+}
 
 #==============================================================================
 # Git Operations
@@ -134,7 +140,7 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
-function h() {
+h() {
    local cmd=$( ([ -n "$ZSH_NAME" ] && fc -ld 1 || history) | fzf --tac | sed 's/ *[0-9]* *[0-9][0-9]:[0-9][0-9] *//')
    if [ -n "$cmd" ]; then
       print -s "$cmd"
@@ -142,8 +148,8 @@ function h() {
    fi
 }
 
-function hcp() {
-   ([ -n "$ZSH_NAME" ] && fc -ld 1 || history) | fzf --tac | sed 's/ *[0-9]* *[0-9][0-9]:[0-9][0-9] *//' | pbcopy
+hcp() {
+   ([ -n "$ZSH_NAME" ] && fc -ld 1 || history) | fzf --tac | sed 's/ *[0-9]* *[0-9][0-9]:[0-9][0-9] *//' | tr -d '\n' | pbcopy
 }
 
 #==============================================================================
@@ -154,13 +160,6 @@ alias uvtl="uv tool list"
 alias uvti="uv tool install"
 alias uvtu="uv tool uninstall"
 alias uvp="uv python"
-
-pyclean() {
-   find "${@:-.}" -type f -name "*.py[co]" -delete
-   find "${@:-.}" -type d -name "__pycache__" -delete
-   find "${@:-.}" -depth -type d -name ".mypy_cache" -exec rm -r "{}" +
-   find "${@:-.}" -depth -type d -name ".pytest_cache" -exec rm -r "{}" +
-}
 
 # VSCode
 cr() {
@@ -182,11 +181,11 @@ alias oco="NODE_OPTIONS='--no-deprecation' opencommit"
 alias sqlu="sqlite-utils"
 alias tg="topgrade"
 
-function mkcd takedir() {
+takedir() {
    mkdir -p $@ && cd ${@:$#}
 }
 
-function takeurl() {
+takeurl() {
    local data thedir
    data="$(mktemp)"
    curl -L "$1" >"$data"
@@ -196,7 +195,7 @@ function takeurl() {
    cd "$thedir"
 }
 
-function takezip() {
+takezip() {
    local data thedir
    data="$(mktemp)"
    curl -L "$1" >"$data"
@@ -206,12 +205,12 @@ function takezip() {
    cd "$thedir"
 }
 
-function takegit() {
+takegit() {
    git clone "$1"
    cd "$(basename ${1%%.git})"
 }
 
-function take() {
+take() {
    if [[ $1 =~ ^(https?|ftp).*\.(tar\.(gz|bz2|xz)|tgz)$ ]]; then
       takeurl "$1"
    elif [[ $1 =~ ^(https?|ftp).*\.(zip)$ ]]; then

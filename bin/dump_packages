@@ -16,24 +16,24 @@ RUSTFILE="$PKG_DIR/rustfile"
 UVFILE="$PKG_DIR/uvfile"
 CURSORFILE="$PKG_DIR/cursorfile"
 
-function list_go_bin() {
-    go version -m "${GOBIN:-$HOME/go/bin}" |
-        grep -E '\spath\t|\smod\t' |
-        awk '
-    $1 == "path" {
-        current_path = $2
-    }
+# function list_go_bin() {
+#     go version -m "${GOBIN:-$HOME/go/bin}" |
+#         grep -E '\spath\t|\smod\t' |
+#         awk '
+#     $1 == "path" {
+#         current_path = $2
+#     }
 
-    $1 == "mod" {
-        # Extract module info and version
-        base_mod = $2
-        version = $3
+#     $1 == "mod" {
+#         # Extract module info and version
+#         base_mod = $2
+#         version = $3
 
-        # Output in format: binary@version
-        print current_path "@" version
-    }
-'
-}
+#         # Output in format: binary@version
+#         print current_path "@" version
+#     }
+# '
+# }
 
 function generate_file() {
     local tool="$1"    # Tool name
