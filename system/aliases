@@ -163,14 +163,12 @@ alias uvp="uv python"
 
 # VSCode
 cr() {
-   code -r ${1:-.}
+   cursor -r ${1:-.}
 }
 
-alias crv="cr"
-
-# Cursor
-crc() {
-   cursor -r ${1:-.}
+# VSCode
+cv() {
+   code -r ${1:-.}
 }
 
 #==============================================================================

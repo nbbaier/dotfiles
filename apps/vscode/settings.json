@@ -132,12 +132,6 @@
    "git.blame.editorDecoration.enabled": false,
    "git.confirmSync": false,
    "git.openRepositoryInParentFolders": "never",
-   "github.copilot.enable": {
-      "*": false,
-      "markdown": false,
-      "plaintext": false,
-      "scminput": false
-   },
    "go.toolsManagement.autoUpdate": true,
    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
    "javascript.inlayHints.parameterNames.enabled": "all",
@@ -372,5 +366,12 @@
    "workbench.editorAssociations": {
       "*.copilotmd": "vscode.markdown.preview.editor",
       "*.pdf": "latex-workshop-pdf-hook"
+   },
+   "github.copilot.enable": {
+      "*": true,
+      "plaintext": false,
+      "markdown": false,
+      "scminput": false,
+      "python": false
    }
 }

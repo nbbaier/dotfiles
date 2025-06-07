@@ -46,3 +46,4 @@ keybind = super+backspace=esc:d
 # update
 auto-update = download
 auto-update-channel = stable
+keybind = shift+enter=text:\n

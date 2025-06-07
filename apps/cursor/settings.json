@@ -81,7 +81,6 @@
    "editor.stickyScroll.enabled": false,
    "editor.suggest.insertMode": "replace",
    "editor.tabCompletion": "on",
-   "editor.tabSize": 3,
    "editor.tokenColorCustomizations": {
       "textMateRules": [
          {
@@ -327,5 +326,8 @@
       "titleBar.inactiveBackground": "#1c2128",
       "titleBar.inactiveForeground": "#768390",
       "tree.indentGuidesStroke": "#373e47"
-   }
+   },
+   "amp.url": "https://ampcode.com/",
+   "editor.tabSize": 3,
+   "errorLens.enabledDiagnosticLevels": ["warning", "info"]
 }
