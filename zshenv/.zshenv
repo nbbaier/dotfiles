@@ -67,3 +67,6 @@ export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/sqlite/include"
 # === smallweb === #
 export SMALLWEB_DIR="$HOME/smallweb/localhost"
 export PATH="/Users/nbbaier/.cache/.bun/bin:$PATH"
+
+# === opencode === #
+export PATH=/Users/nbbaier/.opencode/bin:$PATH
