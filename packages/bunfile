@@ -1,13 +1,9 @@
-@anthropic-ai/claude-code
-@arethetypeswrong/cli
-install
 json-schema-to-zod
 jsonresume-theme-even
+mastra
 opencommit
 playwright
 puppeteer
 resume-cli
 resumed
-shell-ask
-socket
 wrangler

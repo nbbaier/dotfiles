@@ -1,13 +1,12 @@
-aider-chat
 exponent-run
 files-to-prompt
+gradio
+jupyterlab
 justpath
 litecli
-mcp-proxy
+llm
 mcp-scan
-rsstail
 ruff
 shot-scraper
-sidekick-cli
 sqlite-utils
 strip-tags
