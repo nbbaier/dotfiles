@@ -144,3 +144,5 @@ _.slo
 \*.sls
 config/micro/backups/*
 .zcompdump*
+
+**/.claude/settings.local.json

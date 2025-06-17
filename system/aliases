@@ -179,6 +179,23 @@ alias oco="NODE_OPTIONS='--no-deprecation' opencommit"
 alias sqlu="sqlite-utils"
 alias tg="topgrade"
 
+alias vtc="vt clone"
+alias vtco="vt checkout"    # alias gco='git checkout'
+alias vtcb="vt checkout -b" # alias gcb='git checkout -b'
+alias vtvc="vt create"      # alias ghrc='gh repo create'
+alias vts="vt status"       # alias gst='git status --short' (not exact I guess)
+alias vtp="vt push"         # alias gp='git push'
+alias vtl="vt pull"         # alias gl='git pull'
+alias vtb="vt browse"       # alias ghb='gh browse'
+alias vtbl="vt branch"
+
+# vtvc() {
+#    vt create $1
+#    cd $(basename $1)
+#    echo "console.log('Hello, world!');" >main.tsx
+#    vt push
+# }
+
 takedir() {
    mkdir -p $@ && cd ${@:$#}
 }
