@@ -83,5 +83,3 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 [ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
 
 . "$HOME/.limbo/env"
-
-. "$HOME/.local/share/../bin/env"
