@@ -1,17 +1,11 @@
 [misc]
-no_retry = true
-cleanup = true
-assume_yes = true
-disable = [
-   "containers",
-   "tlmgr",
-   "ruby_gems",
-   "git_repos",
-   "pnpm",
-   "yarn",
-   "node",
-   "gem",
-]
+no_retry       = true
+cleanup        = true
+assume_yes     = true
+no_self_update = false
 
 [brew]
 autoremove = true
+
+[git]
+pull_predefined = false
