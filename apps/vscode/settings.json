@@ -373,5 +373,13 @@
     "markdown": false,
     "scminput": false,
     "python": false
+  },
+  "mcp": {
+    "servers": {
+      "github-remote": {
+        "type": "http",
+        "url": "https://api.githubcopilot.com/mcp/"
+      }
+    }
   }
 }
