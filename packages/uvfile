@@ -1,4 +1,3 @@
-docling
 exponent-run
 files-to-prompt
 gradio
@@ -6,10 +5,8 @@ jupyterlab
 justpath
 litecli
 llm
-marker-pdf
-llm
 mcp-scan
-pyupgrade
+modal
 ruff
 shot-scraper
 sqlite-utils

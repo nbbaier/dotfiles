@@ -14,6 +14,7 @@ formulahendry.auto-rename-tag
 foxundermoon.shell-format
 github.copilot
 github.copilot-chat
+github.github-vscode-theme
 github.vscode-github-actions
 golang.go
 heybourn.headwind
@@ -32,11 +33,6 @@ ms-python.isort
 ms-python.mypy-type-checker
 ms-python.python
 ms-python.vscode-pylance
-ms-toolsai.jupyter
-ms-toolsai.jupyter-keymap
-ms-toolsai.jupyter-renderers
-ms-toolsai.vscode-jupyter-cell-tags
-ms-toolsai.vscode-jupyter-slideshow
 ms-vscode.live-server
 ms-vscode.makefile-tools
 mxsdev.typescript-explorer
@@ -54,6 +50,7 @@ sharat.vscode-brewfile
 shardulm94.trailing-spaces
 sheltonlouis.astro-snippets
 sidneys1.gitconfig
+sourcegraph.amp
 steoates.autoimport
 stivo.tailwind-fold
 svelte.svelte-vscode
@@ -61,5 +58,4 @@ tamasfe.even-better-toml
 unifiedjs.vscode-mdx
 vivaxy.vscode-conventional-commits
 yoavbls.pretty-ts-errors
-yy0931.gitconfig-lsp
 yzhang.markdown-all-in-one

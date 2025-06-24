@@ -1,9 +1,6 @@
 @anthropic-ai/claude-code
-@sourcegraph/amp
 @philschmid/clipper
-@wong2/mcp-cli
+@sourcegraph/amp
 corepack
 npm
-pm2
 safe-rm
-yarn
