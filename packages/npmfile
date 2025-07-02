@@ -1,6 +1,5 @@
-@anthropic-ai/claude-code
-@philschmid/clipper
 @sourcegraph/amp
 corepack
 npm
 safe-rm
+task-master-ai

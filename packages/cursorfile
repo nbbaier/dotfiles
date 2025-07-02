@@ -7,11 +7,9 @@ christian-kohler.path-intellisense
 dbaeumer.vscode-eslint
 denoland.vscode-deno
 donjayamanne.python-environment-manager
-earshinov.permute-lines
 esbenp.prettier-vscode
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
-foxundermoon.shell-format
 github.vscode-github-actions
 golang.go
 heybourn.headwind
@@ -25,8 +23,6 @@ kotfu.bunch
 logerfo.json-trimmer
 mechatroner.rainbow-csv
 meganrogge.template-string-converter
-ms-azuretools.vscode-containers
-ms-azuretools.vscode-docker
 ms-python.debugpy
 ms-python.isort
 ms-python.mypy-type-checker
@@ -38,7 +34,6 @@ ms-vscode.makefile-tools
 mxsdev.typescript-explorer
 pandy.bun
 pkief.material-icon-theme
-prisma.prisma
 qwtel.sqlite-viewer
 raillyhugo.one-hunter
 redhat.vscode-xml
@@ -49,11 +44,11 @@ shardulm94.trailing-spaces
 sheltonlouis.astro-snippets
 sidneys1.gitconfig
 sourcegraph.amp
+stagewise.stagewise-vscode-extension
 steoates.autoimport
 stivo.tailwind-fold
 svelte.svelte-vscode
 tamasfe.even-better-toml
 unifiedjs.vscode-mdx
-vivaxy.vscode-conventional-commits
 yoavbls.pretty-ts-errors
 yzhang.markdown-all-in-one
