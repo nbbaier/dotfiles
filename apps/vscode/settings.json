@@ -55,7 +55,9 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"auto-close-tag.activationOnLanguage": ["mdx"],
+	"auto-close-tag.activationOnLanguage": [
+		"mdx"
+	],
 	"breadcrumbs.enabled": true,
 	"codesnap.containerPadding": "1em",
 	"codesnap.showWindowControls": false,
@@ -136,15 +138,21 @@
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"json.schemas": [
 		{
-			"fileMatch": ["**/shell-ask/config.json"],
+			"fileMatch": [
+				"**/shell-ask/config.json"
+			],
 			"url": "/opt/homebrew/lib/node_modules/shell-ask/schema.json"
 		},
 		{
-			"fileMatch": ["smallweb.json"],
+			"fileMatch": [
+				"smallweb.json"
+			],
 			"url": "https://schemas.smallweb.run/manifest"
 		},
 		{
-			"fileMatch": [".smallweb/config.json"],
+			"fileMatch": [
+				".smallweb/config.json"
+			],
 			"url": "https://schemas.smallweb.run/config"
 		}
 	],
@@ -377,7 +385,10 @@
 			},
 			"context7": {
 				"command": "npx",
-				"args": ["-y", "@upstash/context7-mcp@latest"]
+				"args": [
+					"-y",
+					"@upstash/context7-mcp@latest"
+				]
 			},
 			"linear": {
 				"url": "https://mcp.linear.app/sse"
@@ -388,7 +399,13 @@
 	"amp.mcpServers": {
 		"playwright": {
 			"command": "npx",
-			"args": ["-y", "@playwright/mcp@latest", "--headless", "--isolated"]
+			"args": [
+				"-y",
+				"@playwright/mcp@latest",
+				"--headless",
+				"--isolated"
+			]
 		}
-	}
+	},
+	"github.copilot.nextEditSuggestions.enabled": true
 }
