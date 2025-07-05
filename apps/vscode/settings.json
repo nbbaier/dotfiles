@@ -396,16 +396,10 @@
 		}
 	},
 	"amp.url": "https://ampcode.com/",
-	"amp.mcpServers": {
-		"playwright": {
-			"command": "npx",
-			"args": [
-				"-y",
-				"@playwright/mcp@latest",
-				"--headless",
-				"--isolated"
-			]
-		}
-	},
-	"github.copilot.nextEditSuggestions.enabled": true
+	"amp.mcpServers": {},
+	"github.copilot.nextEditSuggestions.enabled": true,
+	"amp.commands.allowlist": [
+		"git",
+		"npx"
+	]
 }
