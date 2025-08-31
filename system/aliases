@@ -125,7 +125,8 @@ alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--"
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip--"'
 
 # Multiple git status
-alias mgit="mgitstatus $@ 2>/dev/null"
+alias mgit="mgitstatus --no-upstream $@ 2>/dev/null"
+alias mgitu="mgitstatus $@ 2>/dev/null"
 
 #==============================================================================
 # Shell Utilities
@@ -159,7 +160,7 @@ hcp() {
 alias uvtl="uv tool list"
 alias uvti="uv tool install"
 alias uvtu="uv tool uninstall"
-alias uvp="uv python"
+alias python="uvx python"
 
 # VSCode
 cr() {

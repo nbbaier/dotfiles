@@ -21,6 +21,8 @@ _uvx() {
 '*--with-requirements=[Run with all packages listed in the given \`requirements.txt\` files]:WITH_REQUIREMENTS:_default' \
 '*-c+[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
 '*--constraints=[Constrain versions using the given requirements files]:CONSTRAINTS:_default' \
+'*-b+[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
+'*--build-constraints=[Constrain build dependencies using the given requirements files when building source distributions]:BUILD_CONSTRAINTS:_default' \
 '*--overrides=[Override versions using the given requirements files]:OVERRIDES:_default' \
 '*--env-file=[Load environment variables from a \`.env\` file]:ENV_FILE:_files' \
 '*--index=[The URLs to use when resolving dependencies, in addition to the default index]:INDEX:_default' \
@@ -98,6 +100,8 @@ never\:"Disables colored output"))' \
 '(--offline)--refresh[Refresh all cached data]' \
 '(--offline)--no-refresh[]' \
 '--show-resolution[Whether to show resolver and installer output from any environment modifications]' \
+'-V[Display the uvx version]' \
+'--version[Display the uvx version]' \
 '-n[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
 '--no-cache[Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation]' \
 '(--python-preference)--managed-python[Require use of uv-managed Python versions]' \
@@ -121,8 +125,6 @@ never\:"Disables colored output"))' \
 '--no-config[Avoid discovering configuration files (\`pyproject.toml\`, \`uv.toml\`)]' \
 '-h[Display the concise help for this command]' \
 '--help[Display the concise help for this command]' \
-'-V[Display the uv version]' \
-'--version[Display the uv version]' \
 && ret=0
 }
 

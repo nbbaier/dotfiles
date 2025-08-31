@@ -5,14 +5,13 @@ fpath=($DOTFILES/bin $fpath)
 
 autoload -Uz if_source
 
-setopt AUTO_CD           # Go to folder path without using cd.
-setopt AUTO_PUSHD        # Push the old directory onto the stack on cd.
-setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
-setopt PUSHD_SILENT      # Do not print the directory stack after pushd or popd.
-setopt CORRECT           # Spelling correction
-setopt CDABLE_VARS       # Change directory to a path stored in a variable.
-setopt EXTENDED_GLOB     # Use extended globbing syntax.
-
+setopt AUTO_CD                # Go to folder path without using cd.
+setopt AUTO_PUSHD             # Push the old directory onto the stack on cd.
+setopt PUSHD_IGNORE_DUPS      # Do not store duplicates in the stack.
+setopt PUSHD_SILENT           # Do not print the directory stack after pushd or popd.
+setopt CORRECT                # Spelling correction
+setopt CDABLE_VARS            # Change directory to a path stored in a variable.
+setopt EXTENDED_GLOB          # Use extended globbing syntax.
 setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY          # Share history between all sessions.
@@ -30,6 +29,7 @@ export LS_COLORS='di=1;34:ln=35:so=32:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=
 
 bindkey -e
 autoload -U compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
 autoload -U colors && colors
 zstyle ":completion:*" menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -46,7 +46,7 @@ bindkey "^[[B" down-line-or-beginning-search
 source $DOTFILES/system/aliases
 source $DOTFILES/system/prompt/prompt_custom_setup
 
-if_source $HOME/.localrc
+[ -s $HOME/.localrc ] && source $HOME/.localrc
 
 plugins=(
    zsh-syntax-highlighting
@@ -60,6 +60,11 @@ for plugin in $plugins; do
    source $DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh
 done
 
+if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
+
+export ZSH_GIT_AI_STYLE="conventional"
+
+
 autopair-init
 
 function set_name() {
@@ -68,9 +73,9 @@ function set_name() {
 
 precmd_functions+=(set_name)
 
-if_source $CARGO_HOME/env
-if_source $HOME/.deno/env
-if_source $HOME/.bun/_bun
+[ -s $HOME/.cargo/env ] && source $HOME/.cargo/env # Rust environment
+[ -s $HOME/.deno/env ] && source $HOME/.deno/env   # Deno environment
+[ -s $HOME/.bun/_bun ] && source $HOME/.bun/_bun   # Bun completions
 
 timezsh() {
    shell=${1-$SHELL}
@@ -81,3 +86,6 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 # bun completions
 [ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
+
+. "$HOME/.turso/env"
+eval "$(~/.local/try.rb init $TRY_PATH)"

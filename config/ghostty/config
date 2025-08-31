@@ -24,7 +24,7 @@ window-theme = dark
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
-unfocused-split-opacity = 0.5
+unfocused-split-opacity = 1.0
 macos-titlebar-style = tabs
 window-decoration = true
 

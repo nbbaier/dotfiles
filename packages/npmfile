@@ -1,5 +1,8 @@
+@anthropic-ai/claude-code
+@google/gemini-cli
 @sourcegraph/amp
 corepack
+mcp-chrome-bridge
 npm
 safe-rm
 task-master-ai

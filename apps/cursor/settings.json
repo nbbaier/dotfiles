@@ -68,10 +68,10 @@
 		"source.fixAll.biome": "explicit",
 		"source.organizeImports.biome": "explicit"
 	},
+	"editor.fontFamily": "Intel One Mono, Cascadia Code, FiraCode Nerd Font, Monaco",
 	"editor.detectIndentation": false,
-	"editor.fontFamily": "Intel One Mono, Cascadia Code, FiraCode Nerd Font, Monaco, monospace",
 	"editor.fontLigatures": true,
-	"editor.fontSize": 14.5,
+	"editor.fontSize": 14,
 	"editor.formatOnSave": true,
 	"editor.gotoLocation.multipleDeclarations": "goto",
 	"editor.gotoLocation.multipleDefinitions": "goto",
@@ -449,5 +449,14 @@
 	"amp.mcpServers": {},
 	"amp.commands.allowlist": [
 		"npm"
+	],
+	"amp.permissions": [
+		{
+			"tool": "Bash",
+			"matches": {
+				"cmd": "npm"
+			},
+			"action": "allow"
+		}
 	]
 }

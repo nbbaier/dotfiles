@@ -11,6 +11,7 @@ UVDIR=$(uv python dir)
 
 # Create symlinks for pythonX.Y to uv-managed Pythons
 for ITEM in "${UVDIR}"/*; do
+
     BASEITEM=$(basename "${ITEM}")
 
     FULLVERSION=$(echo "${BASEITEM}" | cut -d'-' -f 2)

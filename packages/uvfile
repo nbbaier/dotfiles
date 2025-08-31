@@ -1,12 +1,14 @@
-exponent-run
+basic-memory
 files-to-prompt
+gitingest
 gradio
+huggingface-hub
 jupyterlab
 justpath
 litecli
 llm
 mcp-scan
-modal
+rendergit
 ruff
 shot-scraper
 sqlite-utils

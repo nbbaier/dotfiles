@@ -11,6 +11,7 @@ earshinov.permute-lines
 esbenp.prettier-vscode
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
+forrest-knight.forest-night-theme
 foxundermoon.shell-format
 github.copilot
 github.copilot-chat
@@ -24,7 +25,9 @@ james-yu.latex-workshop
 janisdd.vscode-edit-csv
 jeff-hykin.better-shellscript-syntax
 jq-syntax-highlighting.jq-syntax-highlighting
+kdl-org.kdl
 kotfu.bunch
+llvm-vs-code-extensions.lldb-dap
 logerfo.json-trimmer
 mechatroner.rainbow-csv
 meganrogge.template-string-converter
@@ -33,6 +36,7 @@ ms-python.isort
 ms-python.mypy-type-checker
 ms-python.python
 ms-python.vscode-pylance
+ms-python.vscode-python-envs
 ms-vscode.live-server
 ms-vscode.makefile-tools
 mxsdev.typescript-explorer
@@ -50,9 +54,11 @@ shardulm94.trailing-spaces
 sheltonlouis.astro-snippets
 sidneys1.gitconfig
 sourcegraph.amp
+sst-dev.opencode
 steoates.autoimport
 stivo.tailwind-fold
 svelte.svelte-vscode
+swiftlang.swift-vscode
 tamasfe.even-better-toml
 unifiedjs.vscode-mdx
 vivaxy.vscode-conventional-commits
