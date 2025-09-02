@@ -60,9 +60,11 @@ for plugin in $plugins; do
    source $DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh
 done
 
+export ZSH_GIT_AI_PROVIDER="openai"
+export ZSH_GIT_AI_STYLE="conventional"
+
 if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
 
-export ZSH_GIT_AI_STYLE="conventional"
 
 
 autopair-init
@@ -88,4 +90,5 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 [ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
 
 . "$HOME/.turso/env"
+
 eval "$(~/.local/try.rb init $TRY_PATH)"

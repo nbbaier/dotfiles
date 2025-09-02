@@ -61,7 +61,6 @@
 	],
 	"amp.experimental.connections": true,
 	"amp.terminal.commands.environment": "node-spawn",
-	"amp.mcpServers": {},
 	"amp.tab.enabled": true,
 	"amp.url": "https://ampcode.com/",
 	"auto-close-tag.activationOnLanguage": [

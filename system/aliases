@@ -176,7 +176,6 @@ cv() {
 # Application Specific
 #==============================================================================
 alias sw="smallweb"
-alias oco="NODE_OPTIONS='--no-deprecation' opencommit"
 alias sqlu="sqlite-utils"
 alias tg="topgrade"
 
@@ -239,4 +238,20 @@ pyscript() {
 ask() {
    local prompt="$*"
    llm -m claude-3.7-sonnet "Query: ${prompt}. Be concise"
+}
+
+
+tokens(){
+   local text="$*"
+
+   if [[ -z "$text" ]]; then
+      if [[ ! -t 0 ]]; then
+         text=$(cat)
+      else
+         echo -n "Enter text: "
+         read -r text
+      fi
+   fi
+
+   uv run $HOME/.local/bin/cli-tokenizer-counter.py "${text}"
 }
