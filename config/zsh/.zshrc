@@ -65,8 +65,6 @@ export ZSH_GIT_AI_STYLE="conventional"
 
 if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
 
-
-
 autopair-init
 
 function set_name() {

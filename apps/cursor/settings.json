@@ -19,7 +19,7 @@
       "editor.defaultFormatter": "biomejs.biome"
    },
    "[jsonc]": {
-      "editor.defaultFormatter": "vscode.json-language-features"
+      "editor.defaultFormatter": "biomejs.biome"
    },
    "[markdown]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -458,5 +458,7 @@
          },
          "action": "allow"
       }
-   ]
+   ],
+   "cursor.composer.usageSummaryDisplay": "always",
+   "biome.lsp.trace.server": "verbose"
 }

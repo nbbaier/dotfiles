@@ -398,5 +398,6 @@
 			},
 			"action": "allow"
 		}
-	]
+	],
+	"biome.lsp.trace.server": "verbose"
 }

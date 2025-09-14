@@ -189,6 +189,13 @@ alias vtl="vt pull"         # alias gl='git pull'
 alias vtb="vt browse"       # alias ghb='gh browse'
 alias vtbl="vt branch"
 
+#  gvtp="gaa && gcm "vt push" && vtp
+
+gvtp() {
+   local text="$*"
+   git add . && git commit --message "${text:-vt push}" && vt pushp
+}
+
 takedir() {
    mkdir -p $@ && cd ${@:$#}
 }
