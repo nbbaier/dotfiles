@@ -51,13 +51,6 @@ export PATH="$HOME/.bun/bin:$PATH"
 # === deno === #
 export PATH="$HOME/.deno/bin:$PATH"
 
-# # === go === #
-# export GOPATH="$XDG_DATA_HOME/go"
-# export GOBIN="$XDG_DATA_HOME/go/bin"
-# export GOROOT="$XDG_DATA_HOME/.go"
-# export GOCACHE="$XDG_CACHE_HOME/go-build"
-# export PATH=$GOROOT/bin:$GOBIN:$PATH
-
 # === python === #
 export PYTHON_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/python_history"
 export IPYTHONDIR=${XDG_CONFIG_HOME:-$HOME/.config}/ipython
@@ -77,10 +70,10 @@ export PSQL_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/psql_history"
 
 # === smallweb === #
 export SMALLWEB_DIR="$HOME/smallweb/localhost"
-export PATH="/Users/nbbaier/.cache/.bun/bin:$PATH"
+export PATH="$HOME/.cache/.bun/bin:$PATH"
 
 # === opencode === #
-export PATH=/Users/nbbaier/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # === try === #
 export TRY_PATH=~/code/experiments

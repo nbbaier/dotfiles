@@ -12,7 +12,6 @@ export APPSUPPORT_DIR="$HOME/Library/Application Support"
 
 GOFILE="$PKG_DIR/gofile"
 BREWFILE="$PKG_DIR/brewfile"
-CASKFILE="$PKG_DIR/caskfile"
 CODEFILE="$PKG_DIR/codefile"
 CURSORFILE="$PKG_DIR/cursorfile"
 BUNFILE="$PKG_DIR/bunfile"
@@ -39,6 +38,42 @@ step() {
 
 work() {
    printf "\r\033[01;33m[ w ]\033[0m $1\n"
+}
+
+# Function to install packages from a file using a given command
+install_packages() {
+   local command="$1"
+   local package_file="$2"
+   local package_name="$3"
+
+   if [ ! -f "$package_file" ]; then
+      warn "$package_name file not found: $package_file"
+      return
+   fi
+
+   info "installing $package_name packages"
+   while IFS= read -r package || [ -n "$package" ]; do
+      if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
+         work "installing $package"
+         $command "$package"
+      fi
+   done <"$package_file"
+   step
+}
+
+# Function to check and install a tool if not present
+check_and_install_tool() {
+   local tool_name="$1"
+   local install_command="$2"
+   local install_message="$3"
+
+   if is_installed "$tool_name"; then
+      info "$tool_name is installed"
+   else
+      work "$install_message"
+      eval "$install_command"
+   fi
+   step
 }
 
 # Keep sudo alive throughout the script execution
@@ -79,67 +114,21 @@ else
 fi
 step
 
-if is_installed "$HOMEBREW_PREFIX/bin/git"; then
-   info "git is installed"
-else
-   work "installing git"
-   brew install git git-extras
-fi
-step
-
-if is_installed cargo; then
-   info "rust is installed"
-else
-   work "installing rust"
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-fi
-step
-
-if is_installed node; then
-   info "node is installed"
-else
-   work "installing node"
-   brew install node
-fi
-step
-
+check_and_install_tool "$HOMEBREW_PREFIX/bin/git" "brew install git git-extras" "installing git"
+check_and_install_tool "cargo" "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh" "installing rust"
+check_and_install_tool "node" "brew install node" "installing node"
 if is_installed go; then
    info "go is installed"
 else
    warn "you'll need to install go manually"
 fi
 step
+check_and_install_tool "uv" "curl -LsSf https://astral.sh/uv/install.sh | sh" "installing uv"
+check_and_install_tool "bun" "curl -fsSL https://bun.sh/install | bash" "installing bun"
+check_and_install_tool "deno" "curl -fsSL https://deno.land/install.sh | sh" "installing deno"
 
-if is_installed uv; then
-   info "uv is installed"
-else
-   work "installing uv"
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-fi
-step
-
-if is_installed bun; then
-   info "bun is installed"
-else
-   work "installing bun"
-   curl -fsSL https://bun.sh/install | bash
-fi
-step
-
-if is_installed deno; then
-   info "deno is installed"
-else
-   work "installing deno"
-   curl -fsSL https://deno.land/install.sh | sh
-fi
-step
-
-info "installing is brew formula"
+info "installing brew packages and casks"
 brew bundle --file=$BREWFILE
-step
-
-info "installing is brew casks"
-brew bundle --file=$CASKFILE
 step
 
 info "installing is vscode extensions"
@@ -150,52 +139,21 @@ info "installing is cursor extensions"
 install_extensions cursor $CURSORFILE
 step
 
-info "installing npm packages"
-while IFS= read -r package || [ -n "$package" ]; do
-   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
-      work "installing $package"
-      npm install -g "$package"
-   fi
-done <"$NPMFILE"
-step
-
-info "installing rust packages"
-while IFS= read -r package || [ -n "$package" ]; do
-   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
-      work "installing $package"
-      cargo install "$package"
-   fi
-done <"$RUSTFILE"
-step
-
-info "installing uv packages"
-while IFS= read -r package || [ -n "$package" ]; do
-   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
-      work "installing $package"
-      uv tool install "$package"
-   fi
-done <"$UVFILE"
-step
-
-info "installing bun packages"
-while IFS= read -r package || [ -n "$package" ]; do
-   if [[ -n "${package// /}" && ! "$package" =~ ^# ]]; then
-      work "installing $package"
-      bun install -g "$package"
-   fi
-done <"$BUNFILE"
-step
+install_packages "npm install -g" "$NPMFILE" "npm"
+install_packages "cargo install" "$RUSTFILE" "rust"
+install_packages "uv tool install" "$UVFILE" "uv"
+install_packages "bun install -g" "$BUNFILE" "bun"
 
 info "linking config"
-source "$DOTFILES/bin/link-config"
+source "$DOTFILES/bin/link_config"
 step
 
 info "linking home"
-source "$DOTFILES/bin/link-home"
+source "$DOTFILES/bin/link_home"
 step
 
 info "linking IDE configs"
-source "$DOTFILES/bin/link-ides"
+source "$DOTFILES/bin/link_ides"
 step
 
 info "setting macos defaults"

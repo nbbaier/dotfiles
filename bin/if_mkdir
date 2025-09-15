@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-[ ! -d "$1" ] && (echo "creating $1" && mkdir -p "$1") || echo "$1 exists"
