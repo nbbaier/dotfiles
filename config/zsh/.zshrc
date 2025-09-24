@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/Users/nbbaier/.config/zsh/completions:"* ]]; then export FPATH="/Users/nbbaier/.config/zsh/completions:$FPATH"; fi
 fpath=($DOTFILES/system/plugins/zsh-completions/src $fpath)
 fpath=($DOTFILES/system/prompt $fpath)
 fpath=($DOTFILES/system/completions $fpath)

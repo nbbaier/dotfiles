@@ -9,6 +9,7 @@
 	"[html]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
+	"[shellscript]": {},
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
@@ -444,5 +445,6 @@
 		}
 	],
 	"cursor.composer.usageSummaryDisplay": "always",
-	"biome.lsp.trace.server": "verbose"
+	"biome.lsp.trace.server": "verbose",
+	"shellformat.path": "/opt/homebrew/bin/shfmt"
 }

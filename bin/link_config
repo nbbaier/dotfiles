@@ -3,6 +3,28 @@
 # Exit on error
 set -e
 
+# Parse command line arguments
+DRY_RUN=false
+while [[ $# -gt 0 ]]; do
+   case $1 in
+      --dry-run)
+         DRY_RUN=true
+         shift
+         ;;
+      -h|--help)
+         echo "Usage: $0 [--dry-run]"
+         echo "  --dry-run    Show what would be done without making changes"
+         echo "  -h, --help   Show this help message"
+         exit 0
+         ;;
+      *)
+         echo "Unknown option: $1"
+         echo "Use --help for usage information"
+         exit 1
+         ;;
+   esac
+done
+
 # Check if required environment variables are set
 if [ -z "$DOTFILES" ]; then
    echo "Error: DOTFILES environment variable is not set."
@@ -18,6 +40,12 @@ fi
 if [ ! -d "$DOTFILES/config" ]; then
    echo "Error: $DOTFILES/config directory does not exist."
    exit 1
+fi
+
+# Show dry run message if enabled
+if [ "$DRY_RUN" = true ]; then
+   echo "DRY RUN MODE: The following operations would be performed:"
+   echo "================================================"
 fi
 
 # Create function to handle symlinking recursively
@@ -49,14 +77,22 @@ link_config_files() {
 
       if [ -d "$item" ]; then
          # It's a directory - create the corresponding directory in target
-         # echo "Creating directory: $target_path"
-         mkdir -p "$target_path"
+         if [ "$DRY_RUN" = true ]; then
+            echo "[DRY RUN] Would create directory: $target_path"
+         else
+            # echo "Creating directory: $target_path"
+            mkdir -p "$target_path"
+         fi
 
          # Recurse into the directory
          link_config_files "$item" "$target_path" "$item_rel_path"
       else
          # It's a file - create a symlink
-         ln -s -v -f "$item" "$target_path"
+         if [ "$DRY_RUN" = true ]; then
+            echo "[DRY RUN] Would create symlink: $target_path -> $item"
+         else
+            ln -s -v -f "$item" "$target_path"
+         fi
       fi
    done
 

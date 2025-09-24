@@ -1,4 +1,8 @@
-opencommit
+@openai/codex
+@tessl/cli
+@typescript/native-preview
+heyagent
+massimo-cli
 oxlint
 playwright
 puppeteer

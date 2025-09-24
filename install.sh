@@ -132,11 +132,11 @@ brew bundle --file=$BREWFILE
 step
 
 info "installing is vscode extensions"
-install_extensions code $CODEFILE
+install_extensions "code --install-extension" $CODEFILE
 step
 
 info "installing is cursor extensions"
-install_extensions cursor $CURSORFILE
+install_extensions "code --install-extension" $CURSORFILE
 step
 
 install_packages "npm install -g" "$NPMFILE" "npm"

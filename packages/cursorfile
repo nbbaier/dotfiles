@@ -7,6 +7,7 @@ christian-kohler.path-intellisense
 dbaeumer.vscode-eslint
 denoland.vscode-deno
 donjayamanne.python-environment-manager
+editorconfig.editorconfig
 esbenp.prettier-vscode
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
@@ -24,6 +25,7 @@ kotfu.bunch
 logerfo.json-trimmer
 mechatroner.rainbow-csv
 meganrogge.template-string-converter
+mkhl.shfmt
 ms-python.debugpy
 ms-python.isort
 ms-python.python
@@ -49,7 +51,6 @@ sheltonlouis.astro-snippets
 sidneys1.gitconfig
 sourcegraph.amp
 sst-dev.opencode
-stagewise.stagewise-vscode-extension
 steoates.autoimport
 svelte.svelte-vscode
 tamasfe.even-better-toml

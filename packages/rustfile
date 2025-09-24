@@ -1,8 +1,11 @@
 cargo-cache
 cargo-update
 each
+hai-cli
 htmlq
 rink
 rustormy
 semtools
 sleek
+toml2json
+uv-migrator

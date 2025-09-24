@@ -1,4 +1,5 @@
 basic-memory
+claude-monitor
 files-to-prompt
 gitingest
 gradio
@@ -7,9 +8,10 @@ jupyterlab
 justpath
 litecli
 llm
+markdown-plan
 mcp-scan
-rendergit
 ruff
 shot-scraper
 sqlite-utils
 strip-tags
+twtxt
