@@ -37,6 +37,7 @@ quick-terminal-position = center
 copy-on-select = false
 clipboard-read = allow
 clipboard-write = allow
+working-directory = home
 
 # keybinds
 keybind = global:super+grave_accent=toggle_quick_terminal

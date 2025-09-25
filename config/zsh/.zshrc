@@ -75,9 +75,9 @@ function set_name() {
 
 precmd_functions+=(set_name)
 
-if_source $HOME/.cargo/env      # Rust environment
-if_source $HOME/.deno/env       # Deno environment
-if_source $HOME/.bun/_bun       # Bun completions
+if_source $HOME/.cargo/env # Rust environment
+if_source $HOME/.deno/env  # Deno environment
+if_source $HOME/.bun/_bun  # Bun completions
 
 timezsh() {
    shell=${1-$SHELL}
@@ -86,7 +86,9 @@ timezsh() {
 
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
-
 if_source $HOME/.turso/env
 
 eval "$(~/.local/try.rb init $TRY_PATH)"
+
+# bun completions
+[ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
