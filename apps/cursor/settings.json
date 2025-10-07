@@ -7,7 +7,7 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[html]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "vscode.html-language-features"
 	},
 	"[shellscript]": {},
 	"[javascript]": {
@@ -443,8 +443,21 @@
 			},
 			"action": "allow"
 		}
-	],
-	"cursor.composer.usageSummaryDisplay": "always",
+   ],
 	"biome.lsp.trace.server": "verbose",
-	"shellformat.path": "/opt/homebrew/bin/shfmt"
+   "shellformat.path": "/opt/homebrew/bin/shfmt",
+   "[dockercompose]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.autoIndent": "advanced",
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+   },
+   "[github-actions-workflow]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+   },
+   "cursor.agent_layout_browser_beta_setting": true,
+   "cursor.composer.usageSummaryDisplay": "always",
+   "[tailwindcss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   }
 }

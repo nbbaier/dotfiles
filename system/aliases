@@ -193,7 +193,7 @@ alias vtbl="vt branch"
 
 gvtp() {
    local text="$*"
-   git add . && git commit --message "${text:-vt push}" && vt pushp
+   git add . && git commit --message "${text:-vt push}" && vt push
 }
 
 takedir() {

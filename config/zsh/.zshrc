@@ -92,3 +92,4 @@ eval "$(~/.local/try.rb init $TRY_PATH)"
 
 # bun completions
 [ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
+
