@@ -4,10 +4,10 @@
 
 # Check if a directory was provided as an argument
 if [ $# -eq 1 ]; then
-    search_dir="$1"
+   search_dir="$1"
 else
-    search_dir="$(pwd)"
-    echo "No directory specified, using current directory: $search_dir"
+   search_dir="$(pwd)"
+   echo "No directory specified, using current directory: $search_dir"
 fi
 
 echo "Searching for Git repositories in: $search_dir"
@@ -15,19 +15,15 @@ echo "----------------------------------------"
 
 # Find all .git directories and process each one
 find "$search_dir" -type d -name ".git" | while read -r git_dir; do
-    # Get the parent directory which is the actual repository
-    repo_dir=$(dirname "$git_dir")
+   # Get the parent directory which is the actual repository
+   repo_dir=$(dirname "$git_dir")
+   repo_name=$(basename "$repo_dir")
 
-    echo "Repository: $(basename "$repo_dir")"
-    echo "Path: $repo_dir"
+   # Change to the repository directory
+   cd "$repo_dir" || continue
 
-    # Change to the repository directory
-    cd "$repo_dir" || continue
-
-    # Get all remotes and their URLs
-    git remote -v | grep "(fetch)" | awk '{print "Remote: " $1 "\tURL: " $2}'
-
-    echo "----------------------------------------"
+   # Get all remotes and their URLs, print each on a single line
+   git remote -v | grep "(fetch)" | awk -v repo="$repo_name" '{print repo " <> " $1 " <> " $2}'
 done
 
 echo "Search complete."
