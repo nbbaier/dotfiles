@@ -1,0 +1,8 @@
+[*.zsh]
+ignore = true
+
+[.zshrc]
+ignore = true
+
+[.zshenv]
+ignore = true

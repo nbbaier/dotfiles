@@ -3,6 +3,8 @@
 		"**/settings.json": "${dirname} settings"
 	},
 	"files.associations": {
-		"aliases": "shellscript"
+		"aliases": "shellscript",
+		".zshrc": "shellscript",
+		".zshenv": "shellscript"
 	}
 }

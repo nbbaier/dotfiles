@@ -57,3 +57,7 @@
 [mergetool "vscode"]
    cmd = code --wait $MERGED
    trustExitCode = true
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true

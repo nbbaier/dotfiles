@@ -1,5 +1,6 @@
 {
 	"$schema": "vscode://schemas/settings/user",
+
 	"[astro]": {
 		"editor.defaultFormatter": "astro-build.astro-vscode"
 	},
@@ -7,7 +8,7 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[html]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "vscode.html-language-features"
 	},
 	"[shellscript]": {},
 	"[javascript]": {
@@ -443,21 +444,25 @@
 			},
 			"action": "allow"
 		}
-   ],
+	],
 	"biome.lsp.trace.server": "verbose",
-   "shellformat.path": "/opt/homebrew/bin/shfmt",
-   "[dockercompose]": {
-      "editor.insertSpaces": true,
-      "editor.tabSize": 2,
-      "editor.autoIndent": "advanced",
-      "editor.defaultFormatter": "redhat.vscode-yaml"
-   },
-   "[github-actions-workflow]": {
-      "editor.defaultFormatter": "redhat.vscode-yaml"
-   },
-   "cursor.agent_layout_browser_beta_setting": true,
-   "cursor.composer.usageSummaryDisplay": "always",
-   "[tailwindcss]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-   }
+	"shellformat.path": "/opt/homebrew/bin/shfmt",
+	"[dockercompose]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2,
+		"editor.autoIndent": "advanced",
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"[github-actions-workflow]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"cursor.agent_layout_browser_beta_setting": true,
+	"cursor.composer.usageSummaryDisplay": "always",
+	"[tailwindcss]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"json.schemaDownload.enable": true,
+	"workbench.editor.enablePreview": false,
+	"shfmt.formatIgnored": false,
+	"claudeCode.preferredLocation": "panel"
 }

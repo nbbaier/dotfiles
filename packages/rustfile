@@ -1,11 +1,12 @@
 cargo-cache
 cargo-update
 each
+git-graph
 hai-cli
 htmlq
+kanastra-palette-rs
 rink
 rustormy
-semtools
 sleek
 toml2json
 uv-migrator

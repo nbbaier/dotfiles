@@ -18,6 +18,7 @@ export HISTSIZE=200000
 export SAVEHIST=$HISTSIZE
 export HISTCONTROL=ignoreboth
 export HISTORY_IGNORE="(l|la|ll|ln|ls|lsa|lsg|lsng|pwd|exit)"
+export HISTTIMEFORMAT="%F %T "xxxx
 
 # === less === #
 export LESSHISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/lesshst"
@@ -81,4 +82,3 @@ export TRY_PATH=~/code/experiments
 # === aws === #
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-

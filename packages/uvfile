@@ -1,4 +1,5 @@
 basic-memory
+cased-kit
 claude-monitor
 files-to-prompt
 gitingest
@@ -7,6 +8,7 @@ huggingface-hub
 jupyterlab
 justpath
 litecli
+llamactl
 llm
 markdown-plan
 mcp-scan
@@ -14,4 +16,3 @@ ruff
 shot-scraper
 sqlite-utils
 strip-tags
-twtxt

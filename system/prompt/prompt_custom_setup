@@ -29,7 +29,7 @@ prompt_custom_setup() {
    export VIRTUAL_ENV_DISABLE_PROMPT=1
 
    NEWLINE=$'\n'
-   PROMPT='${NEWLINE}%F{#808080}%*%f$(venv_prompt_status) %F{cyan}%~%f%F{green}${vcs_info_msg_0_}$(git_prompt_status)%f $ '
+   PROMPT='${NEWLINE}%F{#808080}%*%f$(venv_prompt_status) %F{cyan}%~%f%F{green}${vcs_info_msg_0_}$(git_prompt_status)%f λ '
 }
 
 prompt_custom_setup $@
