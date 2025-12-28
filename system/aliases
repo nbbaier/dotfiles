@@ -27,11 +27,11 @@ done
 
 unset index
 
-alias icloud=cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
-alias gdrive=cd "$(readlink "$HOME/Google Drive")/My\ Drive"
-alias dotfiles=cd "$HOME/.dotfiles"
-alias config=cd "$HOME/.config"
-alias cdsw=cd "$SMALLWEB_DIR"
+alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
+alias gdrive="cd $(readlink $HOME/Google Drive)/My\ Drive"
+alias dotfiles="cd $HOME/.dotfiles"
+alias config="cd $HOME/.config"
+alias cdsw="cd $SMALLWEB_DIR"
 
 #==============================================================================
 # File Operations
@@ -44,7 +44,7 @@ alias rmdir="safe-rm -rf"
 alias ln='ln -i'
 alias sym="ln-"
 alias disk="df -P -kHl"
-alias md="mkdir -p"
+alias mkd="mkdir -p"
 
 # Directory Listing (using eza)
 alias l='eza -lah --show-symlinks'
@@ -107,6 +107,7 @@ alias gb='git branch'
 alias gba='git branch --all'
 alias gbd='git branch --delete'
 alias gco='git checkout'
+alias gcom='git checkout main'
 alias gcb='git checkout -b'
 
 # Commit Operations

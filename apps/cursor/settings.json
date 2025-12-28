@@ -10,7 +10,9 @@
 	"[html]": {
 		"editor.defaultFormatter": "vscode.html-language-features"
 	},
-	"[shellscript]": {},
+	"[shellscript]": {
+		"editor.defaultFormatter": "mkhl.shfmt"
+	},
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},

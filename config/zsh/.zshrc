@@ -89,3 +89,11 @@ timezsh() {
 if_source $HOME/.turso/env
 
 eval "$(~/.local/try.rb init $TRY_PATH)"
+
+. "$HOME/.local/share/../bin/env"
+
+# bun completions
+[ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
+
+# Added by tally installer
+export PATH="$HOME/.tally/bin:$PATH"

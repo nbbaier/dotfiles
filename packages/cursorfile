@@ -8,6 +8,7 @@ charliermarsh.ruff
 christian-kohler.path-intellisense
 dbaeumer.vscode-eslint
 denoland.vscode-deno
+digitalbrainstem.javascript-ejs-support
 donjayamanne.python-environment-manager
 editorconfig.editorconfig
 esbenp.prettier-vscode
