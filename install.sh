@@ -24,20 +24,26 @@ stow --dir="$DOTFILES" --target="$HOME" .
 if [[ "$(uname)" == "Darwin" ]]; then
     APPSUPPORT_DIR="$HOME/Library/Application Support"
     
-    info "Linking IDE configs"
-    mkdir -p "$APPSUPPORT_DIR/Code/User/snippets"
-    mkdir -p "$APPSUPPORT_DIR/Cursor/User"
-    
-    # Link VSCode settings and snippets
-    ln -sf "$DOTFILES/apps/vscode/settings.json" "$APPSUPPORT_DIR/Code/User/settings.json"
-    for snippet_file in "$DOTFILES/apps/vscode/snippets"/*; do
-        if [ -f "$snippet_file" ]; then
-            ln -sf "$snippet_file" "$APPSUPPORT_DIR/Code/User/snippets/$(basename "$snippet_file")"
+    if [[ -d "$DOTFILES/apps/vscode" || -d "$DOTFILES/apps/cursor" ]]; then
+        info "Linking IDE configs"
+        
+        # VSCode
+        if [[ -d "$DOTFILES/apps/vscode" ]]; then
+            mkdir -p "$APPSUPPORT_DIR/Code/User/snippets"
+            ln -sf "$DOTFILES/apps/vscode/settings.json" "$APPSUPPORT_DIR/Code/User/settings.json"
+            for snippet_file in "$DOTFILES/apps/vscode/snippets"/*; do
+                if [ -f "$snippet_file" ]; then
+                    ln -sf "$snippet_file" "$APPSUPPORT_DIR/Code/User/snippets/$(basename "$snippet_file")"
+                fi
+            done
         fi
-    done
-    
-    # Link Cursor settings
-    ln -sf "$DOTFILES/apps/cursor/settings.json" "$APPSUPPORT_DIR/Cursor/User/settings.json"
+        
+        # Cursor
+        if [[ -d "$DOTFILES/apps/cursor" ]]; then
+            mkdir -p "$APPSUPPORT_DIR/Cursor/User"
+            ln -sf "$DOTFILES/apps/cursor/settings.json" "$APPSUPPORT_DIR/Cursor/User/settings.json"
+        fi
+    fi
 fi
 
 # macOS defaults
@@ -50,6 +56,7 @@ fi
 
 # Clone espanso config
 if [[ "$(uname)" == "Darwin" ]]; then
+    APPSUPPORT_DIR="$HOME/Library/Application Support"
     if [ ! -d "$APPSUPPORT_DIR/espanso" ]; then
         info "Cloning espanso config"
         git clone https://github.com/nbbaier/espanso-config "$APPSUPPORT_DIR/espanso"
