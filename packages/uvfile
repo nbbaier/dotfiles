@@ -14,12 +14,11 @@ jupyterlab
 litecli
 llamactl
 llm
-markdown-plan
+mcp-execution
 mcp-scan
 md2term
 pgcli
 ruff
 shot-scraper
-sqlit-tui
 sqlite-utils
 strip-tags

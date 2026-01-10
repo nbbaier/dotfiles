@@ -4,14 +4,17 @@ cfurl
 dotstate
 each
 git-graph
+git-semantic
 hai-cli
 htmlq
 kanastra-palette-rs
+md-fixup
 rink
 rmrfrs
 rustormy
 sleek
 swab
 toml2json
+tylax
 uv-migrator
 worktrunk

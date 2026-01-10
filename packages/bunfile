@@ -1,9 +1,7 @@
 @assistant-ui/xpm
-@google/gemini-cli
 @google/jules
 @hono/cli
 @nbbaier/rudolph
-@openai/codex
 @pbnjs/cli
 @randomlabs/slatecli
 @sourcegraph/amp
@@ -12,6 +10,7 @@
 @typescript/native-preview
 btca
 inngest-cli
+into-md
 mdflow
 ocmt
 opencode-swarm-plugin
@@ -22,6 +21,7 @@ puppeteer
 q-cli
 task-master-ai
 tsdown
+turso-introspect
 uipro-cli
 vercel
 vibe-rules
