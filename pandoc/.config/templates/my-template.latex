@@ -1,0 +1,21 @@
+\documentclass[10pt]{article}
+
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage[margin=.75in,includehead,includefoot]{geometry}
+
+\def\tightlist{}
+
+%% FANCY HEADER %%
+\pagestyle{fancy}
+\fancyhf[]{}
+\fancyhead[L]{$title$}
+\fancyhead[R]{$author$ $$\cdot$$ \today}
+\fancyfoot[c]{\thepage}
+
+\begin{document}
+\pagestyle{fancy}
+
+$body$
+
+\end{document}

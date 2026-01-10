@@ -1,0 +1,281 @@
+#!/usr/bin/env bash
+# Dotfiles orchestrator - thin wrapper for GNU Stow-based dotfiles management
+
+set -euo pipefail
+
+# === Configuration === #
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+OS="$(uname -s)"
+
+# Color output helpers
+info() {
+   printf "\r\033[01;32m[ i ]\033[0m %s\n" "$1"
+}
+
+warn() {
+   printf "\r\033[01;31m[ w ]\033[0m %s\n" "$1"
+}
+
+error() {
+   printf "\r\033[01;31m[ ERROR ]\033[0m %s\n" "$1"
+   exit 1
+}
+
+work() {
+   printf "\r\033[01;33m[ w ]\033[0m %s\n" "$1"
+}
+
+step() {
+   printf "\n"
+}
+
+# === Stow Package Definitions === #
+# Core packages that should always be stowed
+CORE_PACKAGES=(
+   "zsh"
+   "git"
+   "jq"
+   "curl"
+)
+
+# Optional packages
+OPTIONAL_PACKAGES=(
+   "bat"
+   "gh"
+   "karabiner"
+   "aerospace"
+   "fastfetch"
+   "ghostty"
+   "litecli"
+   "micro"
+   "pandoc"
+   "twtxtr"
+   "topgrade"
+   "system"
+)
+
+# All packages
+ALL_PACKAGES=("${CORE_PACKAGES[@]}" "${OPTIONAL_PACKAGES[@]}")
+
+# === Helper Functions === #
+
+# Check if a command exists
+command_exists() {
+   command -v "$1" >/dev/null 2>&1
+}
+
+# Install Stow if not present
+ensure_stow() {
+   if command_exists stow; then
+      info "GNU Stow is already installed"
+      return 0
+   fi
+
+   work "Installing GNU Stow..."
+   case "$OS" in
+   Darwin)
+      if command_exists brew; then
+         brew install stow
+      else
+         error "Homebrew not found. Please install Homebrew first."
+      fi
+      ;;
+   Linux)
+      if command_exists apt-get; then
+         sudo apt-get update
+         sudo apt-get install -y stow
+      elif command_exists dnf; then
+         sudo dnf install -y stow
+      elif command_exists pacman; then
+         sudo pacman -S --noconfirm stow
+      else
+         error "Unsupported package manager. Please install stow manually."
+      fi
+      ;;
+   *)
+      error "Unsupported operating system: $OS"
+      ;;
+   esac
+   
+   if command_exists stow; then
+      info "GNU Stow installed successfully"
+   else
+      error "Failed to install GNU Stow"
+   fi
+}
+
+# Stow packages
+stow_packages() {
+   local packages=("$@")
+   
+   if [ ${#packages[@]} -eq 0 ]; then
+      packages=("${ALL_PACKAGES[@]}")
+   fi
+
+   info "Stowing packages: ${packages[*]}"
+   step
+
+   for package in "${packages[@]}"; do
+      if [ ! -d "$DOTFILES/$package" ]; then
+         warn "Package directory not found: $package (skipping)"
+         continue
+      fi
+
+      work "Stowing $package..."
+      if stow --dir="$DOTFILES" --target="$HOME" --restow "$package" 2>&1; then
+         info "$package stowed successfully"
+      else
+         warn "Failed to stow $package (may already be linked or have conflicts)"
+      fi
+   done
+   step
+}
+
+# Unstow packages
+unstow_packages() {
+   local packages=("$@")
+   
+   if [ ${#packages[@]} -eq 0 ]; then
+      packages=("${ALL_PACKAGES[@]}")
+   fi
+
+   info "Unstowing packages: ${packages[*]}"
+   step
+
+   for package in "${packages[@]}"; do
+      if [ ! -d "$DOTFILES/$package" ]; then
+         warn "Package directory not found: $package (skipping)"
+         continue
+      fi
+
+      work "Unstowing $package..."
+      if stow --dir="$DOTFILES" --target="$HOME" --delete "$package" 2>&1; then
+         info "$package unstowed successfully"
+      else
+         warn "Failed to unstow $package"
+      fi
+   done
+   step
+}
+
+# Link dotfiles using stow
+cmd_link() {
+   ensure_stow
+   stow_packages "$@"
+   info "Dotfiles linked successfully!"
+}
+
+# Unlink dotfiles using stow
+cmd_unlink() {
+   ensure_stow
+   unstow_packages "$@"
+   info "Dotfiles unlinked successfully!"
+}
+
+# Reinstall/restow packages
+cmd_restow() {
+   ensure_stow
+   stow_packages "$@"
+   info "Dotfiles restowed successfully!"
+}
+
+# List available packages
+cmd_list() {
+   echo "Available Stow packages:"
+   echo ""
+   echo "Core packages (always installed):"
+   for pkg in "${CORE_PACKAGES[@]}"; do
+      if [ -d "$DOTFILES/$pkg" ]; then
+         echo "  ✓ $pkg"
+      else
+         echo "  ✗ $pkg (missing)"
+      fi
+   done
+   echo ""
+   echo "Optional packages:"
+   for pkg in "${OPTIONAL_PACKAGES[@]}"; do
+      if [ -d "$DOTFILES/$pkg" ]; then
+         echo "  ✓ $pkg"
+      else
+         echo "  ✗ $pkg (missing)"
+      fi
+   done
+}
+
+# Full install (dependencies + linking)
+cmd_install() {
+   info "Running full dotfiles installation..."
+   step
+   
+   # Run the dependency installer
+   if [ -f "$DOTFILES/install-deps.sh" ]; then
+      bash "$DOTFILES/install-deps.sh"
+   else
+      warn "install-deps.sh not found, skipping dependency installation"
+   fi
+   
+   step
+   info "Installing dotfiles symlinks..."
+   cmd_link "$@"
+}
+
+# Show usage
+cmd_help() {
+   cat <<EOF
+Dotfiles Manager - GNU Stow-based dotfiles orchestrator
+
+USAGE:
+   dotfiles <command> [packages...]
+
+COMMANDS:
+   link [packages...]      Link dotfiles using GNU Stow (default: all packages)
+   unlink [packages...]    Unlink dotfiles using GNU Stow (default: all packages)
+   restow [packages...]    Restow packages (re-link, useful after updates)
+   list                    List available packages
+   install [packages...]   Full installation: dependencies + linking
+   help                    Show this help message
+
+EXAMPLES:
+   dotfiles link           # Link all packages
+   dotfiles link zsh git   # Link only zsh and git packages
+   dotfiles unlink bat     # Unlink bat package
+   dotfiles list           # Show available packages
+   dotfiles install        # Full install with dependencies
+
+PACKAGES:
+   Core: ${CORE_PACKAGES[*]}
+   Optional: ${OPTIONAL_PACKAGES[*]}
+
+For more information, see the README.
+EOF
+}
+
+# === Main === #
+
+# Parse command
+COMMAND="${1:-help}"
+shift || true
+
+case "$COMMAND" in
+link)
+   cmd_link "$@"
+   ;;
+unlink)
+   cmd_unlink "$@"
+   ;;
+restow)
+   cmd_restow "$@"
+   ;;
+list)
+   cmd_list
+   ;;
+install)
+   cmd_install "$@"
+   ;;
+help | --help | -h)
+   cmd_help
+   ;;
+*)
+   error "Unknown command: $COMMAND (use 'dotfiles help' for usage)"
+   ;;
+esac
