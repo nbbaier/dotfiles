@@ -6,3 +6,9 @@
 .zcompdump
 .zsh_sessions
 todo.md
+
+# OS files
+.DS_Store
+
+# Dependencies
+node_modules/
