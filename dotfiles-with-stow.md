@@ -1,38 +1,49 @@
-# Dotfiles with GNU Stow
+# Dotfiles with GNU Stow (Flat Layout)
 
-Stow is dead simple: it symlinks directory contents to a target (default: parent directory). Your dotfiles structure already maps well to this.
+Stow symlinks directory contents to a target. The simplest approach: keep your dotfiles exactly as they appear in `~`, then stow the entire repo with one command.
 
 ## Directory Structure
 
 ```
 ~/.dotfiles/
-├── zsh/
-│   └── .zshrc
-│   └── .zshenv
-├── git/
-│   └── .gitconfig
-│   └── .gitignore_global
-├── nvim/
-│   └── .config/
-│       └── nvim/
-│           └── init.lua
-├── starship/
-│   └── .config/
-│       └── starship.toml
-├── ghostty/
-│   └── .config/
-│       └── ghostty/
-│           └── config
-├── packages/
-│   ├── Brewfile
-│   ├── npmfile
-│   └── ...
-├── macos/
-│   └── defaults.sh
-└── install.sh
+├── .config/
+│   ├── ghostty/
+│   │   └── config
+│   ├── nvim/
+│   │   └── init.lua
+│   └── starship.toml
+├── .gitconfig
+├── .gitignore_global
+├── .zshrc
+├── .zshenv
+├── .tmux.conf
+├── .vimrc
+│
+├── Brewfile              # stow ignores by default
+├── install.sh            # stow ignores by default
+├── README.md             # stow ignores by default
+└── macos/                # add to .stow-local-ignore
+    └── defaults.sh
 ```
 
-**Key insight**: The directory structure inside each "package" mirrors where it goes in `~`. So `zsh/.zshrc` becomes `~/.zshrc`, and `nvim/.config/nvim/init.lua` becomes `~/.config/nvim/init.lua`.
+**Key insight**: The repo mirrors your home directory exactly. Files already have their `.` prefix. The `.config/` folder structure matches what goes in `~/.config/`.
+
+## One Command to Link Everything
+
+```bash
+stow --dir="$HOME/.dotfiles" --target="$HOME" .
+```
+
+That's it. The `.` means "stow this entire directory as one package."
+
+Stow automatically ignores common files like `README.*`, `LICENSE`, `Makefile`, and `install.sh`. For other files you want in the repo but not symlinked (like your `macos/` folder), add them to `.stow-local-ignore`:
+
+```
+# .stow-local-ignore
+macos
+Brewfile
+packages
+```
 
 ## Simplified install.sh
 
@@ -43,30 +54,20 @@ set -eu
 DOTFILES="$HOME/.dotfiles"
 
 info() { printf "\033[32m[✓]\033[0m %s\n" "$1"; }
-warn() { printf "\033[33m[!]\033[0m %s\n" "$1"; }
 
 # Install homebrew if missing
 if ! command -v brew &>/dev/null; then
+    info "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install everything from Brewfile (including stow)
+# Install packages (including stow)
 info "Installing packages from Brewfile"
-brew bundle --file="$DOTFILES/packages/Brewfile"
+brew bundle --file="$DOTFILES/Brewfile"
 
-# Stow all config packages
-info "Linking dotfiles with stow"
-cd "$DOTFILES"
-
-# List packages to stow (everything except meta directories)
-PACKAGES=(zsh git nvim starship ghostty)
-
-for pkg in "${PACKAGES[@]}"; do
-    if [[ -d "$pkg" ]]; then
-        stow -v --target="$HOME" "$pkg"
-        info "Stowed $pkg"
-    fi
-done
+# Link all dotfiles with one command
+info "Linking dotfiles"
+stow --dir="$DOTFILES" --target="$HOME" .
 
 # macOS defaults
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -77,14 +78,15 @@ fi
 info "Done! Some changes may require a restart."
 ```
 
+~30 lines vs your current ~150.
+
 ## Consolidated Brewfile
 
-Put everything in one place—Homebrew can handle it all:
+Keep it in the repo root. Homebrew can manage everything:
 
 ```ruby
-# packages/Brewfile
+# Brewfile
 
-# Taps
 tap "homebrew/bundle"
 
 # Core tools
@@ -106,8 +108,6 @@ brew "zoxide"
 brew "fzf"
 brew "jq"
 brew "gh"
-
-# Rust tools (if you prefer brew over cargo)
 brew "starship"
 brew "delta"
 
@@ -120,28 +120,67 @@ cask "cursor"
 cask "arc"
 cask "espanso"
 
-# Mac App Store (requires `mas` brew)
+# Mac App Store
 brew "mas"
 mas "Things 3", id: 904280696
+```
+
+## Migration from Your Current Setup
+
+```bash
+# 1. Flatten your structure
+cd ~/.dotfiles
+
+# Move dotfiles to root (adjust paths to match your setup)
+mv zshenv/.zshenv .
+mv zsh/.zshrc .
+mv git/.gitconfig .
+
+# Move .config contents
+mkdir -p .config
+mv nvim/.config/nvim .config/
+mv starship/.config/starship.toml .config/
+mv ghostty/.config/ghostty .config/
+
+# 2. Create .stow-local-ignore
+cat > .stow-local-ignore << 'EOF'
+macos
+packages
+bin
+EOF
+
+# 3. Remove old package directories
+rm -rf zsh zshenv git nvim starship ghostty
+
+# 4. Test with dry run
+stow -n -v --dir="$HOME/.dotfiles" --target="$HOME" .
+
+# 5. Actually link
+stow --dir="$HOME/.dotfiles" --target="$HOME" .
 ```
 
 ## Stow Commands
 
 ```bash
-# Link a package
-stow zsh                    # Links ~/.dotfiles/zsh/* → ~/
+# Link everything
+stow --dir="$HOME/.dotfiles" --target="$HOME" .
 
-# Unlink a package
-stow -D zsh                 # Removes symlinks
+# Unlink everything  
+stow -D --dir="$HOME/.dotfiles" --target="$HOME" .
 
-# Re-link (useful after changes)
-stow -R zsh                 # Unlinks then links
+# Re-link (after adding new files)
+stow -R --dir="$HOME/.dotfiles" --target="$HOME" .
 
-# Dry run (see what would happen)
-stow -n -v zsh
+# Dry run
+stow -n -v --dir="$HOME/.dotfiles" --target="$HOME" .
 
-# Adopt existing files (pulls them into dotfiles)
-stow --adopt zsh            # Moves ~/file → ~/.dotfiles/zsh/file, creates symlink
+# Adopt existing files into repo
+stow --adopt --dir="$HOME/.dotfiles" --target="$HOME" .
+```
+
+**Tip**: If your dotfiles live at `~/.dotfiles`, you can simplify:
+```bash
+cd ~/.dotfiles && stow --target="$HOME" .
 ```
 
 ## Handling Conflicts
@@ -149,21 +188,33 @@ stow --adopt zsh            # Moves ~/file → ~/.dotfiles/zsh/file, creates sym
 If you have existing files that aren't symlinks:
 
 ```bash
-# Option 1: Adopt them
-stow --adopt zsh
+# Option 1: Adopt them (moves file into repo, creates symlink)
+stow --adopt --dir="$HOME/.dotfiles" --target="$HOME" .
 
 # Option 2: Back them up first
 mv ~/.zshrc ~/.zshrc.bak
-stow zsh
+stow --dir="$HOME/.dotfiles" --target="$HOME" .
 ```
 
 ## What You Can Delete
 
-With stow, you no longer need:
+With this approach, you no longer need:
+- `bin/link_config`
+- `bin/link_home`  
+- `bin/link_ides`
+- Per-app package directories
+- Separate package list files (npmfile, rustfile, etc. → consolidate in Brewfile)
 
--  `bin/link_config`
--  `bin/link_home`
--  `bin/link_ides`
--  Individual package install scripts (if consolidated into Brewfile)
+## Adding New Dotfiles
 
-Your install.sh goes from ~150 lines to ~40.
+```bash
+# New file in home directory
+mv ~/.newrc ~/.dotfiles/.newrc
+stow -R --dir="$HOME/.dotfiles" --target="$HOME" .
+
+# New file in .config
+mv ~/.config/newapp ~/.dotfiles/.config/newapp
+stow -R --dir="$HOME/.dotfiles" --target="$HOME" .
+```
+
+Or use `--adopt` to do the move and link in one step.
