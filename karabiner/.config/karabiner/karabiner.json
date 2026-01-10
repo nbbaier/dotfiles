@@ -1,0 +1,82 @@
+{
+	"profiles": [
+		{
+			"complex_modifications": {
+				"rules": [
+					{
+						"description": "Hyper Key (⌃⌥⇧⌘)",
+						"manipulators": [
+							{
+								"description": "Caps Lock -> Hyper Key",
+								"from": {
+									"key_code": "caps_lock"
+								},
+								"to": [
+									{
+										"key_code": "left_shift",
+										"modifiers": ["left_command", "left_control", "left_option"]
+									}
+								],
+								"to_if_alone": [
+									{
+										"key_code": "escape"
+									}
+								],
+								"type": "basic"
+							}
+						]
+					}
+				]
+			},
+			"devices": [
+				{
+					"identifiers": {
+						"is_keyboard": true,
+						"product_id": 591,
+						"vendor_id": 1452
+					},
+					"simple_modifications": [
+						{
+							"from": {
+								"key_code": "home"
+							},
+							"to": [
+								{
+									"key_code": "return_or_enter"
+								}
+							]
+						},
+						{
+							"from": {
+								"key_code": "page_down"
+							},
+							"to": [
+								{
+									"key_code": "backslash"
+								}
+							]
+						},
+						{
+							"from": {
+								"key_code": "page_up"
+							},
+							"to": [
+								{
+									"key_code": "delete_or_backspace"
+								}
+							]
+						}
+					]
+				}
+			],
+			"name": "Default profile",
+			"selected": true,
+			"title": "Default profile",
+			"virtual_hid_keyboard": {
+				"country_code": 0,
+				"keyboard_type": "ansi",
+				"keyboard_type_v2": "ansi"
+			}
+		}
+	]
+}
