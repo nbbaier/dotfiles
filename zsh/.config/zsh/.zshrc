@@ -1,4 +1,4 @@
-fpath=($DOTFILES/system/plugins/zsh-completions/src $fpath)
+fpath=($DOTFILES/system-plugins/zsh-completions/src $fpath)
 fpath=($ZDOTDIR/prompt $fpath)
 fpath=($ZDOTDIR/completions $fpath)
 fpath=($DOTFILES/bin $fpath)
@@ -61,7 +61,7 @@ plugins=(
 )
 
 for plugin in $plugins; do
-    if_source "$DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh"
+    if_source "$DOTFILES/system-plugins/$plugin/$plugin.plugin.zsh"
 done
 
 export ZSH_GIT_AI_PROVIDER="openai"

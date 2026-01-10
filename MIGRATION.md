@@ -51,9 +51,9 @@ The dotfiles repository was refactored to use GNU Stow for symlink management. T
 | `system/aliases` | `system/.config/zsh/aliases` |
 | `system/completions/` | `system/.config/zsh/completions/` |
 | `system/prompt/` | `system/.config/zsh/prompt/` |
-| `system/plugins/` | `system/plugins/` (unchanged, still git submodules) |
+| `system/plugins/` | `system-plugins/` (git submodules, NOT stowed) |
 
-**Note:** Plugins remain as git submodules in `system/plugins/` and are NOT stowed.
+**Note:** Plugins are now in `system-plugins/` directory (git submodules) and are NOT stowed.
 
 ### Applications
 
@@ -86,7 +86,7 @@ Applications like VS Code and Cursor use `~/Library/Application Support/` on mac
 
 ## Git Submodules
 
-Git submodules in `system/plugins/` are unchanged:
+Git submodules have been moved from `system/plugins/` to `system-plugins/`:
 - fzf-tab
 - zsh-autopair
 - zsh-autosuggestions
@@ -94,7 +94,7 @@ Git submodules in `system/plugins/` are unchanged:
 - zsh-syntax-highlighting
 - zsh-you-should-use
 
-These are loaded by `.zshrc` from `$DOTFILES/system/plugins/` and do not need to be stowed.
+These are loaded by `.zshrc` from `$DOTFILES/system-plugins/` and do not need to be stowed.
 
 ## Why This Change?
 
