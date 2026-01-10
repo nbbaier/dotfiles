@@ -10,6 +10,11 @@ Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/) fo
    cd ~/.dotfiles
    ```
 
+   If you've already cloned without `--recurse-submodules`, initialize them:
+   ```bash
+   git submodule update --init --recursive
+   ```
+
 2. **Run the installer:**
    ```bash
    ./install.sh
@@ -51,6 +56,14 @@ This dotfiles repository uses a **thin orchestrator** pattern with **GNU Stow** 
 │   ├── curl/              # Curl configuration
 │   ├── jq/                # JQ configuration
 │   └── system/            # System files (aliases, completions, prompts)
+│
+├── system-plugins/        # ZSH plugins as git submodules (NOT stowed)
+│   ├── fzf-tab/          # FZF tab completion
+│   ├── zsh-autopair/     # Auto-close brackets/quotes
+│   ├── zsh-autosuggestions/
+│   ├── zsh-completions/
+│   ├── zsh-syntax-highlighting/
+│   └── zsh-you-should-use/
 │
 ├── apps/                  # Application-specific configs (non-XDG)
 │   ├── vscode/           # VS Code settings & snippets
