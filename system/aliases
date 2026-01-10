@@ -80,12 +80,7 @@ alias bsoffa='brew services stop --all'
 alias bson='brew services start'
 alias bsona='brew services start --all'
 alias bubu="brew update && brew outdated && brew upgrade && brew cleanup --prune=all"
-alias bsync="brew bundle install --cleanup --file $DOTFILES/packages/brewfile-master"
-
-br() {
-	local package=$1
-	$DOTFILES/bin/brew_remove.py $package "$DOTFILES/packages/brewfile-master"
-}
+alias bsync="brew bundle install --cleanup --file $DOTFILES/Brewfile"
 
 #==============================================================================
 # Git Operations
