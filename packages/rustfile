@@ -1,5 +1,7 @@
 cargo-cache
 cargo-update
+cfurl
+dotstate
 each
 git-graph
 hai-cli
@@ -9,5 +11,7 @@ rink
 rmrfrs
 rustormy
 sleek
+swab
 toml2json
 uv-migrator
+worktrunk

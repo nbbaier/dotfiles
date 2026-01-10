@@ -1,0 +1,137 @@
+#!/bin/bash
+# Fetch tweet or user profile in an LLM-friendly format using fxtwitter API
+
+set -e
+
+if [ -z "$1" ]; then
+	echo "Usage: x <twitter-url-or-username>"
+	echo "Examples:"
+	echo "  x https://x.com/marckohlbrugge/status/2005972157445333371"
+	echo "  x https://x.com/marckohlbrugge"
+	echo "  x @marckohlbrugge"
+	echo "  x marckohlbrugge"
+	exit 1
+fi
+
+input="$1"
+
+# Handle @username or plain username
+if [[ "$input" =~ ^@?([a-zA-Z0-9_]+)$ ]]; then
+	username="${BASH_REMATCH[1]}"
+	status_id=""
+# Extract username and optionally status ID from various Twitter URL formats
+elif [[ "$input" =~ (twitter\.com|x\.com)/([^/?]+)(/status/([0-9]+))? ]]; then
+	username="${BASH_REMATCH[2]}"
+	status_id="${BASH_REMATCH[4]}"
+else
+	echo "Error: Invalid Twitter/X URL or username"
+	exit 1
+fi
+
+if [ -n "$status_id" ]; then
+	# Fetch tweet
+	api_url="https://api.fxtwitter.com/${username}/status/${status_id}"
+	response=$(curl -s "$api_url")
+
+	if ! echo "$response" | jq -e '.tweet' >/dev/null 2>&1; then
+		echo "Error: Could not fetch tweet"
+		echo "$response" | jq -r '.message // "Unknown error"' 2>/dev/null || echo "$response"
+		exit 1
+	fi
+
+	# Check if this tweet has an article
+	has_article=$(echo "$response" | jq -e '.tweet.article' >/dev/null 2>&1 && echo "true" || echo "false")
+
+	if [ "$has_article" = "true" ]; then
+		# Format tweet with article
+		echo "$response" | jq -r '
+      .tweet |
+      "**\(.author.name)** (@\(.author.screen_name)) · \(.created_at | split(" ") | [.[2], .[1], .[5]] | join(" "))",
+      "Author: \(.author.followers) followers · \(.author.description | gsub("\n"; " "))",
+      "",
+      if .replying_to then "Replying to @\(.replying_to)\n" else "" end,
+      "> \(.text | gsub("\n"; "\n> "))",
+      "",
+      "Likes: \(.likes) · Retweets: \(.retweets) · Replies: \(.replies) · Bookmarks: \(.bookmarks) · Views: \(.views)"
+    '
+
+		echo ""
+		echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+		echo ""
+
+		# Format article content
+		echo "$response" | jq -r '
+      .tweet.article |
+      "# \(.title)",
+      "",
+      if .cover_media.media_info.original_img_url then
+        "![Cover Image](\(.cover_media.media_info.original_img_url))",
+        ""
+      else empty end,
+      "Published: \(.created_at | split("T") | .[0])" +
+        (if .modified_at != .created_at then " · Modified: \(.modified_at | split("T") | .[0])" else "" end),
+      "",
+      (.content.blocks // [] | map(
+        if .type == "header-two" then
+          "## \(.text)"
+        elif .type == "header-three" then
+          "### \(.text)"
+        elif .type == "unordered-list-item" then
+          "- \(.text)"
+        elif .type == "ordered-list-item" then
+          "1. \(.text)"
+        elif .type == "unstyled" and (.text | length) > 0 then
+          .text
+        elif .type == "atomic" then
+          ""
+        else
+          .text // ""
+        end
+      ) | join("\n"))
+    '
+	else
+		# Format regular tweet without article
+		echo "$response" | jq -r '
+      .tweet |
+      "**\(.author.name)** (@\(.author.screen_name)) · \(.created_at | split(" ") | [.[2], .[1], .[5]] | join(" "))",
+      "Author: \(.author.followers) followers · \(.author.description | gsub("\n"; " "))",
+      "",
+      if .replying_to then "Replying to @\(.replying_to)\n" else "" end,
+      "> \(.text | gsub("\n"; "\n> "))",
+      "",
+      if .media.photos then
+        (.media.photos | map("Image: \(.url)") | join("\n"))
+      else empty end,
+      if .media.videos then
+        (.media.videos | map("Video: \(.url)") | join("\n"))
+      else empty end,
+      "",
+      "Likes: \(.likes) · Retweets: \(.retweets) · Replies: \(.replies) · Bookmarks: \(.bookmarks) · Views: \(.views)",
+      if .community_note then "\nCommunity Note: \(.community_note)" else empty end
+    '
+	fi
+else
+	# Fetch user profile
+	api_url="https://api.fxtwitter.com/${username}"
+	response=$(curl -s "$api_url")
+
+	if ! echo "$response" | jq -e '.user' >/dev/null 2>&1; then
+		echo "Error: Could not fetch user"
+		echo "$response" | jq -r '.message // "Unknown error"' 2>/dev/null || echo "$response"
+		exit 1
+	fi
+
+	echo "$response" | jq -r '
+    .user |
+    "**\(.name)** (@\(.screen_name))" + (if .verification.verified then " ✓" else "" end),
+    "Avatar: \(.avatar_url | gsub("_normal\\."; "_400x400."))",
+    if .location and .location != "" then "Location: \(.location)" else empty end,
+    if .about_account.based_in then "Based in: \(.about_account.based_in)" else empty end,
+    if .website.display_url then "Website: \(.website.display_url)" else empty end,
+    "Joined: \(.joined | split(" ") | [.[1], .[2], .[5]] | join(" "))",
+    "",
+    .description,
+    "",
+    "Followers: \(.followers) · Following: \(.following) · Tweets: \(.tweets) · Likes: \(.likes)"
+  '
+fi

@@ -88,7 +88,7 @@ timezsh() {
 
 if_source $HOME/.turso/env
 
-eval "$(~/.local/try.rb init $TRY_PATH)"
+eval "$(try init --path $TRY_PATH)"
 
 . "$HOME/.local/share/../bin/env"
 
@@ -97,3 +97,12 @@ eval "$(~/.local/try.rb init $TRY_PATH)"
 
 # Added by tally installer
 export PATH="$HOME/.tally/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# qlty completions
+[ -s "/opt/homebrew/share/zsh/site-functions/_qlty" ] && source "/opt/homebrew/share/zsh/site-functions/_qlty"
+
+# qlty
+export QLTY_INSTALL="$HOME/.qlty"
+export PATH="$QLTY_INSTALL/bin:$PATH"

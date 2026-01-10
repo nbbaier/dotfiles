@@ -216,13 +216,15 @@
 		"vue.config.*": "*.env, .babelrc*, .codecov, .cssnanorc*, .env.*, .envrc, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, capacitor.config.*, content.config.*, contentlayer.config.*, cssnano.config.*, cypress.*, env.d.ts, formkit.config.*, formulate.config.*, histoire.config.*, htmlnanorc.*, i18n.config.*, ionic.config.*, jasmine.*, jest.config.*, jsconfig.*, karma*, lighthouserc.*, panda.config.*, playwright.config.*, postcss.config.*, puppeteer.config.*, react-router.config.*, rspack.config.*, sst.config.*, svgo.config.*, tailwind.config.*, tsconfig.*, tsdoc.*, uno.config.*, unocss.config.*, vitest.config.*, vuetify.config.*, webpack.config.*, windi.config.*"
 	},
 	"files.associations": {
-		".babelrc": "jsonc",
-		".env": "env",
-		"*.env.*": "env",
-		"*.latex": "latex",
-		"*.mdx": "markdown",
-		"*.tex": "latex"
-	},
+      ".babelrc": "jsonc",
+      ".env": "env",
+      "*.env.*": "env",
+      "*.latex": "latex",
+      "*.mdx": "markdown",
+      "*.tex": "latex",
+      ".localrc": "dotenv",
+      ".dev.vars": "dotenv"
+   },
 	"files.exclude": {
 		"**/__pycache__": true,
 		"**/.git": false
@@ -466,5 +468,6 @@
 	"json.schemaDownload.enable": true,
 	"workbench.editor.enablePreview": false,
 	"shfmt.formatIgnored": false,
-	"claudeCode.preferredLocation": "panel"
+   "claudeCode.preferredLocation": "panel",
+   "makefile.configureOnOpen": true
 }

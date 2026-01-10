@@ -41,7 +41,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 # === Tools === #
 export LESSHISTFILE="$XDG_STATE_HOME/lesshst"
 export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+# export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 
