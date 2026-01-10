@@ -164,5 +164,92 @@ cask "timing"
 cask "visual-studio-code"
 cask "vlc"
 cask "wailbrew"
-go "github.com/steveyegge/gastown/cmd/gt"
-go "github.com/traefik/yaegi/cmd/yaegi"
+
+# NPM packages (install with: npm install -g <package>)
+# 2025-12-06-create-cli
+# 2025-12-06-create-rudolph
+# ccusage
+# cline
+# corepack
+# npm
+# safe-rm
+# sfw
+# task-master-ai
+
+# Rust packages (install with: cargo install <package>)
+# cargo-cache
+# cargo-update
+# cfurl
+# dotstate
+# each
+# git-graph
+# hai-cli
+# htmlq
+# kanastra-palette-rs
+# rink
+# rmrfrs
+# rustormy
+# sleek
+# swab
+# toml2json
+# uv-migrator
+# worktrunk
+
+# Bun packages (install with: bun install -g <package>)
+# @assistant-ui/xpm
+# @google/gemini-cli
+# @google/jules
+# @hono/cli
+# @nbbaier/rudolph
+# @openai/codex
+# @pbnjs/cli
+# @randomlabs/slatecli
+# @sourcegraph/amp
+# @steipete/bird
+# @steipete/summarize
+# @typescript/native-preview
+# btca
+# inngest-cli
+# mdflow
+# ocmt
+# opencode-swarm-plugin
+# pagedjs
+# pagedjs-cli
+# playwright
+# puppeteer
+# q-cli
+# task-master-ai
+# tsdown
+# uipro-cli
+# vercel
+# vibe-rules
+# vite
+# vm-repack-2154
+# wrangler
+
+# UV packages (install with: uv tool install <package>)
+# arcade-mcp
+# basic-memory
+# batrachian-toad
+# cased-kit
+# claude-code-transcripts
+# claude-monitor
+# elf
+# files-to-prompt
+# fs-explorer
+# gitingest
+# gradio
+# huggingface-hub
+# jupyterlab
+# litecli
+# llamactl
+# llm
+# markdown-plan
+# mcp-scan
+# md2term
+# pgcli
+# ruff
+# shot-scraper
+# sqlit-tui
+# sqlite-utils
+# strip-tags

@@ -4,33 +4,18 @@
 install_extensions() {
    local tool="$1"
    local extensions_file="$2"
-   local EXTENSIONS
+   local installed
 
-   # Get list of installed extensions based on the tool
-   if [ "$tool" == "cursor" ]; then
-      EXTENSIONS=$(cursor --list-extensions)
-   elif [ "$tool" == "code" ]; then
-      EXTENSIONS=$(code --list-extensions)
-   else
-      echo "Unsupported tool: $tool"
-      exit 1
-   fi
+   installed=$("$tool" --list-extensions)
 
-   # Read and install extensions
    while read -r extension || [[ -n "$extension" ]]; do
-      if [[ -z "$extension" ]]; then
-         continue
-      fi
+      [[ -z "$extension" ]] && continue
 
-      if echo "$EXTENSIONS" | grep -q "$extension"; then
+      if echo "$installed" | grep -q "$extension"; then
          echo "$extension is already installed"
       else
          echo "installing $extension"
-         if [ "$tool" == "cursor" ]; then
-            cursor --install-extension "$extension" >/dev/null
-         else
-            code --install-extension "$extension" >/dev/null
-         fi
+         "$tool" --install-extension "$extension" >/dev/null
       fi
    done <"$extensions_file"
 }
