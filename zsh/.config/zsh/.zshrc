@@ -1,6 +1,6 @@
 fpath=($DOTFILES/system/plugins/zsh-completions/src $fpath)
-fpath=($DOTFILES/system/prompt $fpath)
-fpath=($DOTFILES/system/completions $fpath)
+fpath=($ZDOTDIR/prompt $fpath)
+fpath=($ZDOTDIR/completions $fpath)
 fpath=($DOTFILES/bin $fpath)
 
 autoload -Uz if_source
@@ -47,8 +47,8 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
-source $DOTFILES/system/aliases
-source $DOTFILES/system/prompt/prompt_custom_setup
+source $ZDOTDIR/aliases
+source $ZDOTDIR/prompt/prompt_custom_setup
 
 [ -s $HOME/.localrc ] && source $HOME/.localrc
 
