@@ -1,0 +1,21 @@
+# Files and directories to exclude from stow symlinking
+macos
+packages
+bin
+apps
+system
+config
+jq
+curl
+zshenv
+.git
+.gitignore
+.gitmodules
+.editorconfig
+.vscode
+README.md
+dotfiles-with-stow.md
+dotfiles-with-chezmoi.md
+install.sh
+install.sh.old
+Brewfile
