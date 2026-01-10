@@ -122,7 +122,7 @@ stow_packages() {
       fi
 
       work "Stowing $package..."
-      if stow --dir="$DOTFILES" --target="$HOME" --restow "$package" 2>&1; then
+      if stow --dir="$DOTFILES" --target="$HOME" --restow "$package"; then
          info "$package stowed successfully"
       else
          warn "Failed to stow $package (may already be linked or have conflicts)"
@@ -149,7 +149,7 @@ unstow_packages() {
       fi
 
       work "Unstowing $package..."
-      if stow --dir="$DOTFILES" --target="$HOME" --delete "$package" 2>&1; then
+      if stow --dir="$DOTFILES" --target="$HOME" --delete "$package"; then
          info "$package unstowed successfully"
       else
          warn "Failed to unstow $package"

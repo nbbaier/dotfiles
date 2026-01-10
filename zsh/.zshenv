@@ -77,4 +77,4 @@ path=(
 export PATH
 
 # tuitube
-export PATH=/Users/nbbaier/.termcast/compiled/tuitube/bin:$PATH
+export PATH=$HOME/.termcast/compiled/tuitube/bin:$PATH
