@@ -14,30 +14,29 @@ RUSTFILE="$PKG_DIR/rustfile"
 UVFILE="$PKG_DIR/uvfile"
 CURSORFILE="$PKG_DIR/cursorfile"
 
-
 function generate_file() {
-    local tool="$1"    # Tool name
-    local file="$2"    # Output file
-    local command="$3" # Command to run
-    local message="$4" # Success message (optional)
+	local tool="$1"    # Tool name
+	local file="$2"    # Output file
+	local command="$3" # Command to run
+	local message="$4" # Success message (optional)
 
-    local file_basename=$(basename "$file")
+	local file_basename=$(basename "$file")
 
-    if is_installed "$tool"; then
-        eval "$command" >"$file"
-        echo "${message:-$file_basename "generated"}"
-    else
-        echo "$tool not found, skipping ${message:-$file generation}"
-    fi
+	if is_installed "$tool"; then
+		eval "$command" >"$file"
+		echo "${message:-$file_basename "generated"}"
+	else
+		echo "$tool not found, skipping ${message:-$file generation}"
+	fi
 }
 
 if is_installed brew; then
-    brew bundle dump --force --tap --formula --cask --file "$BREWFILE"
-    echo "brewfile generated (includes formulas and casks)"
-    brew bundle dump --force --no-vscode --file="$BREWFILE-master"
-    echo "brewfile-master generated"
+	brew bundle dump --force --tap --formula --cask --file "$BREWFILE"
+	echo "brewfile generated (includes formulas and casks)"
+	brew bundle dump --force --no-vscode --file="$BREWFILE-master"
+	echo "brewfile-master generated"
 else
-    echo "brew not found, skipping brewfile generation"
+	echo "brew not found, skipping brewfile generation"
 fi
 
 generate_file "uv" "$UVFILE" "uv tool list | grep -v '^-' | cut -d' ' -f1"

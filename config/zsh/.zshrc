@@ -106,3 +106,11 @@ if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)
 # qlty
 export QLTY_INSTALL="$HOME/.qlty"
 export PATH="$QLTY_INSTALL/bin:$PATH"
+. "/Users/nbbaier/.deno/env"
+export PATH="/opt/homebrew/opt/trash/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/nbbaier/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nbbaier/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/nbbaier/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nbbaier/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

@@ -264,6 +264,10 @@ tokens() {
 }
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
+
 lwhich() {
 	eza -lah --no-user $(which $1)
 }
+alias scripts='jq -r ".scripts | to_entries[] | \"\(.key)\t\(.value)\"" package.json | column -t -s $'\''\t'\'''
+
+source ~/Code/hop/hop.sh
