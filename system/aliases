@@ -195,7 +195,7 @@ alias vtbl="vt branch"
 gvtp() {
 	local text="$*"
 	local timestamp=$(date +%s)
-	vt push && git add . && git commit --message "${text:-vt push } [$timestamp]"
+	vt push && git add . && git commit --message "${text:-vt push $timestamp} "
 }
 
 takedir() {
