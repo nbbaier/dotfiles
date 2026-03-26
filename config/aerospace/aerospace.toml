@@ -152,7 +152,22 @@ run       = 'layout floating'
 if.app-id = 'com.ccseva.app'
 run       = 'layout floating'
 
-
 [[on-window-detected]]
 if.app-id = 'com.electron.wispr-flow'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'app.thoughtful.desktop'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.openai.codex'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.dot.app'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.soloterm.solo'
 run       = 'layout floating'

@@ -4,6 +4,12 @@
 	"[astro]": {
 		"editor.defaultFormatter": "astro-build.astro-vscode"
 	},
+	"[xml]": {
+		"editor.formatOnSave": false
+	},
+	"[plist]": {
+		"editor.formatOnSave": false
+	},
 	"[css]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -265,7 +271,7 @@
 	"terminal.integrated.fontSize": 14,
 	"typescript.tsserver.log": "off",
 	"typescript.updateImportsOnFileMove.enabled": "always",
-	"update.releaseTrack": "prerelease",
+	"update.releaseTrack": "dev",
 	"window.commandCenter": false,
 	"window.confirmSaveUntitledWorkspace": false,
 	"window.titleSeparator": " | ",
@@ -469,15 +475,15 @@
 	"shfmt.formatIgnored": false,
 	"claudeCode.preferredLocation": "panel",
 	"makefile.configureOnOpen": true,
-   "latex-workshop.formatting.latex": "tex-fmt",
-   "cursor.general.globalCursorIgnoreList": [
-      "**/*.key",
-      "**/.env",
-      "**/.env.*",
-      "**/credentials.json",
-      "**/secrets.json",
-      "**/*.pem",
-      "**/id_rsa",
-      "**/.dev.vars"
-   ]
+	"latex-workshop.formatting.latex": "tex-fmt",
+	"cursor.general.globalCursorIgnoreList": [
+		"**/*.key",
+		"**/.env",
+		"**/.env.*",
+		"**/credentials.json",
+		"**/secrets.json",
+		"**/*.pem",
+		"**/id_rsa",
+		"**/.dev.vars"
+	]
 }

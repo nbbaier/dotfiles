@@ -78,3 +78,6 @@ export PATH
 
 # tuitube
 export PATH=/Users/nbbaier/.termcast/compiled/tuitube/bin:$PATH
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"

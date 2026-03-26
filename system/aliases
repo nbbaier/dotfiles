@@ -30,7 +30,14 @@ unset index
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
 alias gdrive="cd $(readlink $HOME/Google Drive)/My\ Drive"
 alias dotfiles="cd $HOME/.dotfiles"
-alias config="cd $HOME/.config"
+function config {
+	cd "$HOME/.config${1:+/$1}"
+}
+
+_config() {
+	_files -W "$HOME/.config" -/
+}
+compdef _config config
 alias cdsw="cd $SMALLWEB_DIR"
 
 #==============================================================================
@@ -45,6 +52,22 @@ alias ln='ln -i'
 alias sym="ln-"
 alias disk="df -P -kHl"
 alias mkd="mkdir -p"
+
+mvd() {
+        local destination parent
+        destination="${@: -1}"
+        parent="${destination:h}"
+        command mkdir -p -- "$parent"
+        command mv -i "$@"
+}
+
+cpd() {
+        local destination parent
+        destination="${@: -1}"
+        parent="${destination:h}"
+        command mkdir -p -- "$parent"
+        command cp -i "$@"
+}
 
 # Directory Listing (using eza)
 alias l='eza -lah --show-symlinks'
@@ -264,11 +287,21 @@ tokens() {
 	uv run $HOME/.local/bin/cli-tokenizer-counter.py "${text}"
 }
 
+alias ccutoday='ccusage --breakdown --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccuweek='ccusage --breakdown --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccumonth='ccusage monthly --breakdown --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
 lwhich() {
 	eza -lah --no-user $(which $1)
 }
 alias scripts='jq -r ".scripts | to_entries[] | \"\(.key)\t\(.value)\"" package.json | column -t -s $'\''\t'\'''
+
+cf() {
+	local cmd
+	cmd=$(cfurl 2>&1 | awk '/^Commands:/{flag=1;next} /^Options:/{flag=0} flag{print $1}' | fzf --prompt='cfurl> ')
+	[[ -n "$cmd" ]] && print -z "cfurl $cmd "
+}
 
 source ~/Code/hop/hop.sh

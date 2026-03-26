@@ -5,6 +5,7 @@
 .zsh_history
 
 .env
+.dev.vars
 \*.log
 .idea
 Thumbs.d
@@ -145,3 +146,4 @@ config/micro/backups/*
 .zcompdump*
 
 **/.claude/settings.local.json
+.cachebro/

@@ -64,10 +64,10 @@ for plugin in $plugins; do
     if_source "$DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh"
 done
 
-export ZSH_GIT_AI_PROVIDER="openai"
-export ZSH_GIT_AI_STYLE="conventional"
+# export ZSH_GIT_AI_PROVIDER="openai"
+# export ZSH_GIT_AI_STYLE="conventional"
 
-if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
+# if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
 
 autopair-init
 
@@ -109,11 +109,11 @@ export PATH="$QLTY_INSTALL/bin:$PATH"
 . "/Users/nbbaier/.deno/env"
 export PATH="/opt/homebrew/opt/trash/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nbbaier/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nbbaier/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/nbbaier/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nbbaier/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 # vt completions
 # source <(vt completions zsh)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nbbaier/.local/bin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi

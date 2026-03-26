@@ -13,6 +13,7 @@ cursor-style-blink = false
 cursor-opacity = 0.8
 adjust-cursor-thickness = 1
 adjust-underline-position = 10%
+adjust-cell-height = 15%
 
 # shell
 shell-integration-features = no-cursor
