@@ -54,19 +54,19 @@ alias disk="df -P -kHl"
 alias mkd="mkdir -p"
 
 mvd() {
-        local destination parent
-        destination="${@: -1}"
-        parent="${destination:h}"
-        command mkdir -p -- "$parent"
-        command mv -i "$@"
+	local destination parent
+	destination="${@: -1}"
+	parent="${destination:h}"
+	command mkdir -p -- "$parent"
+	command mv -i "$@"
 }
 
 cpd() {
-        local destination parent
-        destination="${@: -1}"
-        parent="${destination:h}"
-        command mkdir -p -- "$parent"
-        command cp -i "$@"
+	local destination parent
+	destination="${@: -1}"
+	parent="${destination:h}"
+	command mkdir -p -- "$parent"
+	command cp -i "$@"
 }
 
 # Directory Listing (using eza)
@@ -291,12 +291,15 @@ alias ccutoday='ccusage --breakdown --since $(date +%Y%m%d) --until $(date +%Y%m
 alias ccuweek='ccusage --breakdown --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
 alias ccumonth='ccusage monthly --breakdown --since $(date +%Y%m01) --until $(date +%Y%m%d)'
 
+alias ccotoday='ccusage-codex --breakdown --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccoweek='ccusage-codex --breakdown --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccomonth='ccusage-codex monthly --breakdown --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
 lwhich() {
 	eza -lah --no-user $(which $1)
 }
-alias scripts='jq -r ".scripts | to_entries[] | \"\(.key)\t\(.value)\"" package.json | column -t -s $'\''\t'\'''
 
 cf() {
 	local cmd
