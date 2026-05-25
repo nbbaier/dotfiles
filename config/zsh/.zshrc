@@ -117,3 +117,14 @@ if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Us
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi
+
+eval "$(zoxide init zsh)"
+
+ [[ -f "/Users/nbbaier/.config/cf/completions/_cf.zsh" ]] && source "/Users/nbbaier/.config/cf/completions/_cf.zsh"
+# pnpm
+export PNPM_HOME="/Users/nbbaier/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

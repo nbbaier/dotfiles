@@ -4,3 +4,4 @@ config/zsh/.zsh_sessions
 config/zsh/.zcompcache
 config/micro/buffers
 todo.md
+.cursor/hooks/state/continual-learning.json

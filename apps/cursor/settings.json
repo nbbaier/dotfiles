@@ -465,8 +465,7 @@
 	},
 	"[github-actions-workflow]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
-	},
-	"cursor.composer.usageSummaryDisplay": "always",
+   },
 	"[tailwindcss]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -485,5 +484,9 @@
 		"**/*.pem",
 		"**/id_rsa",
 		"**/.dev.vars"
-	]
+   ],
+   "window.autoDetectColorScheme": false,
+   "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+   "cursor.composer.usageSummaryDisplay": "always",
+   "workbench.agentsWindowButton.enabled": false
 }

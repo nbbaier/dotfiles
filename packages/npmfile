@@ -1,9 +1,7 @@
 @google/gemini-cli
 @openai/codex
-ccusage
-cline
+agent-browser
 corepack
 npm
 safe-rm
 sfw
-task-master-ai

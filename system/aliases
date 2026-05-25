@@ -30,6 +30,7 @@ unset index
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs/"
 alias gdrive="cd $(readlink $HOME/Google Drive)/My\ Drive"
 alias dotfiles="cd $HOME/.dotfiles"
+alias resume="cd $HOME/Library/CloudStorage/Dropbox/my-cv-resume/resume"
 function config {
 	cd "$HOME/.config${1:+/$1}"
 }
@@ -184,7 +185,8 @@ hcp() {
 alias uvtl="uv tool list"
 alias uvti="uv tool install"
 alias uvtu="uv tool uninstall"
-alias python="uvx python"
+alias python="uv run python"
+alias pip="uv pip"
 
 # VSCode
 cr() {
@@ -287,13 +289,29 @@ tokens() {
 	uv run $HOME/.local/bin/cli-tokenizer-counter.py "${text}"
 }
 
-alias ccutoday='ccusage --breakdown --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
-alias ccuweek='ccusage --breakdown --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
-alias ccumonth='ccusage monthly --breakdown --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+current_pay_period_start() {
+	local cycle_day="$1"
+	local today_day=$((10#$(date +%d)))
 
-alias ccotoday='ccusage-codex --breakdown --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
-alias ccoweek='ccusage-codex --breakdown --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
-alias ccomonth='ccusage-codex monthly --breakdown --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+	if ((today_day >= cycle_day)); then
+		date -v"${cycle_day}"d +%Y%m%d
+	else
+		date -v1d -v-1m -v"${cycle_day}"d +%Y%m%d
+	fi
+}
+
+alias ccutoday='ccusage claude --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccuweek='ccusage claude --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccumonth='ccusage claude monthly --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+alias ccupay='ccusage claude --since $(current_pay_period_start 6) --until $(date +%Y%m%d)'
+
+alias ccotoday='ccusage codex --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccoweek='ccusage codex --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccomonth='ccusage codex monthly --since $(date +%Y%m01) --until $(date +%Y%m%d)'
+alias ccopay='ccusage codex --since $(current_pay_period_start 17) --until $(date +%Y%m%d)'
+
+alias cc="claude"
+alias ccs="claude --model sonnet"
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
@@ -301,10 +319,13 @@ lwhich() {
 	eza -lah --no-user $(which $1)
 }
 
-cf() {
-	local cmd
-	cmd=$(cfurl 2>&1 | awk '/^Commands:/{flag=1;next} /^Options:/{flag=0} flag{print $1}' | fzf --prompt='cfurl> ')
-	[[ -n "$cmd" ]] && print -z "cfurl $cmd "
-}
+hop() {
+	local dir
+	local query="$*"
+	local -a fzf_args=(--height=40% --reverse --prompt="hop> ")
 
-source ~/Code/hop/hop.sh
+	[[ -n "$query" ]] && fzf_args+=(--query "$query")
+
+	dir=$(eza --oneline --reverse --sort=modified ~/Code | fzf "${fzf_args[@]}")
+	[[ -n "$dir" ]] && cd ~/Code/"$dir"
+}

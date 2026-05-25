@@ -2,7 +2,10 @@ adpyke.codesnap
 alefragnani.project-manager
 anthropic.claude-code
 anysphere.cursorpyright
+anysphere.remote-ssh
+astral-sh.ty
 astro-build.astro-vscode
+atelier.atelier
 biomejs.biome
 bradlc.vscode-tailwindcss
 charliermarsh.ruff
@@ -37,6 +40,7 @@ ms-playwright.playwright
 ms-python.debugpy
 ms-python.isort
 ms-python.python
+ms-python.vscode-python-envs
 ms-toolsai.jupyter
 ms-toolsai.jupyter-renderers
 ms-toolsai.vscode-jupyter-cell-tags
@@ -56,7 +60,6 @@ sharat.vscode-brewfile
 shardulm94.trailing-spaces
 sheltonlouis.astro-snippets
 sidneys1.gitconfig
-sst-dev.opencode
 steoates.autoimport
 svelte.svelte-vscode
 tamasfe.even-better-toml

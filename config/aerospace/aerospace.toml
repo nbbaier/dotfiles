@@ -171,3 +171,11 @@ run       = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.soloterm.solo'
 run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'dev.kdrag0n.MacVirt'
+run       = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'computer.zo.desktop'
+run       = 'layout floating'

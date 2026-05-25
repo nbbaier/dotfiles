@@ -75,7 +75,7 @@
 	"editor.accessibilitySupport": "off",
 	"editor.fontFamily": "Intel One Mono, Cascadia Code, FiraCode Nerd Font, Monaco, monospace",
 	"editor.fontLigatures": true,
-	"editor.fontSize": 15,
+	"editor.fontSize": 14,
 	"editor.formatOnSave": true,
 	"editor.gotoLocation.multipleDeclarations": "goto",
 	"editor.gotoLocation.multipleDefinitions": "goto",
@@ -418,5 +418,6 @@
 		"https://json.schemastore.org/": true,
 		"https://json-schema.org/": true,
 		"https://biomejs.dev": true
-	}
+	},
+	"workbench.colorTheme": "Dark+"
 }
