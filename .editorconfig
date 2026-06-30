@@ -1,8 +1,8 @@
-[*.zsh]
-ignore = true
+# [*.zsh]
+# ignore = true
 
-[.zshrc]
-ignore = true
+# [.zshrc]
+# ignore = true
 
-[.zshenv]
-ignore = true
+# [.zshenv]
+# ignore = true

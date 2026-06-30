@@ -1,7 +1,9 @@
-fpath=($DOTFILES/system/plugins/zsh-completions/src $fpath)
-fpath=($DOTFILES/system/prompt $fpath)
-fpath=($DOTFILES/system/completions $fpath)
-fpath=($DOTFILES/bin $fpath)
+fpath[1,0]=(
+	"$DOTFILES/system/plugins/zsh-completions/src"
+	"$DOTFILES/system/prompt"
+	"$DOTFILES/system/completions"
+	"$DOTFILES/bin"
+)
 
 autoload -Uz if_source
 
@@ -12,45 +14,47 @@ setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT CDABLE_VARS
 setopt EXTENDED_GLOB
 
 # History
-setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY \
+setopt EXTENDED_HISTORY INC_APPEND_HISTORY \
 	HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS \
 	HIST_FIND_NO_DUPS HIST_IGNORE_SPACE HIST_SAVE_NO_DUPS \
 	HIST_VERIFY APPEND_HISTORY HIST_NO_STORE
 
 export LS_COLORS='di=1;34:ln=35:so=32:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors "${(@)${(s.:.)LS_COLORS}}"
 
 bindkey -e
 autoload -Uz compinit
 
 () {
-    setopt local_options extendedglob
-    local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
-    if [[ ! -f "$zcd" || -n ${zcd}(#qN.mh+24) ]]; then
-        compinit
-    else
-        compinit -C
-    fi
+	setopt local_options extendedglob
+	local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
+	if [[ ! -f "$zcd" || -n ${zcd}(#qN.mh+24) ]]; then
+		compinit
+	else
+		compinit -C
+	fi
 }
 
 autoload -Uz +X bashcompinit && bashcompinit
-autoload -U colors && colors
+autoload -Uz colors && colors
 zstyle ":completion:*" menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
+export HOMEBREW_NO_ENV_HINTS=1
+
 source $DOTFILES/system/aliases
 source $DOTFILES/system/prompt/prompt_custom_setup
 
-[ -s $HOME/.localrc ] && source $HOME/.localrc
+if_source $HOME/.localrc
 
 plugins=(
 	zsh-syntax-highlighting
@@ -61,17 +65,12 @@ plugins=(
 )
 
 for plugin in $plugins; do
-    if_source "$DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh"
+	if_source "$DOTFILES/system/plugins/$plugin/$plugin.plugin.zsh"
 done
-
-# export ZSH_GIT_AI_PROVIDER="openai"
-# export ZSH_GIT_AI_STYLE="conventional"
-
-# if_source /opt/homebrew/share/zsh-git-ai/zsh-git-ai.plugin.zsh
 
 autopair-init
 
-function set_name() {
+set_name() {
 	echo -ne "\033]0;${PWD/#$HOME/~}\007"
 }
 
@@ -82,49 +81,35 @@ if_source $HOME/.deno/env  # Deno environment
 if_source $HOME/.bun/_bun  # Bun completions
 
 timezsh() {
-	shell=${1-$SHELL}
+	local shell=${1-$SHELL}
+	local i
 	for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
 if_source $HOME/.turso/env
 
-eval "$(try init --path $TRY_PATH)"
-
-. "$HOME/.local/share/../bin/env"
+source <(try init --path "$TRY_PATH")
 
 # bun completions
-[ -s "/Users/nbbaier/.bun/_bun" ] && source "/Users/nbbaier/.bun/_bun"
+if_source $HOME/.bun/_bun
+if_source $HOME/.deno/env
 
-# Added by tally installer
-export PATH="$HOME/.tally/bin:$PATH"
+path[1,0]=(
+	"$HOMEBREW_PREFIX/opt/trash/bin"
+	"$HOMEBREW_PREFIX/opt/curl/bin"
+)
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+if [[ -f "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc" ]]; then
+	. "$HOME/.local/bin/google-cloud-sdk/path.zsh.inc"
+fi
+if [[ -f "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc" ]]; then
+	. "$HOME/.local/bin/google-cloud-sdk/completion.zsh.inc"
+fi
+[[ -f "$XDG_CONFIG_HOME/cf/completions/_cf.zsh" ]] && source "$XDG_CONFIG_HOME/cf/completions/_cf.zsh"
 
-# qlty completions
-[ -s "/opt/homebrew/share/zsh/site-functions/_qlty" ] && source "/opt/homebrew/share/zsh/site-functions/_qlty"
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+if ((!${path[(Ie)$PNPM_HOME]})); then
+	path[1,0]=$PNPM_HOME
+fi
 
-# qlty
-export QLTY_INSTALL="$HOME/.qlty"
-export PATH="$QLTY_INSTALL/bin:$PATH"
-. "/Users/nbbaier/.deno/env"
-export PATH="/opt/homebrew/opt/trash/bin:$PATH"
-
-# vt completions
-# source <(vt completions zsh)
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nbbaier/.local/bin/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nbbaier/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi
-
-eval "$(zoxide init zsh)"
-
- [[ -f "/Users/nbbaier/.config/cf/completions/_cf.zsh" ]] && source "/Users/nbbaier/.config/cf/completions/_cf.zsh"
-# pnpm
-export PNPM_HOME="/Users/nbbaier/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+. "$HOME/.local/share/../bin/env"

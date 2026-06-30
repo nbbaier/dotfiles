@@ -305,13 +305,20 @@ alias ccuweek='ccusage claude --since $(date -v-monday +%Y%m%d) --until $(date +
 alias ccumonth='ccusage claude monthly --since $(date +%Y%m01) --until $(date +%Y%m%d)'
 alias ccupay='ccusage claude --since $(current_pay_period_start 6) --until $(date +%Y%m%d)'
 
+alias ccut='ccusage claude --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccup='ccusage claude --since $(current_pay_period_start 6) --until $(date +%Y%m%d)'
+
 alias ccotoday='ccusage codex --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
 alias ccoweek='ccusage codex --since $(date -v-monday +%Y%m%d) --until $(date +%Y%m%d)'
 alias ccomonth='ccusage codex monthly --since $(date +%Y%m01) --until $(date +%Y%m%d)'
 alias ccopay='ccusage codex --since $(current_pay_period_start 17) --until $(date +%Y%m%d)'
 
+alias ccot='ccusage codex --since $(date +%Y%m%d) --until $(date +%Y%m%d)'
+alias ccop='ccusage codex --since $(current_pay_period_start 17) --until $(date +%Y%m%d)'
+
 alias cc="claude"
 alias ccs="claude --model sonnet"
+alias cch="claude --model haiku"
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
@@ -329,3 +336,10 @@ hop() {
 	dir=$(eza --oneline --reverse --sort=modified ~/Code | fzf "${fzf_args[@]}")
 	[[ -n "$dir" ]] && cd ~/Code/"$dir"
 }
+
+alias npm="sfw npm"
+alias npx="sfw npx"
+alias pnpm="sfw pnpm"
+alias yarn="sfw yarn"
+alias bun="sfw bun"
+alias bunx="sfw bunx"

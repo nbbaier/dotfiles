@@ -55,29 +55,24 @@ export LDFLAGS="-L$HOMEBREW_PREFIX/opt/sqlite/lib"
 export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/sqlite/include"
 
 # === Custom Tools === #
-export SMALLWEB_DIR="$HOME/smallweb/localhost"
+# export SMALLWEB_DIR="$HOME/smallweb/localhost"
 export TRY_PATH="$HOME/code/experiments"
 export AMI_INSTALL="$HOME/.ami"
 
 # === PATH (consolidated) === #
-path=(
-  "$DOTFILES/bin"
-  "$HOME/.local/bin"
-  "$HOME/.bun/bin"
-  "$HOME/.deno/bin"
-  "$CARGO_HOME/bin"
-  "$HOMEBREW_PREFIX/opt/sqlite/bin"
-  "$HOMEBREW_PREFIX/opt/postgresql@17/bin"
-  "$HOME/.cache/.bun/bin"
-  "$HOME/.opencode/bin"
-  "$AMI_INSTALL/bin"
-  "$GOPATH/bin"
-  $path
+path[1,0]=(
+	"$DOTFILES/bin"
+	"$HOME/.local/bin"
+	"$HOME/.bun/bin"
+	"$HOME/.deno/bin"
+	"$CARGO_HOME/bin"
+	"$HOMEBREW_PREFIX/opt/sqlite/bin"
+	"$HOMEBREW_PREFIX/opt/postgresql@17/bin"
+	"$HOME/.cache/.bun/bin"
+	"$HOME/.opencode/bin"
+	"$AMI_INSTALL/bin"
+	"$GOPATH/bin"
 )
 export PATH
 
-# tuitube
-export PATH=/Users/nbbaier/.termcast/compiled/tuitube/bin:$PATH
-
-# Vite+ bin (https://viteplus.dev)
 . "$HOME/.vite-plus/env"
