@@ -319,6 +319,7 @@ alias ccop='ccusage codex --since $(current_pay_period_start 17) --until $(date 
 alias cc="claude"
 alias ccs="claude --model sonnet"
 alias cch="claude --model haiku"
+alias cco="claude --model opus"
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
@@ -329,17 +330,28 @@ lwhich() {
 hop() {
 	local dir
 	local query="$*"
-	local -a fzf_args=(--height=40% --reverse --prompt="hop> ")
+	local -a fzf_args=(--height=40% --reverse --prompt="hop > ")
 
 	[[ -n "$query" ]] && fzf_args+=(--query "$query")
 
-	dir=$(eza --oneline --reverse --sort=modified ~/Code | fzf "${fzf_args[@]}")
+	dir=$(eza --oneline --only-dirs --reverse --sort=modified ~/Code | fzf "${fzf_args[@]}")
 	[[ -n "$dir" ]] && cd ~/Code/"$dir"
 }
 
-alias npm="sfw npm"
-alias npx="sfw npx"
-alias pnpm="sfw pnpm"
-alias yarn="sfw yarn"
-alias bun="sfw bun"
-alias bunx="sfw bunx"
+# alias npm="sfw npm"
+# alias npx="sfw npx"
+# alias pnpm="sfw pnpm"
+# alias yarn="sfw yarn"
+# alias bun="sfw bun"
+# alias bunx="sfw bunx"
+
+cpm() {
+	mkdir -p "$(dirname "$2")" && cp "$1" "$2"
+}
+
+mvm() {
+	mkdir -p "$(dirname "$2")" && mv "$1" "$2"
+}
+
+alias fold="/opt/homebrew/bin/gfold"
+alias gfold="$HOME/.local/share/cargo/bin/gfold"
